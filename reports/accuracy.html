@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Resume matcher accuracy</title>
+  <style>
+    body { font-family: Georgia, serif; margin: 32px auto; max-width: 1100px; color: #1c1917; background: #fafaf9; }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    h2 { font-size: 20px; margin-top: 36px; }
+    p, td, th { font-family: "Segoe UI", sans-serif; font-size: 14px; }
+    .muted { color: #57534e; }
+    .stats { display: flex; gap: 16px; margin: 12px 0 20px; }
+    .stat { background: white; border: 1px solid #e7e5e4; padding: 12px 16px; min-width: 140px; }
+    .stat b { display: block; font-size: 28px; font-family: "Segoe UI", sans-serif; }
+    .good { color: #166534; }
+    .mid { color: #a16207; }
+    .low { color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { border-bottom: 1px solid #e7e5e4; text-align: left; padding: 8px 10px; vertical-align: top; }
+    th { font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: #57534e; }
+    .hit { color: #166534; font-weight: 600; }
+    .miss { color: #991b1b; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Resume to job accuracy</h1>
+  <p class="muted">A match is correct when the ranked job title belongs to the same occupation as the resume category. Source: snehaanbhawal/resume-dataset and human-written postings from avinashmynampati/human-vs-fake-vs-ai-generated-job-descriptions.</p>
+  
+  <h2>Small dataset</h2>
+  <p class="muted">14 resumes ranked against 14 labeled jobs across 7 occupations. Top-3 counts a resume as correct if any of the first 3 jobs shares its category.</p>
+  <div class="stats">
+    <div class="stat"><b class="mid">42.9%</b>Top-1 accuracy</div>
+    <div class="stat"><b>78.6%</b>Top-3 accuracy</div>
+    <div class="stat"><b>14</b>Resumes</div>
+    <div class="stat"><b>14</b>Jobs</div>
+  </div>
+  <table>
+    <thead><tr><th>Occupation</th><th>Resumes</th><th>Top-1</th><th>Top-3</th></tr></thead>
+    <tbody><tr><td>HR</td><td>2</td><td class="good">100.0%</td><td>100.0%</td></tr>
+<tr><td>SALES</td><td>2</td><td class="low">0.0%</td><td>0.0%</td></tr>
+<tr><td>DESIGNER</td><td>2</td><td class="low">0.0%</td><td>100.0%</td></tr>
+<tr><td>FINANCE</td><td>2</td><td class="mid">50.0%</td><td>100.0%</td></tr>
+<tr><td>BANKING</td><td>2</td><td class="low">0.0%</td><td>100.0%</td></tr>
+<tr><td>DIGITAL-MEDIA</td><td>2</td><td class="good">100.0%</td><td>100.0%</td></tr>
+<tr><td>ENGINEERING</td><td>2</td><td class="mid">50.0%</td><td>50.0%</td></tr></tbody>
+  </table>
+  <h2>Small resume checks</h2>
+  <table>
+    <thead><tr><th>Resume</th><th>Profile</th><th>Top job</th><th>Job occupation</th><th>Score</th><th>Result</th></tr></thead>
+    <tbody><tr><td>16877897</td><td>HR</td><td>HR Generalist</td><td>HR</td><td>30.55</td><td class="hit">Correct</td></tr><tr><td>29149998</td><td>HR</td><td>HR Generalist</td><td>HR</td><td>21.79</td><td class="hit">Correct</td></tr><tr><td>28198029</td><td>SALES</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td>10.31</td><td class="miss">Miss</td></tr><tr><td>30083943</td><td>SALES</td><td>Recruiter (IT Focus) </td><td>HR</td><td>5.87</td><td class="miss">Miss</td></tr><tr><td>24655918</td><td>DESIGNER</td><td>Digital Marketing Manager</td><td>DIGITAL-MEDIA</td><td>6.86</td><td class="miss">Miss</td></tr><tr><td>35990852</td><td>DESIGNER</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td>10.86</td><td class="miss">Miss</td></tr><tr><td>12858898</td><td>FINANCE</td><td>Branch Manager</td><td>BANKING</td><td>11.27</td><td class="miss">Miss</td></tr><tr><td>47410104</td><td>FINANCE</td><td>Senior Financial Analyst</td><td>FINANCE</td><td>12.49</td><td class="hit">Correct</td></tr><tr><td>26673507</td><td>BANKING</td><td>Business Development Coordinator</td><td>SALES</td><td>17.33</td><td class="miss">Miss</td></tr><tr><td>34953092</td><td>BANKING</td><td>Senior Financial Analyst</td><td>FINANCE</td><td>10.92</td><td class="miss">Miss</td></tr><tr><td>16276121</td><td>DIGITAL-MEDIA</td><td>Digital Marketing Manager</td><td>DIGITAL-MEDIA</td><td>35.12</td><td class="hit">Correct</td></tr><tr><td>91318828</td><td>DIGITAL-MEDIA</td><td>Digital Marketing Manager</td><td>DIGITAL-MEDIA</td><td>15.92</td><td class="hit">Correct</td></tr><tr><td>31677347</td><td>ENGINEERING</td><td>Marketing &amp; Social Media Coordinator (15hrs/week)</td><td>DIGITAL-MEDIA</td><td>9.37</td><td class="miss">Miss</td></tr><tr><td>17108676</td><td>ENGINEERING</td><td>Sr. Project Engineer - HVAC CAD MS Office - Richmond, VA</td><td>ENGINEERING</td><td>10.79</td><td class="hit">Correct</td></tr></tbody>
+  </table>
+
+</body>
+</html>

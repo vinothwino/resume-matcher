@@ -1,0 +1,745 @@
+{
+  "stages": [
+    {
+      "stage": "small",
+      "resumes": 14,
+      "jobs": 14,
+      "categories": [
+        "HR",
+        "SALES",
+        "DESIGNER",
+        "FINANCE",
+        "BANKING",
+        "DIGITAL-MEDIA",
+        "ENGINEERING"
+      ],
+      "top1_accuracy": 42.9,
+      "topk_accuracy": 78.6,
+      "top_k": 3,
+      "by_category": [
+        {
+          "category": "HR",
+          "resumes": 2,
+          "top1_accuracy": 100.0,
+          "topk_accuracy": 100.0
+        },
+        {
+          "category": "SALES",
+          "resumes": 2,
+          "top1_accuracy": 0.0,
+          "topk_accuracy": 0.0
+        },
+        {
+          "category": "DESIGNER",
+          "resumes": 2,
+          "top1_accuracy": 0.0,
+          "topk_accuracy": 100.0
+        },
+        {
+          "category": "FINANCE",
+          "resumes": 2,
+          "top1_accuracy": 50.0,
+          "topk_accuracy": 100.0
+        },
+        {
+          "category": "BANKING",
+          "resumes": 2,
+          "top1_accuracy": 0.0,
+          "topk_accuracy": 100.0
+        },
+        {
+          "category": "DIGITAL-MEDIA",
+          "resumes": 2,
+          "top1_accuracy": 100.0,
+          "topk_accuracy": 100.0
+        },
+        {
+          "category": "ENGINEERING",
+          "resumes": 2,
+          "top1_accuracy": 50.0,
+          "topk_accuracy": 50.0
+        }
+      ],
+      "results": [
+        {
+          "resume_id": "16877897",
+          "resume_category": "HR",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "HR Generalist",
+              "category": "HR",
+              "score": 30.55,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "evaluation",
+                "maintain",
+                "procedures"
+              ],
+              "skill_gaps": [
+                "and procedures",
+                "human resources",
+                "implement",
+                "monitors",
+                "policies",
+                "processes"
+              ]
+            },
+            {
+              "title": "Entry Level - Loan Officer",
+              "category": "BANKING",
+              "score": 10.18,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "integrity"
+              ]
+            },
+            {
+              "title": "Recruiter (IT Focus) ",
+              "category": "HR",
+              "score": 9.27,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "documentation",
+                "groups",
+                "information technology",
+                "troubleshoot"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "29149998",
+          "resume_category": "HR",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "HR Generalist",
+              "category": "HR",
+              "score": 21.79,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "human resources",
+                "maintain",
+                "policies"
+              ],
+              "skill_gaps": [
+                "and procedures",
+                "evaluation",
+                "implement",
+                "monitors",
+                "procedures",
+                "processes"
+              ]
+            },
+            {
+              "title": "Entry Level - Loan Officer",
+              "category": "BANKING",
+              "score": 12.19,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "integrity"
+              ]
+            },
+            {
+              "title": "Branch Manager",
+              "category": "BANKING",
+              "score": 10.62,
+              "correct": false,
+              "matching_skills": [
+                "customer service",
+                "human resources",
+                "policies"
+              ],
+              "skill_gaps": [
+                "applications",
+                "compliance",
+                "excel",
+                "faxes",
+                "processes",
+                "schedule"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "28198029",
+          "resume_category": "SALES",
+          "top1_correct": false,
+          "topk_correct": false,
+          "top_jobs": [
+            {
+              "title": "Entry Level - Loan Officer",
+              "category": "BANKING",
+              "score": 10.31,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "integrity"
+              ]
+            },
+            {
+              "title": "Branch Manager",
+              "category": "BANKING",
+              "score": 8.33,
+              "correct": false,
+              "matching_skills": [
+                "customer service"
+              ],
+              "skill_gaps": [
+                "applications",
+                "compliance",
+                "excel",
+                "faxes",
+                "human resources",
+                "policies",
+                "processes",
+                "schedule"
+              ]
+            },
+            {
+              "title": "Recruiter (IT Focus) ",
+              "category": "HR",
+              "score": 6.67,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "documentation",
+                "groups",
+                "information technology",
+                "troubleshoot"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "30083943",
+          "resume_category": "SALES",
+          "top1_correct": false,
+          "topk_correct": false,
+          "top_jobs": [
+            {
+              "title": "Recruiter (IT Focus) ",
+              "category": "HR",
+              "score": 5.87,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "documentation",
+                "groups",
+                "information technology",
+                "troubleshoot"
+              ]
+            },
+            {
+              "title": "HR Generalist",
+              "category": "HR",
+              "score": 5.46,
+              "correct": false,
+              "matching_skills": [
+                "administration",
+                "implement",
+                "procedures"
+              ],
+              "skill_gaps": [
+                "and procedures",
+                "evaluation",
+                "human resources",
+                "maintain",
+                "monitors",
+                "policies",
+                "processes"
+              ]
+            },
+            {
+              "title": "Entry Level - Loan Officer",
+              "category": "BANKING",
+              "score": 4.82,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "integrity"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "24655918",
+          "resume_category": "DESIGNER",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Digital Marketing Manager",
+              "category": "DIGITAL-MEDIA",
+              "score": 6.86,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "administration",
+                "best practices",
+                "database",
+                "execution",
+                "groups",
+                "networking",
+                "windows"
+              ]
+            },
+            {
+              "title": "Sr. Project Engineer - HVAC CAD MS Office - Richmond, VA",
+              "category": "ENGINEERING",
+              "score": 5.68,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "budget",
+                "cad",
+                "hvac",
+                "maintain",
+                "ms office"
+              ]
+            },
+            {
+              "title": "UX Designer",
+              "category": "DESIGNER",
+              "score": 5.61,
+              "correct": true,
+              "matching_skills": [
+                "designer"
+              ],
+              "skill_gaps": [
+                "users"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "35990852",
+          "resume_category": "DESIGNER",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Entry Level - Loan Officer",
+              "category": "BANKING",
+              "score": 10.86,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "integrity"
+              ]
+            },
+            {
+              "title": "Digital Product Designer",
+              "category": "DESIGNER",
+              "score": 7.89,
+              "correct": true,
+              "matching_skills": [
+                "designer"
+              ],
+              "skill_gaps": []
+            },
+            {
+              "title": "Recruiter (IT Focus) ",
+              "category": "HR",
+              "score": 7.86,
+              "correct": false,
+              "matching_skills": [
+                "documentation"
+              ],
+              "skill_gaps": [
+                "groups",
+                "information technology",
+                "troubleshoot"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "12858898",
+          "resume_category": "FINANCE",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Branch Manager",
+              "category": "BANKING",
+              "score": 11.27,
+              "correct": false,
+              "matching_skills": [
+                "excel",
+                "human resources",
+                "processes"
+              ],
+              "skill_gaps": [
+                "applications",
+                "compliance",
+                "customer service",
+                "faxes",
+                "policies",
+                "schedule"
+              ]
+            },
+            {
+              "title": "Senior Financial Analyst",
+              "category": "FINANCE",
+              "score": 10.33,
+              "correct": true,
+              "matching_skills": [
+                "budget",
+                "excel"
+              ],
+              "skill_gaps": [
+                "analyze",
+                "auditing",
+                "monitoring"
+              ]
+            },
+            {
+              "title": "Entry Level - Loan Officer",
+              "category": "BANKING",
+              "score": 9.84,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "integrity"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "47410104",
+          "resume_category": "FINANCE",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Senior Financial Analyst",
+              "category": "FINANCE",
+              "score": 12.49,
+              "correct": true,
+              "matching_skills": [
+                "auditing"
+              ],
+              "skill_gaps": [
+                "analyze",
+                "budget",
+                "excel",
+                "monitoring"
+              ]
+            },
+            {
+              "title": "Financial Controller",
+              "category": "FINANCE",
+              "score": 11.14,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": []
+            },
+            {
+              "title": "Branch Manager",
+              "category": "BANKING",
+              "score": 7.8,
+              "correct": false,
+              "matching_skills": [
+                "compliance"
+              ],
+              "skill_gaps": [
+                "applications",
+                "customer service",
+                "excel",
+                "faxes",
+                "human resources",
+                "policies",
+                "processes",
+                "schedule"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "26673507",
+          "resume_category": "BANKING",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Business Development Coordinator",
+              "category": "SALES",
+              "score": 17.33,
+              "correct": false,
+              "matching_skills": [
+                "events"
+              ],
+              "skill_gaps": [
+                "programming"
+              ]
+            },
+            {
+              "title": "Branch Manager",
+              "category": "BANKING",
+              "score": 16.79,
+              "correct": true,
+              "matching_skills": [
+                "customer service",
+                "excel"
+              ],
+              "skill_gaps": [
+                "applications",
+                "compliance",
+                "faxes",
+                "human resources",
+                "policies",
+                "processes",
+                "schedule"
+              ]
+            },
+            {
+              "title": "Business Development Internship - 6 months",
+              "category": "SALES",
+              "score": 15.27,
+              "correct": false,
+              "matching_skills": [
+                "reports"
+              ],
+              "skill_gaps": []
+            }
+          ]
+        },
+        {
+          "resume_id": "34953092",
+          "resume_category": "BANKING",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Senior Financial Analyst",
+              "category": "FINANCE",
+              "score": 10.92,
+              "correct": false,
+              "matching_skills": [
+                "monitoring"
+              ],
+              "skill_gaps": [
+                "analyze",
+                "auditing",
+                "budget",
+                "excel"
+              ]
+            },
+            {
+              "title": "Entry Level - Loan Officer",
+              "category": "BANKING",
+              "score": 8.86,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "integrity"
+              ]
+            },
+            {
+              "title": "Business Development Coordinator",
+              "category": "SALES",
+              "score": 7.34,
+              "correct": false,
+              "matching_skills": [
+                "programming"
+              ],
+              "skill_gaps": [
+                "events"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "16276121",
+          "resume_category": "DIGITAL-MEDIA",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Digital Marketing Manager",
+              "category": "DIGITAL-MEDIA",
+              "score": 35.12,
+              "correct": true,
+              "matching_skills": [
+                "execution"
+              ],
+              "skill_gaps": [
+                "administration",
+                "best practices",
+                "database",
+                "groups",
+                "networking",
+                "windows"
+              ]
+            },
+            {
+              "title": "Marketing & Social Media Coordinator (15hrs/week)",
+              "category": "DIGITAL-MEDIA",
+              "score": 18.82,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "html"
+              ]
+            },
+            {
+              "title": "Business Development Coordinator",
+              "category": "SALES",
+              "score": 11.94,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "events",
+                "programming"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "91318828",
+          "resume_category": "DIGITAL-MEDIA",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Digital Marketing Manager",
+              "category": "DIGITAL-MEDIA",
+              "score": 15.92,
+              "correct": true,
+              "matching_skills": [
+                "networking"
+              ],
+              "skill_gaps": [
+                "administration",
+                "best practices",
+                "database",
+                "execution",
+                "groups",
+                "windows"
+              ]
+            },
+            {
+              "title": "Entry Level - Loan Officer",
+              "category": "BANKING",
+              "score": 7.47,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "integrity"
+              ]
+            },
+            {
+              "title": "Marketing & Social Media Coordinator (15hrs/week)",
+              "category": "DIGITAL-MEDIA",
+              "score": 7.42,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "html"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "31677347",
+          "resume_category": "ENGINEERING",
+          "top1_correct": false,
+          "topk_correct": false,
+          "top_jobs": [
+            {
+              "title": "Marketing & Social Media Coordinator (15hrs/week)",
+              "category": "DIGITAL-MEDIA",
+              "score": 9.37,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "html"
+              ]
+            },
+            {
+              "title": "Recruiter (IT Focus) ",
+              "category": "HR",
+              "score": 9.28,
+              "correct": false,
+              "matching_skills": [
+                "documentation",
+                "troubleshoot"
+              ],
+              "skill_gaps": [
+                "groups",
+                "information technology"
+              ]
+            },
+            {
+              "title": "Digital Marketing Manager",
+              "category": "DIGITAL-MEDIA",
+              "score": 9.23,
+              "correct": false,
+              "matching_skills": [
+                "administration",
+                "windows"
+              ],
+              "skill_gaps": [
+                "best practices",
+                "database",
+                "execution",
+                "groups",
+                "networking"
+              ]
+            }
+          ]
+        },
+        {
+          "resume_id": "17108676",
+          "resume_category": "ENGINEERING",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Sr. Project Engineer - HVAC CAD MS Office - Richmond, VA",
+              "category": "ENGINEERING",
+              "score": 10.79,
+              "correct": true,
+              "matching_skills": [
+                "cad"
+              ],
+              "skill_gaps": [
+                "budget",
+                "hvac",
+                "maintain",
+                "ms office"
+              ]
+            },
+            {
+              "title": "Electrical Project Engineer",
+              "category": "ENGINEERING",
+              "score": 8.19,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": []
+            },
+            {
+              "title": "Business Development Internship - 6 months",
+              "category": "SALES",
+              "score": 6.0,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "reports"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
