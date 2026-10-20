@@ -1,10 +1,13 @@
 """TF-IDF similarity and skill overlap between resumes and jobs."""
 
 import re
+from dataclasses import dataclass
 
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+
+from matcher.config import BODY_WEIGHT, SKILL_WEIGHT, TITLE_WEIGHT
 
 
 def clean_text(text: str) -> str:
@@ -34,22 +37,72 @@ class SkillIndex:
         return found
 
 
+@dataclass
+class PairScores:
+    """Resume x job matrices in [0, 1]. `blend` is the ranking score."""
+
+    baseline: np.ndarray
+    body: np.ndarray
+    title: np.ndarray
+    skill: np.ndarray
+    text_only: np.ndarray
+    blend: np.ndarray
+
+
 class ResumeJobMatcher:
     def __init__(self, skills: list[str], max_features: int = 8000):
         self.skills = SkillIndex(skills)
         self.max_features = max_features
 
-    def similarity(self, resumes: list[str], jobs: list[str]) -> np.ndarray:
-        """Return a resume x job cosine matrix in [0, 1]."""
-        if not resumes or not jobs:
-            return np.zeros((len(resumes), len(jobs)))
+    def _cosine(self, left: list[str], right: list[str]) -> np.ndarray:
+        if not left or not right:
+            return np.zeros((len(left), len(right)))
         vectorizer = TfidfVectorizer(stop_words="english", max_features=self.max_features)
         matrix = vectorizer.fit_transform(
-            [clean_text(text) for text in resumes] + [clean_text(text) for text in jobs]
+            [clean_text(text) for text in left] + [clean_text(text) for text in right]
         )
-        resume_vectors = matrix[: len(resumes)]
-        job_vectors = matrix[len(resumes) :]
-        return cosine_similarity(resume_vectors, job_vectors)
+        scores = cosine_similarity(matrix[: len(left)], matrix[len(left) :])
+        return np.clip(scores, 0.0, 1.0)
+
+    def similarity(self, resumes: list[str], jobs: list[str]) -> np.ndarray:
+        """Baseline: TF-IDF cosine of each resume against title and description concatenated."""
+        return self._cosine(resumes, jobs)
+
+    def skill_coverage(self, resumes: list[str], jobs: list[str]) -> np.ndarray:
+        """Share of each job's lexicon skills that also appear on the resume."""
+        if not resumes or not jobs:
+            return np.zeros((len(resumes), len(jobs)))
+        resume_sets = [self.skills.extract(text) for text in resumes]
+        job_sets = [self.skills.extract(text) for text in jobs]
+        scores = np.zeros((len(resumes), len(jobs)))
+        for i, resume_skills in enumerate(resume_sets):
+            for j, job_skills in enumerate(job_sets):
+                if job_skills:
+                    scores[i, j] = len(resume_skills & job_skills) / len(job_skills)
+        return scores
+
+    def score_parts(
+        self,
+        resumes: list[str],
+        titles: list[str],
+        descriptions: list[str],
+    ) -> PairScores:
+        combined = [f"{title}\n{description}" for title, description in zip(titles, descriptions)]
+        baseline = self.similarity(resumes, combined)
+        body = self._cosine(resumes, descriptions)
+        title = self._cosine(resumes, titles)
+        skill = self.skill_coverage(resumes, combined)
+        text_weight = BODY_WEIGHT + TITLE_WEIGHT
+        text_only = (BODY_WEIGHT * body + TITLE_WEIGHT * title) / text_weight
+        blend = BODY_WEIGHT * body + TITLE_WEIGHT * title + SKILL_WEIGHT * skill
+        return PairScores(
+            baseline=baseline,
+            body=body,
+            title=title,
+            skill=skill,
+            text_only=text_only,
+            blend=blend,
+        )
 
     def skill_gap(self, resume_text: str, job_text: str) -> tuple[list[str], list[str]]:
         resume_skills = self.skills.extract(resume_text)

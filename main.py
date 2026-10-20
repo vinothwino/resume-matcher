@@ -10,22 +10,27 @@ import argparse
 
 from matcher.config import MEDIUM_EVAL, RANDOM_SEED, SMALL_EVAL
 from matcher.datasets import load_human_jobs, load_resumes
-from matcher.evaluation import evaluate_stage
+from matcher.evaluation import evaluate_stage, stage_resume_ids
 from matcher.matching import ResumeJobMatcher
 from matcher.reporting import write_reports
-from matcher.skills import load_skill_lexicon
+from matcher.skills import extract_occupation_skills
 
 STAGES = {"small": SMALL_EVAL, "medium": MEDIUM_EVAL}
 
 
 def run(stage_names: list[str]) -> None:
-    skills = load_skill_lexicon()
-    print(f"Skill lexicon: {len(skills):,} terms")
-
     resumes = load_resumes()
     jobs = load_human_jobs()
     labeled_jobs = int(jobs["category"].notna().sum())
     print(f"Resumes: {len(resumes):,} | Human-written jobs: {len(jobs):,} | Title-labeled jobs: {labeled_jobs:,}")
+
+    exclude_ids: set[str] = set()
+    categories: list[str] = []
+    for name in stage_names:
+        exclude_ids |= stage_resume_ids(resumes, jobs, STAGES[name], seed=RANDOM_SEED)
+        categories.extend(STAGES[name]["categories"])
+    skills = extract_occupation_skills(resumes, categories, exclude_ids)
+    print(f"Occupation skill lexicon: {len(skills):,} terms, excluding {len(exclude_ids):,} scored resumes")
 
     matcher = ResumeJobMatcher(skills)
     reports = []
@@ -35,6 +40,7 @@ def run(stage_names: list[str]) -> None:
         print(
             f"{report.stage}: top-1 {report.top1_accuracy}% | "
             f"top-{report.top_k} {report.topk_accuracy}% | "
+            f"MRR {report.mrr:.3f} | "
             f"{report.resumes} resumes x {report.jobs} jobs"
         )
         for row in report.by_category:

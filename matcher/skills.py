@@ -20,6 +20,27 @@ BASE_SKILLS = [
     "spark", "hadoop", "nlp", "deep learning", "statistics", "r",
 ]
 
+# The mined corpus is IT resumes. These phrases give the other evaluated occupations a skill signal.
+OCCUPATION_SKILLS = [
+    "talent acquisition", "employee relations", "onboarding", "payroll",
+    "sales pipeline", "lead generation", "account management", "cold calling",
+    "quota attainment", "crm",
+    "adobe photoshop", "adobe illustrator", "figma", "wireframes",
+    "brand identity", "ux design", "ui design",
+    "financial modeling", "financial statements", "variance analysis", "budgeting",
+    "credit analysis", "loan processing", "retail banking", "kyc",
+    "social media marketing", "content strategy", "search engine optimization",
+    "google ads", "copywriting",
+    "solidworks", "autocad", "structural analysis", "hvac", "plc",
+    "lesson planning", "classroom management", "curriculum development",
+    "student assessment",
+    "general ledger", "accounts payable", "accounts receivable",
+    "bank reconciliation", "quickbooks", "gaap",
+    "patient care", "vital signs", "electronic health records", "hipaa",
+    "medication administration",
+    "food safety", "menu planning", "haccp",
+]
+
 # Words that show up in skill lists but are not skills.
 SKILL_NOISE = {
     "etc", "role", "roles", "use", "using", "including", "experience",
@@ -74,6 +95,9 @@ def _keep_skill(skill: str, frequency: int) -> bool:
 
     if frequency < MIN_PHRASE_FREQUENCY:
         return False
+    # Drop comma-split fragments such as "and procedures" from "policies and procedures".
+    if tokens[0] in ENGLISH_STOP_WORDS:
+        return False
     meaningful = [
         token
         for token in tokens
@@ -112,4 +136,75 @@ def load_skill_lexicon(cache_path: Path = SKILLS_CACHE) -> list[str]:
                 counts[skill.lower()] += 1
 
     kept = {skill for skill, count in counts.items() if _keep_skill(skill, count)}
-    return sorted(set(BASE_SKILLS) | kept, key=len, reverse=True)
+    return sorted(set(BASE_SKILLS) | set(OCCUPATION_SKILLS) | kept, key=len, reverse=True)
+
+
+def extract_occupation_skills(
+    resumes,
+    categories: list[str],
+    exclude_ids: set[str],
+    min_in_category: int = 5,
+    max_per_category: int = 25,
+) -> list[str]:
+    """Distinctive terms from other resumes in each occupation, excluding the scored resumes."""
+    from sklearn.feature_extraction.text import CountVectorizer
+
+    from matcher.matching import clean_text
+
+    frame = resumes.copy()
+    frame["ID"] = frame["ID"].astype(str)
+    held = frame[~frame["ID"].isin({str(item) for item in exclude_ids})].copy()
+    categories = list(dict.fromkeys(categories))
+    held = held[held["Category"].isin(categories)].reset_index(drop=True)
+    if held.empty:
+        return []
+
+    vectorizer = CountVectorizer(
+        stop_words="english",
+        ngram_range=(1, 2),
+        min_df=5,
+        max_df=0.4,
+        binary=True,
+        max_features=8000,
+        token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z+#.]{2,}\b",
+    )
+    matrix = vectorizer.fit_transform(held["Resume_str"].fillna("").map(clean_text))
+    terms = vectorizer.get_feature_names_out()
+    labels = held["Category"].tolist()
+    chosen: list[str] = []
+    for category in categories:
+        mask = np_mask(labels, category)
+        n_in = int(mask.sum())
+        n_out = int((~mask).sum())
+        if n_in < min_in_category or n_out == 0:
+            continue
+        import numpy as np
+
+        in_counts = np.asarray(matrix[mask].sum(axis=0)).ravel()
+        out_counts = np.asarray(matrix[~mask].sum(axis=0)).ravel()
+        rate_in = in_counts / n_in
+        rate_out = out_counts / n_out
+        scored: list[tuple[float, str]] = []
+        for index, term in enumerate(terms):
+            tokens = str(term).split()
+            if in_counts[index] < min_in_category or rate_in[index] < 0.12:
+                continue
+            if rate_in[index] < 2.5 * rate_out[index]:
+                continue
+            if all(token in SKILL_NOISE or token in ENGLISH_STOP_WORDS for token in tokens):
+                continue
+            scored.append((float(rate_in[index] - rate_out[index]), str(term)))
+        scored.sort(reverse=True)
+        picked = [term for _, term in scored[:max_per_category]]
+        phrases = [term for term in picked if " " in term]
+        for term in picked:
+            if " " not in term and any(term in phrase.split() for phrase in phrases):
+                continue
+            chosen.append(term)
+    return sorted(set(chosen), key=len, reverse=True)
+
+
+def np_mask(labels: list[str], category: str):
+    import numpy as np
+
+    return np.array([label == category for label in labels])

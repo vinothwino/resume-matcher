@@ -18,6 +18,12 @@ JOB_FILE = "Final_Job_Postings_Dataset.csv"
 RANDOM_SEED = 42
 TOP_K = 3
 
+# Blend used to rank jobs. Title stays small so a short title cannot carry the match.
+# Skill coverage stays at 10%: 20% lowered best-match accuracy on the broader, mixed sample.
+BODY_WEIGHT = 0.80
+TITLE_WEIGHT = 0.10
+SKILL_WEIGHT = 0.10
+
 # Controlled check: few categories, one obvious job family each.
 SMALL_EVAL = {
     "name": "small",
