@@ -12,35 +12,6 @@ from matcher.config import FLOREX_SKILLS_IT_URL, SKILLS_CACHE
 MIN_PHRASE_FREQUENCY = 3
 MIN_UNIGRAM_FREQUENCY = 8
 
-BASE_SKILLS = [
-    "python", "sql", "machine learning", "pandas", "java", "spring boot",
-    "react", "docker", "data analysis", "scikit-learn", "rest apis",
-    "tensorflow", "pytorch", "aws", "azure", "kubernetes", "excel",
-    "tableau", "power bi", "javascript", "html", "css", "node.js",
-    "spark", "hadoop", "nlp", "deep learning", "statistics", "r",
-]
-
-# The mined corpus is IT resumes. These phrases give the other evaluated occupations a skill signal.
-OCCUPATION_SKILLS = [
-    "talent acquisition", "employee relations", "onboarding", "payroll",
-    "sales pipeline", "lead generation", "account management", "cold calling",
-    "quota attainment", "crm",
-    "adobe photoshop", "adobe illustrator", "figma", "wireframes",
-    "brand identity", "ux design", "ui design",
-    "financial modeling", "financial statements", "variance analysis", "budgeting",
-    "credit analysis", "loan processing", "retail banking", "kyc",
-    "social media marketing", "content strategy", "search engine optimization",
-    "google ads", "copywriting",
-    "solidworks", "autocad", "structural analysis", "hvac", "plc",
-    "lesson planning", "classroom management", "curriculum development",
-    "student assessment",
-    "general ledger", "accounts payable", "accounts receivable",
-    "bank reconciliation", "quickbooks", "gaap",
-    "patient care", "vital signs", "electronic health records", "hipaa",
-    "medication administration",
-    "food safety", "menu planning", "haccp",
-]
-
 # Words that show up in skill lists but are not skills.
 SKILL_NOISE = {
     "etc", "role", "roles", "use", "using", "including", "experience",
@@ -71,7 +42,7 @@ SKILL_NOISE = {
     "hardware software", "search engine", "help desk", "social media",
 }
 
-# Skills for the four evaluated software roles. Mined terms are added to this list.
+# Allowlist for the four software roles. A term is kept only when mining also finds it.
 ROLE_SKILLS = [
     "html", "css", "javascript", "react", "angular", "vue", "responsive design",
     "java", "python", "node.js", "sql", "rest apis", "spring boot",
@@ -113,8 +84,6 @@ def _keep_skill(skill: str, frequency: int) -> bool:
 
     tokens = skill.split()
     if len(tokens) == 1:
-        if skill in BASE_SKILLS:
-            return True
         if frequency < MIN_UNIGRAM_FREQUENCY or len(skill) < 3:
             return False
         if skill in ENGLISH_STOP_WORDS:
@@ -164,7 +133,7 @@ def load_skill_lexicon(cache_path: Path = SKILLS_CACHE) -> list[str]:
                 counts[skill.lower()] += 1
 
     kept = {skill for skill, count in counts.items() if _keep_skill(skill, count)}
-    return sorted(set(BASE_SKILLS) | set(OCCUPATION_SKILLS) | kept, key=len, reverse=True)
+    return sorted(kept, key=len, reverse=True)
 
 
 def extract_occupation_skills(
@@ -231,9 +200,9 @@ def extract_occupation_skills(
             if " " not in term and any(term in phrase.split() for phrase in phrases):
                 continue
             chosen.append(term)
-    kept = [term for term in chosen if term in set(ROLE_SKILLS) | TECHNICAL_SKILLS]
-    role_skills = [skill for skill in ROLE_SKILLS if skill not in SKILL_NOISE]
-    return sorted(set(kept) | set(role_skills), key=len, reverse=True)
+    allow = set(ROLE_SKILLS) | TECHNICAL_SKILLS
+    kept = [term for term in chosen if term in allow and term not in SKILL_NOISE]
+    return sorted(set(kept), key=len, reverse=True)
 
 
 def np_mask(labels: list[str], category: str):
