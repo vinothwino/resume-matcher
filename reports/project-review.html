@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Resume–job matcher — MCA Second Review</title>
+  <title>Explainable NLP Approach for Resume–Job Matching and Skill Gap Analysis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -35,19 +35,19 @@
       font-size: 17px;
       line-height: 1.55;
     }
-    .page { max-width: 1120px; margin: 0 auto; padding: 40px 36px 56px; }
+    .page { max-width: 1120px; margin: 0 auto; padding: 24px 28px 36px; }
     header.hero {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 16px;
       box-shadow: var(--shadow);
-      padding: 32px 36px 28px;
-      margin-bottom: 20px;
+      padding: 22px 28px 18px;
+      margin-bottom: 12px;
       border-top: 6px solid var(--accent);
     }
     h1 {
       margin: 0 0 8px;
-      font-size: 34px;
+      font-size: 28px;
       line-height: 1.2;
       letter-spacing: -0.02em;
       font-weight: 700;
@@ -67,11 +67,11 @@
       border: 1px solid var(--line);
       border-radius: 16px;
       box-shadow: var(--shadow);
-      padding: 28px 32px 30px;
-      margin-bottom: 20px;
+      padding: 16px 22px 18px;
+      margin-bottom: 12px;
     }
-    h2 { margin: 0 0 14px; font-size: 22px; letter-spacing: -0.01em; }
-    h3 { margin: 22px 0 8px; font-size: 17px; font-weight: 600; }
+    h2 { margin: 0 0 8px; font-size: 20px; letter-spacing: -0.01em; }
+    h3 { margin: 14px 0 6px; font-size: 16px; font-weight: 600; }
     p { margin: 0 0 12px; }
     .lead { color: var(--muted); margin-bottom: 16px; }
     .interpret {
@@ -134,7 +134,7 @@
     table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 16px; }
     th, td {
       text-align: left;
-      padding: 12px 14px;
+      padding: 8px 10px;
       border-bottom: 1px solid var(--line);
       vertical-align: middle;
     }
@@ -147,6 +147,16 @@
       text-transform: uppercase;
     }
     th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    th.speak {
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 14.5px;
+      font-weight: 650;
+      line-height: 1.35;
+    }
+    th.speak.center { text-align: center; }
+    th.speak span { display: block; margin-top: 3px; font-weight: 500; font-size: 12px; color: #cbd5e1; }
+    td .sub { display: block; margin-top: 2px; color: var(--muted); font-size: 13px; font-weight: 500; }
     tbody tr:nth-child(even) { background: var(--row-alt); }
     tbody tr:nth-child(odd) { background: #fff; }
     tr.highlight td { background: var(--highlight); font-weight: 700; }
@@ -236,6 +246,12 @@
       line-height: 1.55;
     }
     .formula span { color: #93c5fd; }
+    .plain {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      margin: 0 0 16px;
+    }
     details.backup { margin-top: 8px; }
     details.backup > summary {
       cursor: pointer;
@@ -259,6 +275,7 @@
       border-color: #334155;
     }
     section.card.bottom h2 { color: #f8fafc; }
+    section.card.bottom .plain { background: #1e293b; color: #f8fafc; border-left-color: #93c5fd; }
     section.card.bottom p, section.card.bottom li { color: #e2e8f0; font-size: 17px; line-height: 1.55; }
     section.card.bottom strong { color: #93c5fd; font-weight: 700; }
     @media (max-width: 900px) {
@@ -272,6 +289,7 @@
       .page { max-width: none; padding: 0; }
       header.hero, section.card { box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
       .evidence, .skill-example { break-inside: avoid; page-break-inside: avoid; }
+      .sheet-start { break-before: page; page-break-before: always; }
     }
 </style>
 </head>
@@ -280,15 +298,15 @@
     
     <header class="hero">
       <p class="section-tag">MCA Second Review</p>
-      <h1>Resume–job matching for IT and software roles</h1>
-      <p class="subtitle">Second review of the proposed study: frontend, backend, UX, and infrastructure-engineer resumes and jobs, ranked by a TF-IDF match score, compared with semantic matching, and explained with skill gaps.</p>
+      <h1>Explainable NLP approach for resume–job matching and skill gap analysis</h1>
+      <p class="subtitle">Given a resume, the system orders software jobs and lists matching skills and skill gaps.</p>
     </header>
 
     
     <section class="card">
-      <p class="section-tag">1. Progress</p>
-      <h2>Status of the proposed outcomes</h2>
-      <p class="lead">Four of the five proposed outcomes are implemented. The interactive application remains.</p>
+      <p class="section-tag">Progress</p>
+      <h2>Objectives and current status</h2>
+      <p class="lead">Four objectives are completed. The interactive prototype is the one item still open.</p>
       <table>
         <thead>
           <tr>
@@ -297,126 +315,53 @@
             <th>In this build</th>
           </tr>
         </thead>
-        <tbody><tr><td>Automated extraction of skills and qualifications</td><td><span class="pill done">Completed</span></td><td>Role-distinctive terms are taken from resumes outside the scored sample and matched on the resume and the job.</td></tr>
-<tr><td>Candidate–job matching with NLP</td><td><span class="pill done">Completed</span></td><td>Each pair receives one match score from TF-IDF cosine and skill coverage, and a separate semantic score.</td></tr>
-<tr><td>Match score and ranking</td><td><span class="pill done">Completed</span></td><td>Jobs are ordered by the match score. Best match, top-3, and mean reciprocal rank are reported.</td></tr>
-<tr><td>Skill-gap identification</td><td><span class="pill done">Completed</span></td><td>Each ranked job lists skills present on the resume and skills required by the job that the resume does not list.</td></tr>
-<tr><td>Interactive application</td><td><span class="pill later">Remaining</span></td><td>The proposed React/Next.js interface is not part of this review build.</td></tr></tbody>
+        <tbody><tr><td>Find the skills in a resume and a job</td><td><span class="pill done">Completed</span></td><td>Public resumes and human-written jobs. The system keeps terms that mark a software role, such as Python, Docker, or wireframes.</td></tr>
+<tr><td>Match a resume to jobs</td><td><span class="pill done">Completed</span></td><td>Frontend, Backend, UX, and Infrastructure engineer. Each resume is scored against each job, then jobs are sorted from the closest fit to the weakest.</td></tr>
+<tr><td>Give every pair a score</td><td><span class="pill done">Completed</span></td><td>The score used for the ranking is shown below. A second, meaning-based score is reported beside it.</td></tr>
+<tr><td>Explain what is missing</td><td><span class="pill done">Completed</span></td><td>For the top job, the page lists matching skills and skill gaps.</td></tr>
+<tr><td>Interactive application</td><td><span class="pill later">Remaining</span></td><td>Still open: upload a resume and a job, then show the score and the skill gaps.</td></tr></tbody>
       </table>
+      <p class="interpret">On the small sample the TF-IDF match score reached 50% best match; semantic was 37.5%.</p>
+    </section>
+
+    
+    <section class="card sheet-start">
+      <p class="section-tag">Method</p>
+      <h2>How a resume is scored</h2>
+      <p class="formula">match score = <span>80%</span> body TF-IDF + <span>10%</span> title TF-IDF + <span>10%</span> skill coverage</p>
+      <p class="caption">80% body, 10% title, 10% skill. Body and title are TF-IDF cosines. Skill coverage is the share of the job’s skill terms found on the resume. This score orders the jobs.</p>
+      <ul class="clean">
+        <li><strong>Data.</strong> Public resumes and human-written jobs, limited to Frontend, Backend, UX, and Infrastructure engineer.</li>
+        <li><strong>Semantic score.</strong> Cosine of sentence embeddings. Comparison only; it is not added into the match score.</li>
+        <li><strong>Evaluation.</strong> Best match, Top-3, and MRR. Same IT role counts as correct.</li>
+      </ul>
     </section>
 
     
     <section class="card">
-      <p class="section-tag">2. Proposed approach</p>
-      <h2>Alignment with the proposed approach</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Component</th>
-            <th>Proposed approach</th>
-            <th>Status</th>
-            <th>This build</th>
-          </tr>
-        </thead>
-        <tbody><tr><td>Research type</td><td>Exploratory + analytical</td><td><span class="pill done">Aligned</span></td><td>Two IT samples, with best match, top-3, and mean reciprocal rank.</td></tr>
-<tr><td>Data source</td><td>Public resume and job-description datasets</td><td><span class="pill done">Aligned</span></td><td>Public resume corpus and human-written job postings.</td></tr>
-<tr><td>Data collection</td><td>Dataset load, NLP preprocessing, skill extraction, features</td><td><span class="pill done">Aligned</span></td><td>Text cleaning, TF-IDF features, sentence embeddings, and skill terms.</td></tr>
-<tr><td>Sample</td><td>IT / software roles</td><td><span class="pill done">Aligned</span></td><td>Frontend, backend, UX, and infrastructure engineer.</td></tr>
-<tr><td>Tools</td><td>Python, Pandas, NumPy, Scikit-learn, NLP/embedding libraries, React/Next.js</td><td><span class="pill partial">Partial</span></td><td>Python, Pandas, NumPy, Scikit-learn, and sentence-transformers. React/Next.js is not built.</td></tr>
-<tr><td>Analysis</td><td>NLP, TF-IDF/Cosine Similarity, Semantic Matching, ML-based comparison, Skill Gap Analysis</td><td><span class="pill done">Aligned</span></td><td>Each item is defined in the methodology and reported below.</td></tr></tbody>
-      </table>
-    </section>
-
-    
-    <section class="card">
-      <p class="section-tag">3. Methodology</p>
-      <h2>Methodology</h2>
-      <h3>Data and sample</h3>
-      <p>Resumes and human-written job descriptions are taken from public datasets. Records are labeled frontend, backend, UX, or infrastructure engineer from role phrases in the resume or the job title. The controlled sample uses 2 resumes and 2 jobs in each role. The broader sample uses 3 resumes and 5 jobs in each role.</p>
-      <h3>NLP and skill extraction</h3>
-      <p>Text is lower-cased and reduced to word tokens, with English stop words removed. Skill terms are phrases that occur more often inside one IT role than outside it. Resumes that are scored are excluded from this extraction. Skill coverage is the number of skill terms found on both the resume and the job, divided by the number of skill terms on the job.</p>
-      <h3>TF-IDF match score</h3>
-      <p>The match score is TF-IDF cosine on the job description and the job title, combined with skill coverage. Jobs are ranked by this score.</p>
-      <p class="formula">score = <span>0.80</span> × cosine(TF-IDF resume, job description)<br>
-      + <span>0.10</span> × cosine(TF-IDF resume, job title)<br>
-      + <span>0.10</span> × skill coverage</p>
-      <h3>Semantic matching</h3>
-      <p>Semantic matching is the cosine similarity between sentence embeddings of the resume and of the job title plus description. The model is all-MiniLM-L6-v2. Long documents are split into sections, embedded, and averaged, so the score is not limited to the opening lines. This score is compared with the match score. It is not added into the formula above.</p>
-      <h3>Evaluation</h3>
-      <p>A job is correct when its IT role equals the resume&rsquo;s IT role. Best match means rank 1 is correct. Top-3 means a correct role appears among the first three. Mean reciprocal rank is 1 divided by the rank of the first correct role, averaged over resumes.</p>
-    </section>
-
-    
-    <section class="card">
-      <p class="section-tag">4. Results</p>
-      <h2>Comparison of the match score and semantic matching</h2>
-      <p class="lead">The match score is the ranking score defined above. Semantic matching is the embedding cosine on the same pairs.</p>
+      <p class="section-tag">Results</p>
+      <h2>Match score and semantic score</h2>
       <table>
         <thead>
           <tr>
             <th>Sample</th>
-            <th class="num">Match score, best match</th>
-            <th class="num">Semantic, best match</th>
-            <th class="num">Match score, MRR</th>
-            <th class="num">Semantic, MRR</th>
+            <th class="num">Match Best</th>
+            <th class="num">Semantic Best</th>
+            <th class="num">Match MRR</th>
+            <th class="num">Semantic MRR</th>
           </tr>
         </thead>
-        <tbody><tr><td>Controlled sample</td><td class="num">50.0%</td><td class="num">37.5%</td><td class="num">0.671</td><td class="num">0.556</td></tr><tr><td>Broader sample</td><td class="num">25.0%</td><td class="num">33.3%</td><td class="num">0.508</td><td class="num">0.510</td></tr></tbody>
+        <tbody><tr><td>Small<span class="sub">8 resumes, 8 jobs</span></td><td class="num">50%</td><td class="num">37.5%</td><td class="num">0.692</td><td class="num">0.556</td></tr><tr><td>Larger<span class="sub">12 resumes, 20 jobs</span></td><td class="num">33.3%</td><td class="num">33.3%</td><td class="num">0.547</td><td class="num">0.510</td></tr></tbody>
       </table>
+      <p class="interpret">TF-IDF is stronger on the small sample; on the larger sample best match is tied, and TF-IDF stays slightly ahead on MRR.</p>
     </section>
 
     
-    <section class="card">
-      <p class="section-tag">5. Results by role</p>
-      <h2>Controlled sample</h2>
-      <p class="lead">IT / software sample only — Frontend, Backend, UX, Infrastructure engineer. 2 resumes and 2 jobs in each IT role. 8 resumes × 8 jobs. Figures use the match score.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>IT role</th>
-            <th class="num">Resumes</th>
-            <th class="num">Best match</th>
-            <th class="num">In the first 3</th>
-          </tr>
-        </thead>
-        <tbody><tr><td>Frontend</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>Backend</td><td class="num">2</td><td class="num pct low">0.0%</td><td class="num pct mid">50.0%</td></tr>
-<tr><td>UX</td><td class="num">2</td><td class="num pct low">0.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>Infrastructure engineer</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr></tbody>
-      </table>
-    </section>
-
-    <section class="card">
-      <p class="section-tag">5. Results by role</p>
-      <h2>Broader sample</h2>
-      <p class="lead">IT / software sample only — Frontend, Backend, UX, Infrastructure engineer. 3 resumes and 5 jobs in each IT role. 12 resumes × 20 jobs. Figures use the match score.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>IT role</th>
-            <th class="num">Resumes</th>
-            <th class="num">Best match</th>
-            <th class="num">In the first 3</th>
-          </tr>
-        </thead>
-        <tbody><tr><td>Frontend</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct mid">66.7%</td></tr>
-<tr><td>Backend</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct low">33.3%</td></tr>
-<tr><td>UX</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>Infrastructure engineer</td><td class="num">3</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr></tbody>
-      </table>
-    </section>
-
-    
-    <section class="card">
-      <p class="section-tag">6. Skill-gap analysis</p>
-      <h2>Skill-gap analysis</h2>
-      <p class="lead">For the job ranked first by the match score, skills found on both texts are listed beside skills required by the job and absent from the resume. Pairs with no skill terms are omitted.</p>
+    <section class="card sheet-start">
+      <p class="section-tag">Skill gap</p>
+      <h2>Infrastructure engineer example</h2>
+      <p>Resume 24913648 is an Infrastructure engineer. The first job is Junior Systems Administrator (same role). Match score 19.49.</p>
       
-      <div class="skill-example">
-        <h4>Resume 24913648 (Infrastructure engineer) → rank-1: Junior Systems Administrator</h4>
-        <p class="caption">The first-ranked job is the same IT role as the resume.</p>
-        <p class="parts">Match score 22.82.</p>
-        
       <div class="skill-gap-grid">
         <div class="skill-box match">
           <strong>Matching skills</strong>
@@ -424,44 +369,18 @@
         </div>
         <div class="skill-box gap">
           <strong>Skill gaps</strong>
-          cisco, docker, linux, python
+          Cisco, Docker, Linux, Python
         </div>
       </div>
 
-      </div>
-      <div class="skill-example">
-        <h4>Resume 15297298 (Backend) → rank-1: Junior Systems Administrator</h4>
-        <p class="caption">The first-ranked job is a different IT role. The gap list shows job skills absent from the resume.</p>
-        <p class="parts">Match score 10.89.</p>
-        
-      <div class="skill-gap-grid">
-        <div class="skill-box match">
-          <strong>Matching skills</strong>
-          cisco
-        </div>
-        <div class="skill-box gap">
-          <strong>Skill gaps</strong>
-          docker, linux, python
-        </div>
-      </div>
-
-      </div>
     </section>
 
     
-    <section class="card bottom">
-      <p class="section-tag" style="color:#93c5fd">7. Conclusion</p>
-      <h2>Conclusion</h2>
-      <p>On the controlled sample the match score reached 50.0% best match (MRR 0.671). On the broader sample it reached 25.0% best match (MRR 0.508). Jobs were ranked by the match score. On the controlled sample, semantic best match was lower than the match score (37.5% versus 50.0%). On the broader sample, semantic best match was higher than the match score (33.3% versus 25.0%).</p>
-      <p style="margin-top:16px"><strong>Limitations</strong></p>
-      <ul class="clean">
-        <li>Each role contributes only 2 or 3 resumes, so the percentages illustrate the method rather than estimate a population rate.</li>
-        <li>Role labels are assigned from phrases in the resume and the job title.</li>
-      </ul>
-      <p style="margin-top:16px"><strong>Remaining proposed work</strong></p>
-      <ul class="clean">
-        <li>The interactive application for recruiters and job seekers is not built.</li>
-      </ul>
+    <section class="card">
+      <p class="section-tag">Limitations and next step</p>
+      <h2>What this check does not show</h2>
+      <p>Each role has only a small number of resumes, and the role labels come from phrases in the title or the resume.</p>
+      <p>Next: a basic interactive prototype where a resume and a job are uploaded and the page shows the score and the skill gaps.</p>
     </section>
 
   </div>

@@ -52,9 +52,7 @@
               "score": 9.97,
               "correct": true,
               "matching_skills": [],
-              "skill_gaps": [
-                "user experience"
-              ],
+              "skill_gaps": [],
               "body_score": 11.96,
               "title_score": 4.01,
               "skill_score": 0.0
@@ -99,9 +97,7 @@
               "score": 4.13,
               "correct": true,
               "matching_skills": [],
-              "skill_gaps": [
-                "user experience"
-              ],
+              "skill_gaps": [],
               "body_score": 4.11,
               "title_score": 8.36,
               "skill_score": 0.0
@@ -146,27 +142,10 @@
               "score": 7.74,
               "correct": false,
               "matching_skills": [],
-              "skill_gaps": [
-                "user experience"
-              ],
+              "skill_gaps": [],
               "body_score": 9.67,
               "title_score": 0.0,
               "skill_score": 0.0
-            },
-            {
-              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
-              "category": "Infrastructure engineer",
-              "score": 5.96,
-              "correct": false,
-              "matching_skills": [
-                "updates"
-              ],
-              "skill_gaps": [
-                "administration"
-              ],
-              "body_score": 1.2,
-              "title_score": 0.0,
-              "skill_score": 50.0
             },
             {
               "title": "Software Engineer (Backend/Infrastructure)",
@@ -179,6 +158,22 @@
               ],
               "body_score": 6.34,
               "title_score": 8.81,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 3.74,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "cisco",
+                "docker",
+                "linux",
+                "python"
+              ],
+              "body_score": 4.68,
+              "title_score": 0.0,
               "skill_score": 0.0
             }
           ]
@@ -195,9 +190,7 @@
               "score": 6.91,
               "correct": false,
               "matching_skills": [],
-              "skill_gaps": [
-                "user experience"
-              ],
+              "skill_gaps": [],
               "body_score": 8.16,
               "title_score": 3.77,
               "skill_score": 0.0
@@ -239,15 +232,13 @@
             {
               "title": "Designer / Front-end Developer",
               "category": "Frontend",
-              "score": 24.73,
+              "score": 14.73,
               "correct": false,
-              "matching_skills": [
-                "user experience"
-              ],
+              "matching_skills": [],
               "skill_gaps": [],
               "body_score": 17.37,
               "title_score": 8.35,
-              "skill_score": 100.0
+              "skill_score": 0.0
             },
             {
               "title": "Java Developer ",
@@ -286,15 +277,13 @@
             {
               "title": "Designer / Front-end Developer",
               "category": "Frontend",
-              "score": 17.64,
+              "score": 7.64,
               "correct": false,
-              "matching_skills": [
-                "user experience"
-              ],
+              "matching_skills": [],
               "skill_gaps": [],
               "body_score": 9.47,
               "title_score": 0.68,
-              "skill_score": 100.0
+              "skill_score": 0.0
             },
             {
               "title": "UI Designer ",
@@ -316,12 +305,10 @@
               "correct": false,
               "matching_skills": [],
               "skill_gaps": [
-                "administration",
                 "cisco",
                 "docker",
                 "linux",
-                "python",
-                "systems administrator"
+                "python"
               ],
               "body_score": 5.39,
               "title_score": 0.89,
@@ -338,26 +325,20 @@
             {
               "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
               "category": "Infrastructure engineer",
-              "score": 24.7,
+              "score": 14.7,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "updates"
-              ],
+              "matching_skills": [],
               "skill_gaps": [],
               "body_score": 18.31,
               "title_score": 0.52,
-              "skill_score": 100.0
+              "skill_score": 0.0
             },
             {
               "title": "Junior Systems Administrator",
               "category": "Infrastructure engineer",
-              "score": 17.47,
+              "score": 14.13,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "systems administrator"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
                 "cisco",
                 "docker",
@@ -366,7 +347,7 @@
               ],
               "body_score": 17.33,
               "title_score": 2.7,
-              "skill_score": 33.33
+              "skill_score": 0.0
             },
             {
               "title": "Designer / Front-end Developer",
@@ -374,9 +355,7 @@
               "score": 3.09,
               "correct": false,
               "matching_skills": [],
-              "skill_gaps": [
-                "user experience"
-              ],
+              "skill_gaps": [],
               "body_score": 3.87,
               "title_score": 0.0,
               "skill_score": 0.0
@@ -392,12 +371,9 @@
             {
               "title": "Junior Systems Administrator",
               "category": "Infrastructure engineer",
-              "score": 22.82,
+              "score": 19.49,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "systems administrator"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
                 "cisco",
                 "docker",
@@ -406,22 +382,7 @@
               ],
               "body_score": 22.53,
               "title_score": 14.65,
-              "skill_score": 33.33
-            },
-            {
-              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
-              "category": "Infrastructure engineer",
-              "score": 10.47,
-              "correct": true,
-              "matching_skills": [
-                "administration"
-              ],
-              "skill_gaps": [
-                "updates"
-              ],
-              "body_score": 6.58,
-              "title_score": 2.03,
-              "skill_score": 50.0
+              "skill_score": 0.0
             },
             {
               "title": "Java Developer ",
@@ -434,6 +395,17 @@
               ],
               "body_score": 7.2,
               "title_score": 0.0,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
+              "category": "Infrastructure engineer",
+              "score": 5.47,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [],
+              "body_score": 6.58,
+              "title_score": 2.03,
               "skill_score": 0.0
             }
           ]
@@ -456,10 +428,10 @@
           "method": "Blend",
           "top1_accuracy": 50.0,
           "topk_accuracy": 87.5,
-          "mrr": 0.671
+          "mrr": 0.692
         }
       ],
-      "mrr": 0.671
+      "mrr": 0.692
     },
     {
       "stage": "medium",
@@ -471,7 +443,7 @@
         "UX",
         "Infrastructure engineer"
       ],
-      "top1_accuracy": 25.0,
+      "top1_accuracy": 33.3,
       "topk_accuracy": 75.0,
       "top_k": 3,
       "by_category": [
@@ -485,13 +457,13 @@
           "category": "Backend",
           "resumes": 3,
           "top1_accuracy": 0.0,
-          "topk_accuracy": 33.3
+          "topk_accuracy": 66.7
         },
         {
           "category": "UX",
           "resumes": 3,
-          "top1_accuracy": 0.0,
-          "topk_accuracy": 100.0
+          "top1_accuracy": 33.3,
+          "topk_accuracy": 66.7
         },
         {
           "category": "Infrastructure engineer",
@@ -510,20 +482,17 @@
             {
               "title": "UI/UX Designer",
               "category": "UX",
-              "score": 13.7,
+              "score": 12.7,
               "correct": false,
               "matching_skills": [
-                "html",
-                "resources",
-                "variety"
+                "html"
               ],
               "skill_gaps": [
-                "vision",
                 "wireframes"
               ],
               "body_score": 9.27,
               "title_score": 2.88,
-              "skill_score": 60.0
+              "skill_score": 50.0
             },
             {
               "title": "Lead UX Designer",
@@ -532,7 +501,6 @@
               "correct": false,
               "matching_skills": [],
               "skill_gaps": [
-                "interactive",
                 "wireframes"
               ],
               "body_score": 13.95,
@@ -545,9 +513,7 @@
               "score": 8.78,
               "correct": true,
               "matching_skills": [],
-              "skill_gaps": [
-                "user experience"
-              ],
+              "skill_gaps": [],
               "body_score": 10.45,
               "title_score": 4.22,
               "skill_score": 0.0
@@ -567,7 +533,6 @@
               "correct": false,
               "matching_skills": [],
               "skill_gaps": [
-                "interactive",
                 "wireframes"
               ],
               "body_score": 5.11,
@@ -582,9 +547,6 @@
               "matching_skills": [],
               "skill_gaps": [
                 "html",
-                "resources",
-                "variety",
-                "vision",
                 "wireframes"
               ],
               "body_score": 4.56,
@@ -597,9 +559,7 @@
               "score": 3.56,
               "correct": true,
               "matching_skills": [],
-              "skill_gaps": [
-                "user experience"
-              ],
+              "skill_gaps": [],
               "body_score": 3.45,
               "title_score": 8.07,
               "skill_score": 0.0
@@ -659,23 +619,8 @@
           "resume_id": "11981094",
           "resume_category": "Backend",
           "top1_correct": false,
-          "topk_correct": false,
+          "topk_correct": true,
           "top_jobs": [
-            {
-              "title": "Lead UX Designer",
-              "category": "UX",
-              "score": 12.37,
-              "correct": false,
-              "matching_skills": [
-                "interactive"
-              ],
-              "skill_gaps": [
-                "wireframes"
-              ],
-              "body_score": 9.21,
-              "title_score": 0.0,
-              "skill_score": 50.0
-            },
             {
               "title": "DevOps Engineer",
               "category": "Infrastructure engineer",
@@ -697,15 +642,25 @@
               "correct": false,
               "matching_skills": [],
               "skill_gaps": [
-                "administration",
                 "devops",
                 "java",
-                "linux",
-                "networks",
-                "thinking"
+                "linux"
               ],
               "body_score": 11.2,
               "title_score": 1.98,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Python Developer",
+              "category": "Backend",
+              "score": 8.32,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "python"
+              ],
+              "body_score": 10.4,
+              "title_score": 0.0,
               "skill_score": 0.0
             }
           ]
@@ -722,9 +677,7 @@
               "score": 6.28,
               "correct": false,
               "matching_skills": [],
-              "skill_gaps": [
-                "user experience"
-              ],
+              "skill_gaps": [],
               "body_score": 7.4,
               "title_score": 3.65,
               "skill_score": 0.0
@@ -749,7 +702,6 @@
               "correct": false,
               "matching_skills": [],
               "skill_gaps": [
-                "interactive",
                 "wireframes"
               ],
               "body_score": 5.35,
@@ -765,40 +717,6 @@
           "topk_correct": false,
           "top_jobs": [
             {
-              "title": "Junior Systems Administrator",
-              "category": "Infrastructure engineer",
-              "score": 10.89,
-              "correct": false,
-              "matching_skills": [
-                "administration",
-                "cisco"
-              ],
-              "skill_gaps": [
-                "docker",
-                "linux",
-                "python",
-                "systems administrator"
-              ],
-              "body_score": 8.69,
-              "title_score": 6.05,
-              "skill_score": 33.33
-            },
-            {
-              "title": "DevOps Engineer",
-              "category": "Infrastructure engineer",
-              "score": 10.62,
-              "correct": false,
-              "matching_skills": [
-                "policies"
-              ],
-              "skill_gaps": [
-                "devops"
-              ],
-              "body_score": 7.02,
-              "title_score": 0.0,
-              "skill_score": 50.0
-            },
-            {
               "title": "DevOps Engineer",
               "category": "Infrastructure engineer",
               "score": 10.06,
@@ -809,6 +727,38 @@
                 "java"
               ],
               "body_score": 12.57,
+              "title_score": 0.0,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 10.06,
+              "correct": false,
+              "matching_skills": [
+                "cisco"
+              ],
+              "skill_gaps": [
+                "docker",
+                "linux",
+                "python"
+              ],
+              "body_score": 8.69,
+              "title_score": 6.05,
+              "skill_score": 25.0
+            },
+            {
+              "title": "Senior DevOps Engineer ",
+              "category": "Infrastructure engineer",
+              "score": 6.4,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "devops",
+                "java",
+                "linux"
+              ],
+              "body_score": 8.0,
               "title_score": 0.0,
               "skill_score": 0.0
             }
@@ -823,88 +773,91 @@
             {
               "title": "Designer / Front-end Developer",
               "category": "Frontend",
-              "score": 24.22,
+              "score": 14.22,
               "correct": false,
-              "matching_skills": [
-                "user experience"
-              ],
+              "matching_skills": [],
               "skill_gaps": [],
               "body_score": 16.7,
               "title_score": 8.68,
-              "skill_score": 100.0
+              "skill_score": 0.0
             },
             {
-              "title": "UX/UI Designer",
+              "title": "UI/UX Designer",
               "category": "UX",
-              "score": 14.8,
+              "score": 12.45,
               "correct": true,
               "matching_skills": [
-                "user experience"
+                "html"
               ],
-              "skill_gaps": [],
-              "body_score": 5.67,
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 8.99,
               "title_score": 2.61,
-              "skill_score": 100.0
+              "skill_score": 50.0
             },
             {
-              "title": "Front-End Engineer",
-              "category": "Frontend",
-              "score": 13.61,
+              "title": "Java Developer ",
+              "category": "Backend",
+              "score": 10.03,
               "correct": false,
-              "matching_skills": [
-                "user experience"
+              "matching_skills": [],
+              "skill_gaps": [
+                "java"
               ],
-              "skill_gaps": [],
-              "body_score": 4.43,
-              "title_score": 0.69,
-              "skill_score": 100.0
+              "body_score": 11.66,
+              "title_score": 7.03,
+              "skill_score": 0.0
             }
           ]
         },
         {
           "resume_id": "25990239",
           "resume_category": "UX",
-          "top1_correct": false,
+          "top1_correct": true,
           "topk_correct": true,
           "top_jobs": [
             {
-              "title": "Designer / Front-end Developer",
-              "category": "Frontend",
-              "score": 17.0,
-              "correct": false,
-              "matching_skills": [
-                "user experience"
-              ],
-              "skill_gaps": [],
-              "body_score": 8.65,
-              "title_score": 0.8,
-              "skill_score": 100.0
-            },
-            {
-              "title": "UX/UI Designer",
+              "title": "UI/UX Designer",
               "category": "UX",
-              "score": 13.97,
+              "score": 9.29,
               "correct": true,
               "matching_skills": [
-                "user experience"
+                "html"
               ],
-              "skill_gaps": [],
-              "body_score": 4.87,
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 5.28,
               "title_score": 0.7,
-              "skill_score": 100.0
+              "skill_score": 50.0
             },
             {
-              "title": "Front-End Engineer",
-              "category": "Frontend",
-              "score": 12.59,
+              "title": "DevOps Engineer",
+              "category": "Infrastructure engineer",
+              "score": 7.94,
               "correct": false,
-              "matching_skills": [
-                "user experience"
+              "matching_skills": [],
+              "skill_gaps": [
+                "devops",
+                "java"
               ],
-              "skill_gaps": [],
-              "body_score": 3.24,
+              "body_score": 9.92,
               "title_score": 0.0,
-              "skill_score": 100.0
+              "skill_score": 0.0
+            },
+            {
+              "title": "Lead UX Designer",
+              "category": "UX",
+              "score": 7.44,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 9.07,
+              "title_score": 1.88,
+              "skill_score": 0.0
             }
           ]
         },
@@ -912,46 +865,40 @@
           "resume_id": "20490741",
           "resume_category": "UX",
           "top1_correct": false,
-          "topk_correct": true,
+          "topk_correct": false,
           "top_jobs": [
+            {
+              "title": "Backend Engineer",
+              "category": "Backend",
+              "score": 9.05,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [],
+              "body_score": 11.31,
+              "title_score": 0.0,
+              "skill_score": 0.0
+            },
             {
               "title": "Designer / Front-end Developer",
               "category": "Frontend",
-              "score": 16.48,
+              "score": 6.48,
               "correct": false,
-              "matching_skills": [
-                "user experience"
-              ],
+              "matching_skills": [],
               "skill_gaps": [],
               "body_score": 8.09,
               "title_score": 0.0,
-              "skill_score": 100.0
+              "skill_score": 0.0
             },
             {
               "title": "Front-End Engineer",
               "category": "Frontend",
-              "score": 15.99,
+              "score": 5.99,
               "correct": false,
-              "matching_skills": [
-                "user experience"
-              ],
+              "matching_skills": [],
               "skill_gaps": [],
               "body_score": 7.49,
               "title_score": 0.0,
-              "skill_score": 100.0
-            },
-            {
-              "title": "UX/UI Designer",
-              "category": "UX",
-              "score": 12.86,
-              "correct": true,
-              "matching_skills": [
-                "user experience"
-              ],
-              "skill_gaps": [],
-              "body_score": 3.57,
-              "title_score": 0.0,
-              "skill_score": 100.0
+              "skill_score": 0.0
             }
           ]
         },
@@ -964,26 +911,20 @@
             {
               "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
               "category": "Infrastructure engineer",
-              "score": 23.39,
+              "score": 13.39,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "updates"
-              ],
+              "matching_skills": [],
               "skill_gaps": [],
               "body_score": 16.68,
               "title_score": 0.48,
-              "skill_score": 100.0
+              "skill_score": 0.0
             },
             {
               "title": "Junior Systems Administrator",
               "category": "Infrastructure engineer",
-              "score": 16.61,
+              "score": 13.28,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "systems administrator"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
                 "cisco",
                 "docker",
@@ -992,26 +933,22 @@
               ],
               "body_score": 16.27,
               "title_score": 2.67,
-              "skill_score": 33.33
+              "skill_score": 0.0
             },
             {
               "title": "Senior DevOps Engineer ",
               "category": "Infrastructure engineer",
-              "score": 8.19,
+              "score": 6.53,
               "correct": true,
-              "matching_skills": [
-                "administration"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
                 "devops",
                 "java",
-                "linux",
-                "networks",
-                "thinking"
+                "linux"
               ],
               "body_score": 8.0,
               "title_score": 1.27,
-              "skill_score": 16.67
+              "skill_score": 0.0
             }
           ]
         },
@@ -1024,12 +961,9 @@
             {
               "title": "Junior Systems Administrator",
               "category": "Infrastructure engineer",
-              "score": 21.34,
+              "score": 18.0,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "systems administrator"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
                 "cisco",
                 "docker",
@@ -1038,41 +972,36 @@
               ],
               "body_score": 20.65,
               "title_score": 14.79,
-              "skill_score": 33.33
+              "skill_score": 0.0
             },
             {
               "title": "Senior DevOps Engineer ",
               "category": "Infrastructure engineer",
-              "score": 13.73,
+              "score": 10.4,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "networks"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
                 "devops",
                 "java",
-                "linux",
-                "thinking"
+                "linux"
               ],
               "body_score": 13.0,
               "title_score": 0.0,
-              "skill_score": 33.33
+              "skill_score": 0.0
             },
             {
               "title": "DevOps Engineer",
               "category": "Infrastructure engineer",
-              "score": 13.31,
+              "score": 8.76,
               "correct": true,
-              "matching_skills": [
-                "policies"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
-                "devops"
+                "devops",
+                "java"
               ],
-              "body_score": 10.39,
+              "body_score": 10.95,
               "title_score": 0.0,
-              "skill_score": 50.0
+              "skill_score": 0.0
             }
           ]
         },
@@ -1085,12 +1014,9 @@
             {
               "title": "Junior Systems Administrator",
               "category": "Infrastructure engineer",
-              "score": 16.86,
+              "score": 13.52,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "systems administrator"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
                 "cisco",
                 "docker",
@@ -1099,40 +1025,36 @@
               ],
               "body_score": 14.43,
               "title_score": 19.77,
-              "skill_score": 33.33
+              "skill_score": 0.0
             },
             {
               "title": "Senior DevOps Engineer ",
               "category": "Infrastructure engineer",
-              "score": 14.23,
+              "score": 10.9,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "networks"
-              ],
+              "matching_skills": [],
               "skill_gaps": [
                 "devops",
                 "java",
-                "linux",
-                "thinking"
+                "linux"
               ],
               "body_score": 13.43,
               "title_score": 1.52,
-              "skill_score": 33.33
+              "skill_score": 0.0
             },
             {
-              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
+              "title": "DevOps Engineer",
               "category": "Infrastructure engineer",
-              "score": 13.58,
+              "score": 9.53,
               "correct": true,
-              "matching_skills": [
-                "administration",
-                "updates"
+              "matching_skills": [],
+              "skill_gaps": [
+                "devops",
+                "java"
               ],
-              "skill_gaps": [],
-              "body_score": 3.67,
-              "title_score": 6.42,
-              "skill_score": 100.0
+              "body_score": 11.91,
+              "title_score": 0.0,
+              "skill_score": 0.0
             }
           ]
         }
@@ -1152,12 +1074,12 @@
         },
         {
           "method": "Blend",
-          "top1_accuracy": 25.0,
+          "top1_accuracy": 33.3,
           "topk_accuracy": 75.0,
-          "mrr": 0.508
+          "mrr": 0.547
         }
       ],
-      "mrr": 0.508
+      "mrr": 0.547
     }
   ]
 }

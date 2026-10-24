@@ -61,15 +61,31 @@ SKILL_NOISE = {
     "successful", "focus", "focused", "skilled", "organization",
     "developer", "developers", "methodologies", "methodology",
     "maintenance", "maintaining",
+    "administration", "updates", "interactive", "resources", "variety",
+    "vision", "departments", "february", "print", "accurate",
+    "collaborated", "completion", "evaluation", "engagement", "performing",
+    "thinking", "analyzed", "feedback", "policies", "policy", "campaign",
+    "analyst", "defined", "studio", "launch", "audio", "multimedia",
+    "conducted", "networking", "servers", "networks", "workstations",
+    "user experience", "systems administrator", "system administrator",
+    "hardware software", "search engine", "help desk", "social media",
 }
 
 # Skills for the four evaluated software roles. Mined terms are added to this list.
 ROLE_SKILLS = [
     "html", "css", "javascript", "react", "angular", "vue", "responsive design",
     "java", "python", "node.js", "sql", "rest apis", "spring boot",
-    "figma", "wireframes", "ux design", "ui design", "user experience", "prototyping",
+    "figma", "wireframes", "ux design", "ui design", "prototyping",
     "docker", "kubernetes", "aws", "devops", "linux", "terraform",
 ]
+
+# Mined words are kept only when they are real tools or technical skills.
+TECHNICAL_SKILLS = {
+    "cisco", "usability", "active directory", "windows server",
+    "disaster recovery", "firewalls", "exchange", "backup",
+    "routers", "voip", "seo", "symantec", "web development",
+    "network infrastructure", "microsoft windows",
+}
 
 
 def ensure_skills_file(cache_path: Path = SKILLS_CACHE) -> Path:
@@ -203,7 +219,9 @@ def extract_occupation_skills(
                 continue
             if rate_in[index] < 2.5 * rate_out[index]:
                 continue
-            if all(token in SKILL_NOISE or token in ENGLISH_STOP_WORDS for token in tokens):
+            if term in SKILL_NOISE or all(
+                token in SKILL_NOISE or token in ENGLISH_STOP_WORDS for token in tokens
+            ):
                 continue
             scored.append((float(rate_in[index] - rate_out[index]), str(term)))
         scored.sort(reverse=True)
@@ -213,7 +231,9 @@ def extract_occupation_skills(
             if " " not in term and any(term in phrase.split() for phrase in phrases):
                 continue
             chosen.append(term)
-    return sorted(set(chosen) | set(ROLE_SKILLS), key=len, reverse=True)
+    kept = [term for term in chosen if term in set(ROLE_SKILLS) | TECHNICAL_SKILLS]
+    role_skills = [skill for skill in ROLE_SKILLS if skill not in SKILL_NOISE]
+    return sorted(set(kept) | set(role_skills), key=len, reverse=True)
 
 
 def np_mask(labels: list[str], category: str):
