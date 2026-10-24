@@ -1,11 +1,14 @@
 """Load Kaggle resumes and job postings, and label jobs by title."""
 
+import re
+
 import pandas as pd
 import kagglehub
 from kagglehub import KaggleDatasetAdapter
 
 from matcher.config import (
     CATEGORY_TITLE_KEYWORDS,
+    IT_ROLE_KEYWORDS,
     JOB_DATASET,
     JOB_FILE,
     RESUME_DATASET,
@@ -30,6 +33,42 @@ def category_from_title(title: str) -> str | None:
         if f" {keyword} " in lowered or lowered.strip() == keyword:
             return category
     return None
+
+
+_IT_ROLE_RULES: list[tuple[str, str]] = sorted(
+    (
+        (keyword, role)
+        for role, keywords in IT_ROLE_KEYWORDS.items()
+        for keyword in keywords
+    ),
+    key=lambda item: len(item[0]),
+    reverse=True,
+)
+
+
+def it_role(text: str) -> str | None:
+    """Longest IT role phrase in text. Used only on IT resumes and IT job titles."""
+    normalized = re.sub(r"[^a-z0-9+#.\s]", " ", str(text).lower())
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    padded = f" {normalized} "
+    for keyword, role in _IT_ROLE_RULES:
+        if f" {keyword} " in padded:
+            return role
+    return None
+
+
+def restrict_to_it_roles(
+    resumes: pd.DataFrame, jobs: pd.DataFrame
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Keep IT resumes and IT jobs, labeled as software, systems, or IT support."""
+    it_resumes = resumes[resumes["Category"] == "INFORMATION-TECHNOLOGY"].copy()
+    it_resumes["Category"] = it_resumes["Resume_str"].map(it_role)
+    it_resumes = it_resumes[it_resumes["Category"].notna()].reset_index(drop=True)
+
+    it_jobs = jobs[jobs["category"] == "INFORMATION-TECHNOLOGY"].copy()
+    it_jobs["category"] = it_jobs["Job Title"].map(it_role)
+    it_jobs = it_jobs[it_jobs["category"].notna()].reset_index(drop=True)
+    return it_resumes, it_jobs
 
 
 def load_resumes() -> pd.DataFrame:

@@ -1,15 +1,15 @@
-"""Match resumes to job descriptions and measure occupation accuracy.
+"""Match IT and software resumes to IT job descriptions and measure role accuracy.
 
 Examples:
-  python main.py                  # small labeled set, then a larger mixed set
+  python main.py                  # small IT sample, then a larger IT sample
   python main.py --stage small    # only the small check
-  python main.py --stage medium   # only the diverse medium check
+  python main.py --stage medium   # only the larger IT check
 """
 
 import argparse
 
 from matcher.config import MEDIUM_EVAL, RANDOM_SEED, SMALL_EVAL
-from matcher.datasets import load_human_jobs, load_resumes
+from matcher.datasets import load_human_jobs, load_resumes, restrict_to_it_roles
 from matcher.evaluation import evaluate_stage, stage_resume_ids
 from matcher.matching import ResumeJobMatcher
 from matcher.reporting import write_reports
@@ -19,10 +19,16 @@ STAGES = {"small": SMALL_EVAL, "medium": MEDIUM_EVAL}
 
 
 def run(stage_names: list[str]) -> None:
-    resumes = load_resumes()
-    jobs = load_human_jobs()
-    labeled_jobs = int(jobs["category"].notna().sum())
-    print(f"Resumes: {len(resumes):,} | Human-written jobs: {len(jobs):,} | Title-labeled jobs: {labeled_jobs:,}")
+    resumes, jobs = restrict_to_it_roles(load_resumes(), load_human_jobs())
+    print(
+        "IT / software sample: "
+        f"{len(resumes):,} resumes | {len(jobs):,} jobs | "
+        + ", ".join(
+            f"{role} {int((resumes['Category'] == role).sum())} resumes / "
+            f"{int((jobs['category'] == role).sum())} jobs"
+            for role in sorted(resumes["Category"].unique())
+        )
+    )
 
     exclude_ids: set[str] = set()
     categories: list[str] = []
@@ -60,7 +66,7 @@ def main() -> None:
         "--stage",
         choices=["small", "medium", "both"],
         default="both",
-        help="small checks obvious profile-to-job pairs; medium mixes more occupations.",
+        help="small and medium both use IT roles only; medium takes more resumes and jobs per role.",
     )
     args = parser.parse_args()
     names = ["small", "medium"] if args.stage == "both" else [args.stage]

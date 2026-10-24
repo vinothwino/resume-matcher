@@ -24,45 +24,64 @@ BODY_WEIGHT = 0.80
 TITLE_WEIGHT = 0.10
 SKILL_WEIGHT = 0.10
 
-# Controlled check: few categories, one obvious job family each.
+# IT / software sample only. Families stay separate so a correct match
+# means the right software role, not "any IT resume vs any IT job".
+IT_ROLE_FAMILIES = (
+    "Software development",
+    "Systems administration",
+    "IT support",
+)
+
 SMALL_EVAL = {
     "name": "small",
     "resumes_per_category": 2,
     "jobs_per_category": 2,
-    "categories": [
-       "HR",
-        "SALES",
-        "DESIGNER",
-        "FINANCE",
-        "BANKING",
-        "DIGITAL-MEDIA",
-        "ENGINEERING",
-    ],
+    "categories": list(IT_ROLE_FAMILIES),
 }
 
-# Broader check: more occupations and a larger mixed job pool.
 MEDIUM_EVAL = {
     "name": "medium",
     "resumes_per_category": 3,
     "jobs_per_category": 5,
-    "categories": [
-        "INFORMATION-TECHNOLOGY",
-        "TEACHER",
-        "ACCOUNTANT",
-        "HEALTHCARE",
-        "CHEF",
-        "HR",
-        "SALES",
-        "DESIGNER",
-        "FINANCE",
-        "BANKING",
-        "DIGITAL-MEDIA",
-        "ENGINEERING",
-    ],
+    "categories": list(IT_ROLE_FAMILIES),
 }
 
-# Longest matching phrase wins, so "software engineer" stays IT
-# rather than falling through to a generic engineering rule.
+# Phrases that place an IT resume or IT job title into one role family.
+# Longest match wins.
+IT_ROLE_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "Software development": (
+        "software engineer",
+        "software developer",
+        "web developer",
+        "full stack",
+        "frontend developer",
+        "front end developer",
+        "front-end developer",
+        "backend developer",
+        "back end developer",
+        "java developer",
+        "python developer",
+        "devops",
+        "programmer",
+    ),
+    "Systems administration": (
+        "systems administrator",
+        "system administrator",
+        "network administrator",
+        "linux administrator",
+        "database administrator",
+    ),
+    "IT support": (
+        "technical support",
+        "desktop support",
+        "service desk",
+        "help desk",
+        "it support",
+    ),
+}
+
+# Titles that enter the IT pool. Role family (software, systems, support)
+# is assigned later from IT_ROLE_KEYWORDS.
 CATEGORY_TITLE_KEYWORDS: dict[str, tuple[str, ...]] = {
     "INFORMATION-TECHNOLOGY": (
         "software engineer",
@@ -78,58 +97,5 @@ CATEGORY_TITLE_KEYWORDS: dict[str, tuple[str, ...]] = {
         "systems administrator",
         "system administrator",
         "it support",
-    ),
-    "TEACHER": ("teacher", "instructor", "professor", "tutor"),
-    "ACCOUNTANT": ("accountant", "bookkeeper", "accounts payable", "accounts receivable"),
-    "HEALTHCARE": (
-        "registered nurse",
-        "nurse",
-        "physician",
-        "physical therapist",
-        "medical assistant",
-        "healthcare",
-    ),
-    "CHEF": ("executive chef", "sous chef", "chef", "line cook", "cook"),
-    "HR": (
-        "human resources",
-        "hr manager",
-        "hr generalist",
-        "recruiter",
-        "talent acquisition",
-    ),
-    "SALES": (
-        "sales representative",
-        "account executive",
-        "sales manager",
-        "inside sales",
-        "business development",
-    ),
-    "DESIGNER": (
-        "graphic designer",
-        "ux designer",
-        "ui designer",
-        "visual designer",
-        "product designer",
-    ),
-    "FINANCE": (
-        "financial analyst",
-        "finance manager",
-        "financial controller",
-        "investment analyst",
-    ),
-    "BANKING": ("loan officer", "credit analyst", "bank teller", "branch manager", "banking"),
-    "DIGITAL-MEDIA": (
-        "social media",
-        "content writer",
-        "digital marketing",
-        "video editor",
-        "copywriter",
-    ),
-    "ENGINEERING": (
-        "mechanical engineer",
-        "civil engineer",
-        "electrical engineer",
-        "design engineer",
-        "project engineer",
     ),
 }

@@ -1,1745 +1,726 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>Resume–job matcher — MCA Second Review</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
   <style>
-
     :root {
-
       --bg: #eef2f6;
-
       --card: #ffffff;
-
       --ink: #0f172a;
-
       --muted: #475569;
-
       --line: #e2e8f0;
-
       --header: #0f172a;
-
       --accent: #1d4ed8;
-
       --green: #15803d;
-
       --green-bg: #dcfce7;
-
       --red: #b91c1c;
-
       --red-bg: #fee2e2;
-
       --amber: #b45309;
-
       --row-alt: #f8fafc;
-
       --highlight: #dbeafe;
-
       --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.04);
-
     }
-
     * { box-sizing: border-box; }
-
     html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-
     body {
-
       margin: 0;
-
       background: var(--bg);
-
       color: var(--ink);
-
       font-family: Inter, "Segoe UI", Roboto, system-ui, sans-serif;
-
       font-size: 17px;
-
       line-height: 1.55;
-
     }
-
     .page { max-width: 1120px; margin: 0 auto; padding: 40px 36px 56px; }
-
     header.hero {
-
       background: var(--card);
-
       border: 1px solid var(--line);
-
       border-radius: 16px;
-
       box-shadow: var(--shadow);
-
       padding: 32px 36px 28px;
-
       margin-bottom: 20px;
-
       border-top: 6px solid var(--accent);
-
     }
-
     h1 {
-
       margin: 0 0 8px;
-
       font-size: 34px;
-
       line-height: 1.2;
-
       letter-spacing: -0.02em;
-
       font-weight: 700;
-
     }
-
     .subtitle { margin: 0; color: var(--muted); font-size: 18px; }
-
     .section-tag {
-
       display: inline-block;
-
       font-size: 12px;
-
       font-weight: 700;
-
       letter-spacing: 0.06em;
-
       text-transform: uppercase;
-
       color: var(--accent);
-
       margin-bottom: 8px;
-
     }
-
     section.card {
-
       background: var(--card);
-
       border: 1px solid var(--line);
-
       border-radius: 16px;
-
       box-shadow: var(--shadow);
-
       padding: 28px 32px 30px;
-
       margin-bottom: 20px;
-
     }
-
     h2 { margin: 0 0 14px; font-size: 22px; letter-spacing: -0.01em; }
-
     h3 { margin: 22px 0 8px; font-size: 17px; font-weight: 600; }
-
     p { margin: 0 0 12px; }
-
     .lead { color: var(--muted); margin-bottom: 16px; }
-
     .interpret {
-
       background: #f8fafc;
-
       border-left: 4px solid var(--accent);
-
       padding: 12px 16px;
-
       margin: 14px 0 4px;
-
       font-size: 16px;
-
     }
-
     ul.clean { margin: 0; padding-left: 22px; }
-
     ul.clean li { margin: 0 0 10px; }
-
     ul.clean li:last-child { margin-bottom: 0; }
-
     code {
-
       font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
-
       font-size: 0.92em;
-
       background: #f1f5f9;
-
       padding: 1px 6px;
-
       border-radius: 6px;
-
     }
-
     .defs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-
     .def {
-
       border: 1px solid var(--line);
-
       border-radius: 12px;
-
       padding: 16px 18px;
-
       background: #f8fafc;
-
     }
-
     .def strong { display: block; font-size: 16px; margin-bottom: 6px; }
-
     .def span { color: var(--muted); font-size: 15.5px; }
-
     .outcome { margin: 14px 0 0; font-weight: 600; }
-
     .kpis {
-
       display: grid;
-
       grid-template-columns: repeat(5, 1fr);
-
       gap: 12px;
-
       margin: 16px 0 8px;
-
     }
-
     .kpi {
-
       background: #f8fafc;
-
       border: 1px solid var(--line);
-
       border-radius: 12px;
-
       padding: 14px 12px 12px;
-
       text-align: center;
-
     }
-
     .kpi .value {
-
       display: block;
-
       font-size: 32px;
-
       font-weight: 700;
-
       letter-spacing: -0.03em;
-
       line-height: 1.1;
-
       color: var(--accent);
-
     }
-
     .kpi .value.green { color: var(--green); }
-
     .kpi .value.ink { color: var(--ink); }
-
     .kpi .label {
-
       display: block;
-
       margin-top: 6px;
-
       color: var(--muted);
-
       font-size: 13.5px;
-
       font-weight: 600;
-
     }
-
     table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 16px; }
-
     th, td {
-
       text-align: left;
-
       padding: 12px 14px;
-
       border-bottom: 1px solid var(--line);
-
       vertical-align: middle;
-
     }
-
     th {
-
       background: var(--header);
-
       color: #f8fafc;
-
       font-size: 13.5px;
-
       font-weight: 700;
-
       letter-spacing: 0.04em;
-
       text-transform: uppercase;
-
     }
-
     th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
-
     tbody tr:nth-child(even) { background: var(--row-alt); }
-
     tbody tr:nth-child(odd) { background: #fff; }
-
     tr.highlight td { background: var(--highlight); font-weight: 700; }
-
     tr.highlight td:first-child { box-shadow: inset 4px 0 0 var(--accent); }
-
     .pct.good { color: var(--green); font-weight: 700; }
-
     .pct.mid { color: var(--amber); font-weight: 700; }
-
     .pct.low { color: var(--red); font-weight: 700; }
-
     .pill {
-
       display: inline-block;
-
       font-weight: 700;
-
       font-size: 14px;
-
       padding: 3px 10px;
-
       border-radius: 999px;
-
     }
-
-    .pill.same { color: var(--green); background: var(--green-bg); }
-
+    .pill.same, .pill.done { color: var(--green); background: var(--green-bg); }
     .pill.different { color: var(--red); background: var(--red-bg); }
-
+    .pill.partial { color: var(--amber); background: #fef3c7; }
+    .pill.later { color: #1e3a8a; background: #dbeafe; }
+    .progress {
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      min-width: 120px;
+    }
+    .progress > span {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+    .progress.good > span { background: var(--green); }
+    .progress.mid > span { background: var(--amber); }
     .caption { margin: 10px 0 0; color: var(--muted); font-size: 14.5px; }
-
     .skill-gap-grid {
-
       display: grid;
-
       grid-template-columns: 1fr 1fr;
-
       gap: 12px;
-
       margin-top: 14px;
-
     }
-
     .skill-box {
-
       border-radius: 12px;
-
       padding: 14px 16px;
-
       font-size: 15.5px;
-
       line-height: 1.45;
-
     }
-
     .skill-box strong { display: block; margin-bottom: 6px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; }
-
     .skill-box.match { background: var(--green-bg); border: 1px solid #86efac; color: #14532d; }
-
     .skill-box.gap { background: var(--red-bg); border: 1px solid #fca5a5; color: #7f1d1d; }
-
     .skill-example {
-
       border: 1px solid var(--line);
-
       border-radius: 12px;
-
       padding: 18px 20px;
-
       margin-top: 16px;
-
       background: #fff;
-
     }
-
     .skill-example h4 { margin: 0 0 8px; font-size: 16px; }
-
     .evidence {
-
       border: 1px solid var(--line);
-
       border-radius: 12px;
-
       padding: 16px;
-
       margin-top: 16px;
-
       background: #fff;
-
     }
-
     .evidence-head {
-
       display: flex;
-
       flex-wrap: wrap;
-
       gap: 6px 18px;
-
       align-items: baseline;
-
       margin-bottom: 4px;
-
       font-size: 16px;
-
     }
-
     .evidence-head .badge { font-weight: 700; font-size: 17px; }
-
     .yes { color: var(--green); font-weight: 700; }
-
     .no { color: var(--red); font-weight: 700; }
-
     .evidence table { margin-top: 8px; font-size: 15.5px; }
-
     .evidence th, .evidence td { padding: 9px 12px; }
-
     .parts { margin: 10px 0 0; font-size: 15.5px; line-height: 1.5; }
-
     section.card.bottom {
-
       background: #0f172a;
-
       color: #e2e8f0;
-
       border-color: #334155;
-
     }
-
     section.card.bottom h2 { color: #f8fafc; }
-
     section.card.bottom p, section.card.bottom li { color: #e2e8f0; font-size: 17px; line-height: 1.55; }
-
     section.card.bottom strong { color: #93c5fd; font-weight: 700; }
-
     @media (max-width: 900px) {
-
       .defs, .kpis, .skill-gap-grid { grid-template-columns: 1fr; }
-
       .page { padding: 20px 16px 32px; }
-
       h1 { font-size: 28px; }
-
       section.card, header.hero { padding: 20px 18px; }
-
     }
-
     @media print {
-
       body { background: #fff; }
-
       .page { max-width: none; padding: 0; }
-
       header.hero, section.card { box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
-
       .evidence, .skill-example { break-inside: avoid; page-break-inside: avoid; }
-
     }
-
 </style>
-
 </head>
-
 <body>
-
   <div class="page">
-
     
-
     <header class="hero">
-
-      <p class="section-tag">Overview</p>
-
-      <h1>Does the highest-scoring job share the resume&rsquo;s occupation?</h1>
-
-      <p class="subtitle">MCA Second Review — controlled evaluation of the Review&nbsp;1 resume–job matching approach.</p>
-
+      <p class="section-tag">MCA Second Review</p>
+      <h1>Resume–job matching: progress against the proposed outcomes</h1>
+      <p class="subtitle">IT and software resumes and jobs only — software development, systems administration, and IT support. Semantic embeddings and a live recruiter dashboard remain for the final review.</p>
     </header>
 
-
-
     
-
     <section class="card">
-
-      <p class="section-tag">Alignment with Review 1 Proposal</p>
-
-      <h2>Alignment with Review 1 Proposal</h2>
-
-      <ul class="clean">
-
-        <li><strong>Original proposal:</strong> NLP-based resume–job matching using TF-IDF/cosine similarity, skill extraction, skill gap analysis, and explainable insights.</li>
-
-        <li><strong>Current work:</strong> Implements the lexical matching pipeline (80/10/10 TF-IDF + skill coverage blend), occupation-specific skill mining with hold-out, and per-match score breakdown (body, title, skill coverage) plus Has/Lacking skill lists.</li>
-
-        <li><strong>Planned next:</strong> Semantic embeddings (e.g. Sentence-BERT), richer skill extraction, and a simple interactive dashboard.</li>
-
-      </ul>
-
+      <p class="section-tag">Second review status</p>
+      <h2>How much of the promised work is done</h2>
+      <div class="kpis">
+        <div class="kpi"><span class="value">69%</span><span class="label">All five outcomes</span></div>
+        <div class="kpi"><span class="value green">81%</span><span class="label">Analytical core (first four)</span></div>
+        <div class="kpi"><span class="value ink">4</span><span class="label">Ranking methods compared</span></div>
+        <div class="kpi"><span class="value ink">2</span><span class="label">Evaluation samples</span></div>
+        <div class="kpi"><span class="value ink">2</span><span class="label">Left: embeddings and live app</span></div>
+      </div>
+      <p class="lead">The analytical pipeline is past the second-review bar. The full product, including a live dashboard, is just under 70% because that interface is only a static report today.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Promised outcome</th>
+            <th>Progress</th>
+            <th class="num">Share</th>
+            <th>Status</th>
+            <th>What exists now</th>
+          </tr>
+        </thead>
+        <tbody><tr><td>Automated skill and qualification extraction</td><td style="width:28%"><div class="progress good"><span style="width:75%"></span></div></td><td class="num pct good">75%</td><td><span class="pill done">Done</span></td><td>Occupation terms mined from held-out resumes; matched on both resume and job text.</td></tr>
+<tr><td>NLP / ML candidate–job matching</td><td style="width:28%"><div class="progress mid"><span style="width:65%"></span></div></td><td class="num pct mid">65%</td><td><span class="pill partial">Partial</span></td><td>TF-IDF cosine plus a weighted blend. Semantic embeddings are not in this build.</td></tr>
+<tr><td>Match score and ranking</td><td style="width:28%"><div class="progress good"><span style="width:95%"></span></div></td><td class="num pct good">95%</td><td><span class="pill done">Done</span></td><td>Blend score (80% description, 10% title, 10% skill coverage) with top-1, top-3, and MRR.</td></tr>
+<tr><td>Skill gap identification</td><td style="width:28%"><div class="progress good"><span style="width:90%"></span></div></td><td class="num pct good">90%</td><td><span class="pill done">Done</span></td><td>Matching skills and missing job skills listed for each ranked pair.</td></tr>
+<tr><td>Interactive recruiter / job-seeker app</td><td style="width:28%"><div class="progress "><span style="width:20%"></span></div></td><td class="num pct low">20%</td><td><span class="pill later">Started</span></td><td>Static review report only. Upload-and-rank UI is the main remaining item.</td></tr></tbody>
+      </table>
+      <p class="caption">Shares are an engineering estimate of implemented scope, not model accuracy. Accuracy numbers are in the results sections below.</p>
     </section>
 
-
+    
+    <section class="card">
+      <p class="section-tag">Proposed approach</p>
+      <h2>Alignment with the proposed approach</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Proposed approach</th>
+            <th>Status</th>
+            <th>This build</th>
+          </tr>
+        </thead>
+        <tbody><tr><td>Research type</td><td>Exploratory + analytical</td><td><span class="pill done">Aligned</span></td><td>Two samples (controlled and broader) plus a four-method comparison.</td></tr>
+<tr><td>Data source</td><td>Public resume and job-description datasets</td><td><span class="pill done">Aligned</span></td><td>Kaggle resume dataset and human-written job postings.</td></tr>
+<tr><td>Data collection</td><td>Dataset load, NLP preprocessing, skill extraction, features</td><td><span class="pill done">Aligned</span></td><td>Cleaning, TF-IDF features, and occupation skill mining with test resumes held out.</td></tr>
+<tr><td>Sample</td><td>IT / software roles</td><td><span class="pill done">Aligned</span></td><td>Resumes and jobs are IT only, scored as software development, systems administration, or IT support.</td></tr>
+<tr><td>Tools</td><td>Python, Pandas, NumPy, Scikit-learn, embeddings, React/Next.js</td><td><span class="pill partial">Partial</span></td><td>Python, Pandas, and Scikit-learn are in use. Embeddings and React/Next.js are not.</td></tr>
+<tr><td>Analysis</td><td>TF-IDF / cosine, semantic matching, method comparison, skill gaps</td><td><span class="pill partial">Partial</span></td><td>TF-IDF, cosine, method comparison, and skill gaps are done. Semantic matching is not.</td></tr></tbody>
+      </table>
+    </section>
 
     
-
     <section class="card">
+      <p class="section-tag">What this build demonstrates</p>
+      <h2>What is ready to show</h2>
+      <ul class="clean">
+        <li><strong>Skill extraction:</strong> Distinctive occupation terms are mined from resumes that are not in the scored sample, then matched on resume and job text.</li>
+        <li><strong>Ranking:</strong> Each pair gets a blend score — 80% job-description TF-IDF, 10% job-title TF-IDF, 10% skill coverage — plus three comparison methods (baseline TF-IDF, text only, skill coverage only).</li>
+        <li><strong>Skill gaps:</strong> Each ranked job lists skills the resume already has and skills the job asks for that the resume lacks.</li>
+        <li><strong>Left for the final review:</strong> A semantic embedding ranker, and an interactive page where a recruiter or candidate can paste a resume and a job.</li>
+      </ul>
+    </section>
 
+    
+    <section class="card">
       <p class="section-tag">Method</p>
-
       <h2>Method</h2>
-
       <ul class="clean">
-
-        <li>Resumes from <code>snehaanbhawal/resume-dataset</code> (ground-truth occupation on each resume).</li>
-
-        <li>Human-written job postings from <code>avinashmynampati/human-vs-fake-vs-ai-generated-job-descriptions</code>; job occupation inferred from title keywords.</li>
-
+        <li>Resumes from <code>snehaanbhawal/resume-dataset</code>, restricted to the information-technology category, then labeled software development, systems administration, or IT support from role phrases in the text.</li>
+        <li>Human-written job postings from <code>avinashmynampati/human-vs-fake-vs-ai-generated-job-descriptions</code>, restricted to IT titles, then labeled with the same three role families.</li>
         <li><strong>Ranking score (blend):</strong> 80% cosine TF-IDF on the job <em>description</em>, 10% on the job <em>title</em>, and 10% <em>skill coverage</em> (share of occupation skill terms on the job that also appear on the resume).</li>
-
         <li><strong>Skill terms:</strong> Mined from other resumes in the same occupation (unigrams/bigrams that are distinctive in-category). Resumes in the evaluation sample are held out so skill lists do not leak test text.</li>
-
-        <li><strong>Evaluation proxy:</strong> Occupation match is used because no human relevance judgments are available—if the top job shares the resume&rsquo;s occupation label, the ranker aligned with an checkable career-area signal.</li>
-
+        <li><strong>Evaluation proxy:</strong> A match is correct when the top job is in the same IT role family as the resume. HR, sales, finance, and other non-IT occupations are not in this sample.</li>
       </ul>
-
     </section>
 
-
-
     
-
     <section class="card">
-
       <p class="section-tag">Evaluation metrics</p>
-
       <h2>Evaluation metrics</h2>
-
       <div class="defs">
-
         <div class="def">
-
           <strong>Best match</strong>
-
           <span>The rank-1 job&rsquo;s occupation equals the resume&rsquo;s occupation.</span>
-
         </div>
-
         <div class="def">
-
           <strong>Found in the first 3</strong>
-
           <span>At least one of ranks 1 through 3 has the same occupation as the resume.</span>
-
         </div>
-
         <div class="def">
-
           <strong>Mean reciprocal rank (MRR)</strong>
-
           <span>One divided by the rank of the first correct occupation, averaged over resumes.</span>
-
         </div>
-
       </div>
-
       
-
       <h3>Worked example (explainability)</h3>
-
-      <p class="lead">Resume 24655918, profile DESIGNER — top 3 jobs by the blend.</p>
-
+      <p class="lead">Resume 12763627, profile Software development — top 3 jobs by the blend.</p>
       <table>
-
         <thead>
-
           <tr>
-
             <th>Rank</th><th>Job title</th><th>Occupation</th>
-
             <th class="num">Score</th><th>vs profile</th>
-
           </tr>
-
         </thead>
-
-        <tbody><tr><td>1</td><td>Digital Marketing Manager</td><td>DIGITAL-MEDIA</td><td class="num">7.12</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>UX Designer</td><td>DESIGNER</td><td class="num">5.63</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Branch Manager</td><td>BANKING</td><td class="num">4.92</td><td><span class="pill different">Different</span></td></tr></tbody>
-
+        <tbody><tr><td>1</td><td>Sr. Software Developer</td><td>Software development</td><td class="num">6.65</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>DevOps Engineer</td><td>Software development</td><td class="num">5.94</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>IT Support Administrator</td><td>IT support</td><td class="num">4.22</td><td><span class="pill different">Different</span></td></tr></tbody>
       </table>
-
-      <p class="outcome">Best match: no. Found in the first 3: yes.</p>
-
-      <p class="caption">Rank 1 parts — Body: 6.82; Title: 2.4; Skill coverage: 14.29.</p>
-
-      <p class="caption">Skill gap view for rank-1 job <em>Digital Marketing Manager</em>:</p>
-
+      <p class="outcome">Best match: yes. Found in the first 3: yes.</p>
+      <p class="caption">Rank 1 parts — Body: 7.74; Title: 4.61; Skill coverage: 0.0.</p>
+      <p class="caption">Skill gap view for rank-1 job <em>Sr. Software Developer</em>:</p>
       
-
       <div class="skill-gap-grid">
-
         <div class="skill-box match">
-
           <strong>Matching skills</strong>
-
-          campaigns, creative
-
+          —
         </div>
-
         <div class="skill-box gap">
-
           <strong>Skill gaps</strong>
-
-          advertising, campaign, content, digital marketing, hiring, online, seo, social
-
+          —
         </div>
-
       </div>
-
-
-
 
 
     </section>
 
-
-
     
-
     <section class="card">
-
       <p class="section-tag">Results at a glance</p>
-
       <h2>Baseline TF-IDF vs blend (reported rank)</h2>
-
       <p class="lead">Same samples as Experiments 1 and 2. Blend = 80% description + 10% title + 10% skill coverage.</p>
-
       <table>
-
         <thead>
-
           <tr>
-
             <th>Sample</th>
-
             <th class="num">Baseline best match</th>
-
             <th class="num">Blend best match</th>
-
             <th class="num">Baseline top-3</th>
-
             <th class="num">Blend top-3</th>
-
             <th class="num">Baseline MRR</th>
-
             <th class="num">Blend MRR</th>
-
           </tr>
-
         </thead>
-
-        <tbody><tr><td>Experiment 1 — Controlled sample</td><td class="num pct mid">42.9%</td><td class="num pct mid">57.1%</td><td class="num pct good">78.6%</td><td class="num pct good">71.4%</td><td class="num">0.625</td><td class="num">0.701</td></tr><tr><td>Experiment 2 — Broader sample</td><td class="num pct mid">55.6%</td><td class="num pct mid">58.3%</td><td class="num pct good">72.2%</td><td class="num pct mid">69.4%</td><td class="num">0.680</td><td class="num">0.683</td></tr></tbody>
-
+        <tbody><tr><td>Experiment 1 — Controlled sample</td><td class="num pct mid">50.0%</td><td class="num pct low">33.3%</td><td class="num pct good">83.3%</td><td class="num pct good">100.0%</td><td class="num">0.708</td><td class="num">0.639</td></tr><tr><td>Experiment 2 — Broader sample</td><td class="num pct mid">55.6%</td><td class="num pct mid">55.6%</td><td class="num pct good">88.9%</td><td class="num pct good">88.9%</td><td class="num">0.750</td><td class="num">0.726</td></tr></tbody>
       </table>
-
     </section>
 
-
-
     
-
     <section class="card">
-
       <p class="section-tag">Results</p>
-
       <h2>Experiment 1 — Controlled sample</h2>
-
-      <p class="lead">7 occupations, 2 resumes and 2 labeled jobs per occupation. 14 resumes × 14 jobs.</p>
-
+      <p class="lead">IT / software sample only — Software development, Systems administration, IT support. 2 resumes and 2 jobs in each IT role. 6 resumes × 6 jobs.</p>
       <div class="kpis">
-
-        <div class="kpi"><span class="value">57.1%</span><span class="label">Best match (blend)</span></div>
-
-        <div class="kpi"><span class="value green">71.4%</span><span class="label">Found in the first 3</span></div>
-
-        <div class="kpi"><span class="value">0.701</span><span class="label">MRR (blend)</span></div>
-
-        <div class="kpi"><span class="value ink">14</span><span class="label">Resumes</span></div>
-
-        <div class="kpi"><span class="value ink">14</span><span class="label">Jobs</span></div>
-
+        <div class="kpi"><span class="value">33.3%</span><span class="label">Best match (blend)</span></div>
+        <div class="kpi"><span class="value green">100.0%</span><span class="label">Found in the first 3</span></div>
+        <div class="kpi"><span class="value">0.639</span><span class="label">MRR (blend)</span></div>
+        <div class="kpi"><span class="value ink">6</span><span class="label">Resumes</span></div>
+        <div class="kpi"><span class="value ink">6</span><span class="label">Jobs</span></div>
       </div>
-
       <table>
-
         <thead>
-
           <tr>
-
             <th>Ranking method</th>
-
             <th class="num">Best match</th>
-
             <th class="num">Found in the first 3</th>
-
             <th class="num">MRR</th>
-
           </tr>
-
         </thead>
-
-        <tbody><tr><td>Baseline TF-IDF</td><td class="num pct mid">42.9%</td><td class="num pct good">78.6%</td><td class="num">0.625</td></tr>
-<tr><td>Text only</td><td class="num pct mid">42.9%</td><td class="num pct mid">64.3%</td><td class="num">0.601</td></tr>
-<tr><td>Skill coverage only</td><td class="num pct mid">42.9%</td><td class="num pct mid">64.3%</td><td class="num">0.589</td></tr>
-<tr class="highlight"><td>Blend</td><td class="num pct mid">57.1%</td><td class="num pct good">71.4%</td><td class="num">0.701</td></tr></tbody>
-
+        <tbody><tr><td>Baseline TF-IDF</td><td class="num pct mid">50.0%</td><td class="num pct good">83.3%</td><td class="num">0.708</td></tr>
+<tr><td>Text only</td><td class="num pct mid">50.0%</td><td class="num pct good">100.0%</td><td class="num">0.722</td></tr>
+<tr><td>Skill coverage only</td><td class="num pct low">16.7%</td><td class="num pct mid">66.7%</td><td class="num">0.428</td></tr>
+<tr class="highlight"><td>Blend</td><td class="num pct low">33.3%</td><td class="num pct good">100.0%</td><td class="num">0.639</td></tr></tbody>
       </table>
-
       <p class="caption">Highlighted row is the reported blend rank used for occupation tables and ranked evidence.</p>
-
-      <p class="interpret"><strong>Interpretation:</strong> The blend improves Best Match (57.1% vs 42.9% for baseline TF-IDF) and MRR (0.701 vs 0.625) on the controlled sample. Skill coverage alone matches baseline on Best Match (42.9%) but adds signal when combined at 10% weight.</p>
-
+      <p class="interpret"><strong>Interpretation:</strong> The blend improves Best Match (33.3% vs 50.0% for baseline TF-IDF) and MRR (0.639 vs 0.708) on the controlled sample. Skill coverage alone matches baseline on Best Match (16.7%) but adds signal when combined at 10% weight.</p>
       <h3>By occupation</h3>
-
       <table>
-
         <thead>
-
           <tr>
-
             <th>Occupation</th>
-
             <th class="num">Resumes</th>
-
             <th class="num">Best match</th>
-
             <th class="num">Found in the first 3</th>
-
           </tr>
-
         </thead>
-
-        <tbody><tr><td>HR</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>SALES</td><td class="num">2</td><td class="num pct low">0.0%</td><td class="num pct mid">50.0%</td></tr>
-<tr><td>DESIGNER</td><td class="num">2</td><td class="num pct low">0.0%</td><td class="num pct mid">50.0%</td></tr>
-<tr><td>FINANCE</td><td class="num">2</td><td class="num pct mid">50.0%</td><td class="num pct mid">50.0%</td></tr>
-<tr><td>BANKING</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>DIGITAL-MEDIA</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>ENGINEERING</td><td class="num">2</td><td class="num pct mid">50.0%</td><td class="num pct mid">50.0%</td></tr></tbody>
-
+        <tbody><tr><td>Software development</td><td class="num">2</td><td class="num pct mid">50.0%</td><td class="num pct good">100.0%</td></tr>
+<tr><td>Systems administration</td><td class="num">2</td><td class="num pct low">0.0%</td><td class="num pct good">100.0%</td></tr>
+<tr><td>IT support</td><td class="num">2</td><td class="num pct mid">50.0%</td><td class="num pct good">100.0%</td></tr></tbody>
       </table>
-
     </section>
 
-
-
     <section class="card">
-
       <p class="section-tag">Results</p>
-
       <h2>Experiment 2 — Broader sample</h2>
-
-      <p class="lead">12 occupations, 3 resumes and 5 labeled jobs per occupation. 36 resumes × 60 jobs.</p>
-
+      <p class="lead">IT / software sample only — Software development, Systems administration, IT support. 3 resumes and 5 jobs in each IT role. 9 resumes × 15 jobs.</p>
       <div class="kpis">
-
-        <div class="kpi"><span class="value">58.3%</span><span class="label">Best match (blend)</span></div>
-
-        <div class="kpi"><span class="value ">69.4%</span><span class="label">Found in the first 3</span></div>
-
-        <div class="kpi"><span class="value">0.683</span><span class="label">MRR (blend)</span></div>
-
-        <div class="kpi"><span class="value ink">36</span><span class="label">Resumes</span></div>
-
-        <div class="kpi"><span class="value ink">60</span><span class="label">Jobs</span></div>
-
+        <div class="kpi"><span class="value">55.6%</span><span class="label">Best match (blend)</span></div>
+        <div class="kpi"><span class="value green">88.9%</span><span class="label">Found in the first 3</span></div>
+        <div class="kpi"><span class="value">0.726</span><span class="label">MRR (blend)</span></div>
+        <div class="kpi"><span class="value ink">9</span><span class="label">Resumes</span></div>
+        <div class="kpi"><span class="value ink">15</span><span class="label">Jobs</span></div>
       </div>
-
       <table>
-
         <thead>
-
           <tr>
-
             <th>Ranking method</th>
-
             <th class="num">Best match</th>
-
             <th class="num">Found in the first 3</th>
-
             <th class="num">MRR</th>
-
           </tr>
-
         </thead>
-
-        <tbody><tr><td>Baseline TF-IDF</td><td class="num pct mid">55.6%</td><td class="num pct good">72.2%</td><td class="num">0.680</td></tr>
-<tr><td>Text only</td><td class="num pct mid">58.3%</td><td class="num pct good">75.0%</td><td class="num">0.700</td></tr>
-<tr><td>Skill coverage only</td><td class="num pct low">19.4%</td><td class="num pct mid">63.9%</td><td class="num">0.459</td></tr>
-<tr class="highlight"><td>Blend</td><td class="num pct mid">58.3%</td><td class="num pct mid">69.4%</td><td class="num">0.683</td></tr></tbody>
-
+        <tbody><tr><td>Baseline TF-IDF</td><td class="num pct mid">55.6%</td><td class="num pct good">88.9%</td><td class="num">0.750</td></tr>
+<tr><td>Text only</td><td class="num pct mid">55.6%</td><td class="num pct good">88.9%</td><td class="num">0.750</td></tr>
+<tr><td>Skill coverage only</td><td class="num pct mid">44.4%</td><td class="num pct good">77.8%</td><td class="num">0.576</td></tr>
+<tr class="highlight"><td>Blend</td><td class="num pct mid">55.6%</td><td class="num pct good">88.9%</td><td class="num">0.726</td></tr></tbody>
       </table>
-
       <p class="caption">Highlighted row is the reported blend rank used for occupation tables and ranked evidence.</p>
-
-      <p class="interpret"><strong>Interpretation:</strong> On the broader pool, the blend reaches 58.3% Best Match (baseline TF-IDF 55.6%). Skill coverage alone is weak (19.4% Best Match) but still helps the combined ranker versus text-only ablations in some cases.</p>
-
+      <p class="interpret"><strong>Interpretation:</strong> On the broader pool, the blend reaches 55.6% Best Match (baseline TF-IDF 55.6%). Skill coverage alone is weak (44.4% Best Match) but still helps the combined ranker versus text-only ablations in some cases.</p>
       <h3>By occupation</h3>
-
       <table>
-
         <thead>
-
           <tr>
-
             <th>Occupation</th>
-
             <th class="num">Resumes</th>
-
             <th class="num">Best match</th>
-
             <th class="num">Found in the first 3</th>
-
           </tr>
-
         </thead>
-
-        <tbody><tr><td>INFORMATION-TECHNOLOGY</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct low">0.0%</td></tr>
-<tr><td>TEACHER</td><td class="num">3</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>ACCOUNTANT</td><td class="num">3</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>HEALTHCARE</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct low">33.3%</td></tr>
-<tr><td>CHEF</td><td class="num">3</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>HR</td><td class="num">3</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>SALES</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct low">0.0%</td></tr>
-<tr><td>DESIGNER</td><td class="num">3</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>FINANCE</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct low">33.3%</td></tr>
-<tr><td>BANKING</td><td class="num">3</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>DIGITAL-MEDIA</td><td class="num">3</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>ENGINEERING</td><td class="num">3</td><td class="num pct mid">66.7%</td><td class="num pct mid">66.7%</td></tr></tbody>
-
+        <tbody><tr><td>Software development</td><td class="num">3</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td></tr>
+<tr><td>Systems administration</td><td class="num">3</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td></tr>
+<tr><td>IT support</td><td class="num">3</td><td class="num pct low">33.3%</td><td class="num pct mid">66.7%</td></tr></tbody>
       </table>
-
     </section>
 
-
-
     
-
     <section class="card">
-
       <p class="section-tag">Explainability</p>
-
       <h2>Skill gap examples</h2>
-
       <p class="lead">Concrete Has/Lacking lists for rank-1 job pairs—supports the Review&nbsp;1 explainability objective.</p>
-
       
-
       <div class="skill-example">
-
-        <h4>Resume 47410104 (FINANCE) → rank-1: Senior Financial Analyst</h4>
-
-        <p class="caption">Correct occupation at rank 1 — skills align with the finance posting.</p>
-
-        <p class="parts">Score 10.33 (Body 11.24, Title 13.42, Skill coverage 0.0).</p>
-
+        <h4>Resume 12763627 (Software development) → rank-1: Sr. Software Developer</h4>
+        <p class="caption">Correct IT role at rank 1 — listed skills overlap the job.</p>
+        <p class="parts">Score 6.65 (Body 7.74, Title 4.61, Skill coverage 0.0).</p>
         
-
       <div class="skill-gap-grid">
-
         <div class="skill-box match">
-
           <strong>Matching skills</strong>
-
           —
-
         </div>
-
         <div class="skill-box gap">
-
           <strong>Skill gaps</strong>
-
-          budgets
-
+          —
         </div>
-
       </div>
 
-
-
       </div>
-
       <div class="skill-example">
-
-        <h4>Resume 24655918 (DESIGNER) → rank-1: Digital Marketing Manager</h4>
-
-        <p class="caption">Wrong occupation at rank 1 — text similarity outranked the designer role; skill gaps highlight missing marketing terms.</p>
-
-        <p class="parts">Score 7.12 (Body 6.82, Title 2.4, Skill coverage 14.29).</p>
-
+        <h4>Resume 18752129 (Software development) → rank-1: IT Support Administrator</h4>
+        <p class="caption">Different IT role at rank 1 — skill gaps show terms the job asks for that this resume does not list.</p>
+        <p class="parts">Score 3.37 (Body 4.12, Title 0.76, Skill coverage 0.0).</p>
         
-
       <div class="skill-gap-grid">
-
         <div class="skill-box match">
-
           <strong>Matching skills</strong>
-
-          campaigns, creative
-
+          —
         </div>
-
         <div class="skill-box gap">
-
           <strong>Skill gaps</strong>
-
-          advertising, campaign, content, digital marketing, hiring, online, seo, social
-
+          backups, install, troubleshoot
         </div>
-
       </div>
 
-
-
       </div>
-
     </section>
 
-
-
     
-
     <section class="card">
-
       <p class="section-tag">Appendix</p>
-
       <h2>Ranked evidence (controlled sample)</h2>
-
-      <p class="lead">Full top-3 lists for all 14 resumes (blend rank).</p>
-
+      <p class="lead">Full top-3 lists for all 6 resumes (blend rank).</p>
       
-
       <article class="evidence">
-
         <div class="evidence-head">
-
-          <span class="badge">Resume 16877897</span>
-
-          <span>Profile: HR</span>
-
+          <span class="badge">Resume 12763627</span>
+          <span>Profile: Software development</span>
           <span>Best match: <span class="yes">Yes</span></span>
-
           <span>Found in first 3: <span class="yes">Yes</span></span>
-
         </div>
-
         <table>
-
           <thead>
-
             <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
           </thead>
-
-          <tbody><tr><td>1</td><td>HR Generalist</td><td>HR</td><td class="num">30.32</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Recruiter (IT Focus) </td><td>HR</td><td class="num">11.6</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td class="num">9.32</td><td><span class="pill different">Different</span></td></tr></tbody>
-
+          <tbody><tr><td>1</td><td>Sr. Software Developer</td><td>Software development</td><td class="num">6.65</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>DevOps Engineer</td><td>Software development</td><td class="num">5.94</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>IT Support Administrator</td><td>IT support</td><td class="num">4.22</td><td><span class="pill different">Different</span></td></tr></tbody>
         </table>
-
-        <p class="parts">Rank 1 — Body: 29.11; Title: 25.82; Skill: 44.44.</p>
-
+        <p class="parts">Rank 1 — Body: 7.74; Title: 4.61; Skill: 0.0.</p>
         
-
       <div class="skill-gap-grid">
-
         <div class="skill-box match">
-
           <strong>Matching skills</strong>
-
-          benefits, leave, personnel, recruitment
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          compensation, employee relations, hris, human resources, questions
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 29149998</span>
-
-          <span>Profile: HR</span>
-
-          <span>Best match: <span class="yes">Yes</span></span>
-
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>HR Generalist</td><td>HR</td><td class="num">24.62</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td class="num">12.72</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>Branch Manager</td><td>BANKING</td><td class="num">12.3</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 21.96; Title: 3.87; Skill: 66.67.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          benefits, compensation, employee relations, human resources, personnel, recruitment
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          hris, leave, questions
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 28198029</span>
-
-          <span>Profile: SALES</span>
-
-          <span>Best match: <span class="no">No</span></span>
-
-          <span>Found in first 3: <span class="no">No</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td class="num">8.59</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>Branch Manager</td><td>BANKING</td><td class="num">7.67</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>Recruiter (IT Focus) </td><td>HR</td><td class="num">5.47</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 9.83; Title: 7.26; Skill: 0.0.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
           —
-
         </div>
-
         <div class="skill-box gap">
-
           <strong>Skill gaps</strong>
-
-          art, benefits, calls, classroom, learning, loan, loans, manner
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 30083943</span>
-
-          <span>Profile: SALES</span>
-
-          <span>Best match: <span class="no">No</span></span>
-
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>HR Generalist</td><td>HR</td><td class="num">5.59</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>Business Development Coordinator</td><td>SALES</td><td class="num">5.37</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Recruiter (IT Focus) </td><td>HR</td><td class="num">4.81</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 5.59; Title: 0.0; Skill: 11.11.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          leave
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          benefits, compensation, employee relations, hris, human resources, personnel, questions, recruitment
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 24655918</span>
-
-          <span>Profile: DESIGNER</span>
-
-          <span>Best match: <span class="no">No</span></span>
-
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Digital Marketing Manager</td><td>DIGITAL-MEDIA</td><td class="num">7.12</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>UX Designer</td><td>DESIGNER</td><td class="num">5.63</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Branch Manager</td><td>BANKING</td><td class="num">4.92</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 6.82; Title: 2.4; Skill: 14.29.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          campaigns, creative
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          advertising, campaign, content, digital marketing, hiring, online, seo, social
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 35990852</span>
-
-          <span>Profile: DESIGNER</span>
-
-          <span>Best match: <span class="no">No</span></span>
-
-          <span>Found in first 3: <span class="no">No</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Business Development Coordinator</td><td>SALES</td><td class="num">12.75</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td class="num">11.74</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>Branch Manager</td><td>BANKING</td><td class="num">10.52</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 6.91; Title: 5.57; Skill: 66.67.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          application, programming
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          children
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 12858898</span>
-
-          <span>Profile: FINANCE</span>
-
-          <span>Best match: <span class="no">No</span></span>
-
-          <span>Found in first 3: <span class="no">No</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Branch Manager</td><td>BANKING</td><td class="num">12.93</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td class="num">10.81</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>HR Generalist</td><td>HR</td><td class="num">10.76</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 11.14; Title: 3.77; Skill: 36.36.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          benefits, human resources, insurance, loans
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          applications, branch, credit, employment, leave, loan, solutions
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 47410104</span>
-
-          <span>Profile: FINANCE</span>
-
-          <span>Best match: <span class="yes">Yes</span></span>
-
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Senior Financial Analyst</td><td>FINANCE</td><td class="num">10.33</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Financial Controller</td><td>FINANCE</td><td class="num">8.54</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>HR Generalist</td><td>HR</td><td class="num">6.83</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 11.24; Title: 13.42; Skill: 0.0.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
           —
-
         </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          budgets
-
-        </div>
-
       </div>
 
-
-
       </article>
-
       <article class="evidence">
-
         <div class="evidence-head">
-
-          <span class="badge">Resume 26673507</span>
-
-          <span>Profile: BANKING</span>
-
-          <span>Best match: <span class="yes">Yes</span></span>
-
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Branch Manager</td><td>BANKING</td><td class="num">17.61</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Business Development Coordinator</td><td>SALES</td><td class="num">14.48</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>Business Development Internship - 6 months</td><td>SALES</td><td class="num">11.42</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 16.48; Title: 7.86; Skill: 36.36.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          branch, credit, loan, solutions
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          applications, benefits, employment, human resources, insurance, leave, loans
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 34953092</span>
-
-          <span>Profile: BANKING</span>
-
-          <span>Best match: <span class="yes">Yes</span></span>
-
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td class="num">10.11</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Business Development Coordinator</td><td>SALES</td><td class="num">9.49</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>Senior Financial Analyst</td><td>FINANCE</td><td class="num">8.94</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 8.75; Title: 3.82; Skill: 27.27.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          learning, loan, mortgage
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          art, benefits, calls, classroom, loans, manner, positive, practice
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 16276121</span>
-
-          <span>Profile: DIGITAL-MEDIA</span>
-
-          <span>Best match: <span class="yes">Yes</span></span>
-
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Digital Marketing Manager</td><td>DIGITAL-MEDIA</td><td class="num">35.69</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Marketing &amp; Social Media Coordinator (15hrs/week)</td><td>DIGITAL-MEDIA</td><td class="num">18.96</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Financial Controller</td><td>FINANCE</td><td class="num">17.56</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 34.03; Title: 27.55; Skill: 57.14.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          advertising, campaign, campaigns, creative, digital marketing, online, social, social media
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          content, hiring, seo, strategy, website, windows
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 91318828</span>
-
-          <span>Profile: DIGITAL-MEDIA</span>
-
-          <span>Best match: <span class="yes">Yes</span></span>
-
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Digital Marketing Manager</td><td>DIGITAL-MEDIA</td><td class="num">18.48</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Marketing &amp; Social Media Coordinator (15hrs/week)</td><td>DIGITAL-MEDIA</td><td class="num">11.63</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Entry Level - Loan Officer</td><td>BANKING</td><td class="num">7.95</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 15.68; Title: 9.29; Skill: 50.0.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          advertising, campaign, campaigns, content, creative, social, social media
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          digital marketing, hiring, online, seo, strategy, website, windows
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 31677347</span>
-
-          <span>Profile: ENGINEERING</span>
-
+          <span class="badge">Resume 18752129</span>
+          <span>Profile: Software development</span>
           <span>Best match: <span class="no">No</span></span>
-
-          <span>Found in first 3: <span class="no">No</span></span>
-
-        </div>
-
-        <table>
-
-          <thead>
-
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
-          </thead>
-
-          <tbody><tr><td>1</td><td>Marketing &amp; Social Media Coordinator (15hrs/week)</td><td>DIGITAL-MEDIA</td><td class="num">11.97</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>Recruiter (IT Focus) </td><td>HR</td><td class="num">11.6</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>HR Generalist</td><td>HR</td><td class="num">10.12</td><td><span class="pill different">Different</span></td></tr></tbody>
-
-        </table>
-
-        <p class="parts">Rank 1 — Body: 8.94; Title: 5.3; Skill: 42.86.</p>
-
-        
-
-      <div class="skill-gap-grid">
-
-        <div class="skill-box match">
-
-          <strong>Matching skills</strong>
-
-          content, payroll, video
-
-        </div>
-
-        <div class="skill-box gap">
-
-          <strong>Skill gaps</strong>
-
-          online, social, social media, strategy
-
-        </div>
-
-      </div>
-
-
-
-      </article>
-
-      <article class="evidence">
-
-        <div class="evidence-head">
-
-          <span class="badge">Resume 17108676</span>
-
-          <span>Profile: ENGINEERING</span>
-
-          <span>Best match: <span class="yes">Yes</span></span>
-
           <span>Found in first 3: <span class="yes">Yes</span></span>
-
         </div>
-
         <table>
-
           <thead>
-
             <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-
           </thead>
-
-          <tbody><tr><td>1</td><td>Sr. Project Engineer - HVAC CAD MS Office - Richmond, VA</td><td>ENGINEERING</td><td class="num">16.32</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Electrical Project Engineer</td><td>ENGINEERING</td><td class="num">11.53</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Business Development Coordinator</td><td>SALES</td><td class="num">6.2</td><td><span class="pill different">Different</span></td></tr></tbody>
-
+          <tbody><tr><td>1</td><td>IT Support Administrator</td><td>IT support</td><td class="num">3.37</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>System Administrator</td><td>Systems administration</td><td class="num">3.12</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>Sr. Software Developer</td><td>Software development</td><td class="num">2.75</td><td><span class="pill same">Same</span></td></tr></tbody>
         </table>
-
-        <p class="parts">Rank 1 — Body: 9.54; Title: 6.88; Skill: 80.0.</p>
-
+        <p class="parts">Rank 1 — Body: 4.12; Title: 0.76; Skill: 0.0.</p>
         
-
       <div class="skill-gap-grid">
-
         <div class="skill-box match">
-
           <strong>Matching skills</strong>
-
-          cad, engineer, material, specifications
-
+          —
         </div>
-
         <div class="skill-box gap">
-
           <strong>Skill gaps</strong>
-
-          concepts
-
+          backups, install, troubleshoot
         </div>
-
       </div>
 
-
+      </article>
+      <article class="evidence">
+        <div class="evidence-head">
+          <span class="badge">Resume 19201175</span>
+          <span>Profile: Systems administration</span>
+          <span>Best match: <span class="no">No</span></span>
+          <span>Found in first 3: <span class="yes">Yes</span></span>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
+          </thead>
+          <tbody><tr><td>1</td><td>IT Support Administrator</td><td>IT support</td><td class="num">20.78</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>System Administrator</td><td>Systems administration</td><td class="num">8.73</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Senior Systems Administrator - Linux</td><td>Systems administration</td><td class="num">8.54</td><td><span class="pill same">Same</span></td></tr></tbody>
+        </table>
+        <p class="parts">Rank 1 — Body: 20.07; Title: 13.88; Skill: 33.33.</p>
+        
+      <div class="skill-gap-grid">
+        <div class="skill-box match">
+          <strong>Matching skills</strong>
+          install
+        </div>
+        <div class="skill-box gap">
+          <strong>Skill gaps</strong>
+          backups, troubleshoot
+        </div>
+      </div>
 
       </article>
+      <article class="evidence">
+        <div class="evidence-head">
+          <span class="badge">Resume 40018190</span>
+          <span>Profile: Systems administration</span>
+          <span>Best match: <span class="no">No</span></span>
+          <span>Found in first 3: <span class="yes">Yes</span></span>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
+          </thead>
+          <tbody><tr><td>1</td><td>IT Support Administrator</td><td>IT support</td><td class="num">15.63</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>Senior Systems Administrator - Linux</td><td>Systems administration</td><td class="num">7.96</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>System Administrator</td><td>Systems administration</td><td class="num">6.36</td><td><span class="pill same">Same</span></td></tr></tbody>
+        </table>
+        <p class="parts">Rank 1 — Body: 17.92; Title: 12.97; Skill: 0.0.</p>
+        
+      <div class="skill-gap-grid">
+        <div class="skill-box match">
+          <strong>Matching skills</strong>
+          —
+        </div>
+        <div class="skill-box gap">
+          <strong>Skill gaps</strong>
+          backups, install, troubleshoot
+        </div>
+      </div>
 
+      </article>
+      <article class="evidence">
+        <div class="evidence-head">
+          <span class="badge">Resume 46260230</span>
+          <span>Profile: IT support</span>
+          <span>Best match: <span class="yes">Yes</span></span>
+          <span>Found in first 3: <span class="yes">Yes</span></span>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
+          </thead>
+          <tbody><tr><td>1</td><td>IT Support Administrator</td><td>IT support</td><td class="num">29.35</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Senior Systems Administrator - Linux</td><td>Systems administration</td><td class="num">9.64</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>System Administrator</td><td>Systems administration</td><td class="num">8.27</td><td><span class="pill different">Different</span></td></tr></tbody>
+        </table>
+        <p class="parts">Rank 1 — Body: 27.7; Title: 5.24; Skill: 66.67.</p>
+        
+      <div class="skill-gap-grid">
+        <div class="skill-box match">
+          <strong>Matching skills</strong>
+          backups, troubleshoot
+        </div>
+        <div class="skill-box gap">
+          <strong>Skill gaps</strong>
+          install
+        </div>
+      </div>
+
+      </article>
+      <article class="evidence">
+        <div class="evidence-head">
+          <span class="badge">Resume 27485716</span>
+          <span>Profile: IT support</span>
+          <span>Best match: <span class="no">No</span></span>
+          <span>Found in first 3: <span class="yes">Yes</span></span>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
+          </thead>
+          <tbody><tr><td>1</td><td>DevOps Engineer</td><td>Software development</td><td class="num">18.16</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>IT Support Administrator</td><td>IT support</td><td class="num">10.84</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>Senior Systems Administrator - Linux</td><td>Systems administration</td><td class="num">7.69</td><td><span class="pill different">Different</span></td></tr></tbody>
+        </table>
+        <p class="parts">Rank 1 — Body: 10.2; Title: 0.0; Skill: 100.0.</p>
+        
+      <div class="skill-gap-grid">
+        <div class="skill-box match">
+          <strong>Matching skills</strong>
+          focus
+        </div>
+        <div class="skill-box gap">
+          <strong>Skill gaps</strong>
+          —
+        </div>
+      </div>
+
+      </article>
     </section>
-
-
 
     
-
     <section class="card bottom">
-
       <p class="section-tag" style="color:#93c5fd">Closing</p>
-
       <h2>Limitations &amp; next steps</h2>
-
       <p><strong>Limitations</strong></p>
-
       <ul class="clean">
-
         <li>Small sample size (2–3 resumes per occupation)—metrics are illustrative, not statistically robust.</li>
-
-        <li>Job occupation inferred from title keywords; some errors are label noise.</li>
-
+        <li>IT role labels come from phrases in the resume and the job title, so some errors are label noise.</li>
         <li>Purely lexical matching today—no semantic embeddings in this build.</li>
-
       </ul>
-
       <p style="margin-top:16px"><strong>Next steps</strong></p>
-
       <ul class="clean">
-
         <li>Add semantic embeddings (e.g. Sentence-BERT / MiniLM) as a second ranking signal.</li>
-
         <li>Improve skill extraction and occupation lexicons.</li>
-
         <li>Build a simple interactive dashboard for upload-and-rank demos.</li>
-
       </ul>
-
-      <p style="margin-top:18px"><strong>Bottom line:</strong> Controlled sample: blend 57.1% Best Match, MRR 0.701. Broader sample: blend 58.3% Best Match, MRR 0.683. The blend (80% description, 10% title, 10% skill coverage) delivers the reported rank and explainable skill-gap insights aligned with Review&nbsp;1.</p>
-
+      <p style="margin-top:18px"><strong>Bottom line:</strong> Controlled sample: blend 33.3% Best Match, MRR 0.639. Broader sample: blend 55.6% Best Match, MRR 0.726. The analytical core (extraction, ranking, scores, and skill gaps) is about 81% complete. Across all five promised outcomes, including a live app, the estimate is 69%. The blend (80% description, 10% title, 10% skill coverage) is the reported ranker.</p>
     </section>
-
-
 
   </div>
-
 </body>
-
 </html>
-
