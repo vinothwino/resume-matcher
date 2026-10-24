@@ -232,6 +232,34 @@ _STYLES = """
     .evidence table { margin-top: 8px; font-size: 15.5px; }
     .evidence th, .evidence td { padding: 9px 12px; }
     .parts { margin: 10px 0 0; font-size: 15.5px; line-height: 1.5; }
+    .formula {
+      margin: 8px 0 0;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    .formula span { color: #93c5fd; }
+    details.backup { margin-top: 8px; }
+    details.backup > summary {
+      cursor: pointer;
+      list-style: none;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 18px 24px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    details.backup > summary::-webkit-details-marker { display: none; }
+    details.backup > summary::before { content: "▸ "; color: var(--accent); }
+    details.backup[open] > summary::before { content: "▾ "; }
+    details.backup[open] > summary { border-radius: 16px 16px 0 0; margin-bottom: 0; }
+    details.backup .backup-body { padding-top: 16px; }
     section.card.bottom {
       background: #0f172a;
       color: #e2e8f0;
@@ -363,30 +391,95 @@ def _render_html(stages: list[StageReport]) -> str:
 </head>
 <body>
   <div class="page">
-    {_overview_header()}
-    {_progress_section()}
-    {_proposal_section()}
-    {_alignment_section()}
-    {_method_section()}
-    {_metrics_section(top_k, small)}
-    {_baseline_blend_summary(stages, top_k)}
-    {experiments}
-    {_skill_gap_examples_section(small)}
-    {evidence}
-    {_limitations_next_steps(stages)}
+    {_showcase_section(stages, top_k)}
+    <details class="backup">
+      <summary>Supporting detail, if asked</summary>
+      <div class="backup-body">
+        {_progress_section()}
+        {_proposal_section()}
+        {_alignment_section()}
+        {_method_section()}
+        {_metrics_section(top_k, None)}
+        {_baseline_blend_summary(stages, top_k)}
+        {experiments}
+        {_skill_gap_examples_section(small)}
+        {evidence}
+        {_limitations_next_steps(stages)}
+      </div>
+    </details>
   </div>
 </body>
 </html>
 """
 
 
-def _overview_header() -> str:
-    return """
+def _showcase_section(stages: list[StageReport], top_k: int) -> str:
+    medium = _stage_by_name(stages, "medium") or (stages[-1] if stages else None)
+    if medium is None:
+        return ""
+    blend = _comparison_row(medium, "Blend")
+    top1 = blend["top1_accuracy"] if blend else medium.top1_accuracy
+    topk = blend["topk_accuracy"] if blend else medium.topk_accuracy
+    mrr = blend["mrr"] if blend else medium.mrr
+    example = _showcase_example(medium)
+    body_pct = int(BODY_WEIGHT * 100)
+    title_pct = int(TITLE_WEIGHT * 100)
+    skill_pct = int(SKILL_WEIGHT * 100)
+    return f"""
     <header class="hero">
-      <p class="section-tag">MCA Second Review</p>
-      <h1>Resume–job matching: progress against the proposed outcomes</h1>
-      <p class="subtitle">IT and software resumes and jobs only — software development, systems administration, and IT support. Semantic embeddings and a live recruiter dashboard remain for the final review.</p>
+      <p class="section-tag">MCA Second Review · 2 minutes</p>
+      <h1>An IT resume is ranked against IT jobs by one blend score</h1>
+      <p class="subtitle">Software development, systems administration, and IT support. A rank is correct when the top job is the same role as the resume.</p>
     </header>
+    <section class="card">
+      <p class="section-tag">Score</p>
+      <h2>TF-IDF cosine, then a weighted blend</h2>
+      <p class="formula">blend = <span>{BODY_WEIGHT:.2f}</span> × cosine(TF-IDF resume, job description)<br>
+      + <span>{TITLE_WEIGHT:.2f}</span> × cosine(TF-IDF resume, job title)<br>
+      + <span>{SKILL_WEIGHT:.2f}</span> × skill coverage</p>
+      <p class="caption">Skill coverage = skills on both the resume and the job ÷ skills on the job. Weights are {body_pct}% description, {title_pct}% title, {skill_pct}% skills. Jobs are sorted by this blend only.</p>
+      <div class="kpis">
+        <div class="kpi"><span class="value">{top1}%</span><span class="label">Best match</span></div>
+        <div class="kpi"><span class="value">{topk}%</span><span class="label">In the first {top_k}</span></div>
+        <div class="kpi"><span class="value">{mrr:.3f}</span><span class="label">MRR</span></div>
+        <div class="kpi"><span class="value ink">{medium.resumes}</span><span class="label">Resumes</span></div>
+        <div class="kpi"><span class="value ink">{medium.jobs}</span><span class="label">Jobs</span></div>
+      </div>
+      <p class="caption">Broader IT sample: {medium.resumes} resumes × {medium.jobs} jobs, 3 resumes and 5 jobs in each role.</p>
+      {example}
+    </section>
+"""
+
+
+def _showcase_example(stage: StageReport) -> str:
+    target = next((item for item in stage.results if item.top1_correct and item.top_jobs), None)
+    if target is None:
+        target = next((item for item in stage.results if item.top_jobs), None)
+    if target is None:
+        return ""
+    rows = []
+    for index, job in enumerate(target.top_jobs[: stage.top_k], start=1):
+        pill = "same" if job.correct else "different"
+        label = "Same role" if job.correct else "Different role"
+        rows.append(
+            f"<tr><td>{index}</td><td>{escape(job.title)}</td><td>{escape(job.category)}</td>"
+            f'<td class="num">{job.score}</td>'
+            f'<td><span class="pill {pill}">{label}</span></td></tr>'
+        )
+    rank1 = target.top_jobs[0]
+    return f"""
+      <h3>One resume</h3>
+      <p class="lead">Resume {escape(target.resume_id)} · {escape(target.resume_category)}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th><th>Job title</th><th>IT role</th>
+            <th class="num">Blend</th><th>vs resume</th>
+          </tr>
+        </thead>
+        <tbody>{"".join(rows)}</tbody>
+      </table>
+      {_skill_gap_boxes(rank1.matching_skills, rank1.skill_gaps)}
 """
 
 
@@ -402,7 +495,7 @@ def _progress_section() -> str:
         ("Automated skill and qualification extraction", 75, "Done", "done",
          "Occupation terms mined from held-out resumes; matched on both resume and job text."),
         ("NLP / ML candidate–job matching", 65, "Partial", "partial",
-         "TF-IDF cosine plus a weighted blend. Semantic embeddings are not in this build."),
+         "TF-IDF cosine on the description and the title, combined with skill coverage in one weighted blend."),
         ("Match score and ranking", 95, "Done", "done",
          "Blend score (80% description, 10% title, 10% skill coverage) with top-1, top-3, and MRR."),
         ("Skill gap identification", 90, "Done", "done",
@@ -429,7 +522,7 @@ def _progress_section() -> str:
         <div class="kpi"><span class="value green">{core}%</span><span class="label">Analytical core (first four)</span></div>
         <div class="kpi"><span class="value ink">4</span><span class="label">Ranking methods compared</span></div>
         <div class="kpi"><span class="value ink">2</span><span class="label">Evaluation samples</span></div>
-        <div class="kpi"><span class="value ink">2</span><span class="label">Left: embeddings and live app</span></div>
+        <div class="kpi"><span class="value ink">1</span><span class="label">Live app still open</span></div>
       </div>
       <p class="lead">The analytical pipeline is past the second-review bar. The full product, including a live dashboard, is just under 70% because that interface is only a static report today.</p>
       <table>
@@ -459,10 +552,10 @@ def _proposal_section() -> str:
          "Cleaning, TF-IDF features, and occupation skill mining with test resumes held out."),
         ("Sample", "IT / software roles", "Aligned", "done",
          "Resumes and jobs are IT only, scored as software development, systems administration, or IT support."),
-        ("Tools", "Python, Pandas, NumPy, Scikit-learn, embeddings, React/Next.js", "Partial", "partial",
-         "Python, Pandas, and Scikit-learn are in use. Embeddings and React/Next.js are not."),
-        ("Analysis", "TF-IDF / cosine, semantic matching, method comparison, skill gaps", "Partial", "partial",
-         "TF-IDF, cosine, method comparison, and skill gaps are done. Semantic matching is not."),
+        ("Tools", "Python, Pandas, NumPy, Scikit-learn, React/Next.js", "Partial", "partial",
+         "Python, Pandas, NumPy, and Scikit-learn are in use. The live React/Next.js app is not."),
+        ("Analysis", "TF-IDF / cosine, method comparison, skill gaps", "Aligned", "done",
+         "TF-IDF cosine, the weighted blend, a four-method comparison, and skill gaps."),
     ]
     body = "\n".join(
         f"<tr><td>{component}</td><td>{proposed}</td>"
@@ -490,15 +583,15 @@ def _proposal_section() -> str:
 
 
 def _alignment_section() -> str:
-    return """
+    return f"""
     <section class="card">
       <p class="section-tag">What this build demonstrates</p>
       <h2>What is ready to show</h2>
       <ul class="clean">
         <li><strong>Skill extraction:</strong> Distinctive occupation terms are mined from resumes that are not in the scored sample, then matched on resume and job text.</li>
-        <li><strong>Ranking:</strong> Each pair gets a blend score — 80% job-description TF-IDF, 10% job-title TF-IDF, 10% skill coverage — plus three comparison methods (baseline TF-IDF, text only, skill coverage only).</li>
+        <li><strong>Ranking:</strong> blend = {BODY_WEIGHT:.2f} × cosine(TF-IDF resume, job description) + {TITLE_WEIGHT:.2f} × cosine(TF-IDF resume, job title) + {SKILL_WEIGHT:.2f} × skill coverage.</li>
         <li><strong>Skill gaps:</strong> Each ranked job lists skills the resume already has and skills the job asks for that the resume lacks.</li>
-        <li><strong>Left for the final review:</strong> A semantic embedding ranker, and an interactive page where a recruiter or candidate can paste a resume and a job.</li>
+        <li><strong>Left for the final review:</strong> An interactive page where a recruiter or candidate can paste a resume and a job.</li>
       </ul>
     </section>
 """
@@ -512,7 +605,7 @@ def _method_section() -> str:
       <ul class="clean">
         <li>Resumes from <code>snehaanbhawal/resume-dataset</code>, restricted to the information-technology category, then labeled software development, systems administration, or IT support from role phrases in the text.</li>
         <li>Human-written job postings from <code>avinashmynampati/human-vs-fake-vs-ai-generated-job-descriptions</code>, restricted to IT titles, then labeled with the same three role families.</li>
-        <li><strong>Ranking score (blend):</strong> {int(BODY_WEIGHT * 100)}% cosine TF-IDF on the job <em>description</em>, {int(TITLE_WEIGHT * 100)}% on the job <em>title</em>, and {int(SKILL_WEIGHT * 100)}% <em>skill coverage</em> (share of occupation skill terms on the job that also appear on the resume).</li>
+        <li><strong>Ranking score:</strong> blend = {BODY_WEIGHT:.2f} × cosine(TF-IDF resume, description) + {TITLE_WEIGHT:.2f} × cosine(TF-IDF resume, title) + {SKILL_WEIGHT:.2f} × (shared skills ÷ skills on the job). Only this blend is shown on each ranked job.</li>
         <li><strong>Skill terms:</strong> Mined from other resumes in the same occupation (unigrams/bigrams that are distinctive in-category). Resumes in the evaluation sample are held out so skill lists do not leak test text.</li>
         <li><strong>Evaluation proxy:</strong> A match is correct when the top job is in the same IT role family as the resume. HR, sales, finance, and other non-IT occupations are not in this sample.</li>
       </ul>
@@ -574,8 +667,7 @@ def _worked_example_html(small: StageReport | None) -> str:
         <tbody>{"".join(rows)}</tbody>
       </table>
       <p class="outcome">Best match: {"no" if not target.top1_correct else "yes"}. Found in the first {small.top_k}: {"yes" if target.topk_correct else "no"}.</p>
-      <p class="caption">Rank 1 parts — Body: {rank1.body_score}; Title: {rank1.title_score}; Skill coverage: {rank1.skill_score}.</p>
-      <p class="caption">Skill gap view for rank-1 job <em>{escape(rank1.title)}</em>:</p>
+      <p class="caption">Skill gap for rank-1 job <em>{escape(rank1.title)}</em>. Blend score {rank1.score}.</p>
       {_skill_gap_boxes(rank1.matching_skills, rank1.skill_gaps)}
 """
 
@@ -707,7 +799,7 @@ def _skill_gap_examples_section(small: StageReport | None) -> str:
       <div class="skill-example">
         <h4>Resume {escape(result.resume_id)} ({escape(result.resume_category)}) → rank-1: {escape(job.title)}</h4>
         <p class="caption">{escape(note)}</p>
-        <p class="parts">Score {job.score} (Body {job.body_score}, Title {job.title_score}, Skill coverage {job.skill_score}).</p>
+        <p class="parts">Blend score {job.score}.</p>
         {_skill_gap_boxes(job.matching_skills, job.skill_gaps)}
       </div>"""
         )
@@ -751,7 +843,7 @@ def _ranked_evidence_section(small: StageReport) -> str:
           </thead>
           <tbody>{"".join(rank_rows)}</tbody>
         </table>
-        <p class="parts">Rank 1 — Body: {top.body_score}; Title: {top.title_score}; Skill: {top.skill_score}.</p>
+        <p class="parts">Rank 1 blend: {top.score}.</p>
         {_skill_gap_boxes(top.matching_skills, top.skill_gaps)}
       </article>"""
         )
@@ -790,11 +882,9 @@ def _limitations_next_steps(stages: list[StageReport]) -> str:
       <ul class="clean">
         <li>Small sample size (2–3 resumes per occupation)—metrics are illustrative, not statistically robust.</li>
         <li>IT role labels come from phrases in the resume and the job title, so some errors are label noise.</li>
-        <li>Purely lexical matching today—no semantic embeddings in this build.</li>
       </ul>
       <p style="margin-top:16px"><strong>Next steps</strong></p>
       <ul class="clean">
-        <li>Add semantic embeddings (e.g. Sentence-BERT / MiniLM) as a second ranking signal.</li>
         <li>Improve skill extraction and occupation lexicons.</li>
         <li>Build a simple interactive dashboard for upload-and-rank demos.</li>
       </ul>
