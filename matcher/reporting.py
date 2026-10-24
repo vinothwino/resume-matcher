@@ -10,8 +10,8 @@ from matcher.evaluation import RankedJob, ResumeResult, StageReport
 PROJECT_REVIEW_HTML = "project-review.html"
 
 _EXPERIMENT_TITLES: dict[str, str] = {
-    "small": "Experiment 1 — Controlled sample",
-    "medium": "Experiment 2 — Broader sample",
+    "small": "Controlled sample",
+    "medium": "Broader sample",
 }
 
 _STYLES = """
@@ -285,7 +285,7 @@ _STYLES = """
 
 def _format_skill_list(skills: list[str]) -> str:
     if not skills:
-        return "—"
+        return "None"
     return ", ".join(escape(skill) for skill in skills)
 
 
@@ -323,24 +323,16 @@ def _experiment_lead(stage: StageReport) -> str:
 
 
 def _experiment_interpretation(stage: StageReport) -> str:
-    baseline = _comparison_row(stage, "Baseline TF-IDF")
+    baseline = _comparison_row(stage, "TF-IDF cosine")
+    semantic = _comparison_row(stage, "Semantic matching")
     blend = _comparison_row(stage, "Blend")
-    skill = _comparison_row(stage, "Skill coverage only")
-    if not baseline or not blend or not skill:
+    if not baseline or not semantic or not blend:
         return ""
-    if stage.stage == "small":
-        return (
-            f"<strong>Interpretation:</strong> The blend improves Best Match "
-            f"({blend['top1_accuracy']}% vs {baseline['top1_accuracy']}% for baseline TF-IDF) and MRR "
-            f"({blend['mrr']:.3f} vs {baseline['mrr']:.3f}) on the controlled sample. "
-            f"Skill coverage alone matches baseline on Best Match ({skill['top1_accuracy']}%) but adds signal "
-            f"when combined at {int(SKILL_WEIGHT * 100)}% weight."
-        )
     return (
-        f"<strong>Interpretation:</strong> On the broader pool, the blend reaches "
-        f"{blend['top1_accuracy']}% Best Match (baseline TF-IDF {baseline['top1_accuracy']}%). "
-        f"Skill coverage alone is weak ({skill['top1_accuracy']}% Best Match) but still helps the combined ranker "
-        f"versus text-only ablations in some cases."
+        f"<strong>Interpretation:</strong> TF-IDF cosine best match is {baseline['top1_accuracy']}%. "
+        f"Semantic matching, the embedding cosine, is {semantic['top1_accuracy']}%. "
+        f"The reported rank is the blend at {blend['top1_accuracy']}% best match "
+        f"(MRR {blend['mrr']:.3f})."
     )
 
 
@@ -371,13 +363,11 @@ def write_reports(stages: list[StageReport], directory: Path = REPORTS_DIR) -> t
 
 def _render_html(stages: list[StageReport]) -> str:
     top_k = stages[0].top_k if stages else 3
-    small = _stage_by_name(stages, "small")
     experiments = "".join(
         _experiment_section(stage)
         for stage in stages
         if stage.stage in _EXPERIMENT_TITLES
     )
-    evidence = _ranked_evidence_section(small) if small else ""
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -391,95 +381,27 @@ def _render_html(stages: list[StageReport]) -> str:
 </head>
 <body>
   <div class="page">
-    {_showcase_section(stages, top_k)}
-    <details class="backup">
-      <summary>Supporting detail, if asked</summary>
-      <div class="backup-body">
-        {_progress_section()}
-        {_proposal_section()}
-        {_alignment_section()}
-        {_method_section()}
-        {_metrics_section(top_k, None)}
-        {_baseline_blend_summary(stages, top_k)}
-        {experiments}
-        {_skill_gap_examples_section(small)}
-        {evidence}
-        {_limitations_next_steps(stages)}
-      </div>
-    </details>
+    {_overview_header()}
+    {_progress_section()}
+    {_proposal_section()}
+    {_method_section()}
+    {_baseline_blend_summary(stages, top_k)}
+    {experiments}
+    {_skill_gap_examples_section(stages)}
+    {_limitations_next_steps(stages)}
   </div>
 </body>
 </html>
 """
 
 
-def _showcase_section(stages: list[StageReport], top_k: int) -> str:
-    medium = _stage_by_name(stages, "medium") or (stages[-1] if stages else None)
-    if medium is None:
-        return ""
-    blend = _comparison_row(medium, "Blend")
-    top1 = blend["top1_accuracy"] if blend else medium.top1_accuracy
-    topk = blend["topk_accuracy"] if blend else medium.topk_accuracy
-    mrr = blend["mrr"] if blend else medium.mrr
-    example = _showcase_example(medium)
-    body_pct = int(BODY_WEIGHT * 100)
-    title_pct = int(TITLE_WEIGHT * 100)
-    skill_pct = int(SKILL_WEIGHT * 100)
-    return f"""
+def _overview_header() -> str:
+    return """
     <header class="hero">
-      <p class="section-tag">MCA Second Review · 2 minutes</p>
-      <h1>An IT resume is ranked against IT jobs by one blend score</h1>
-      <p class="subtitle">Software development, systems administration, and IT support. A rank is correct when the top job is the same role as the resume.</p>
+      <p class="section-tag">MCA Second Review</p>
+      <h1>Resume–job matching for IT and software roles</h1>
+      <p class="subtitle">Second review of the proposed study: frontend, backend, UX, and infrastructure-engineer resumes and jobs, ranked by a TF-IDF match score, compared with semantic matching, and explained with skill gaps.</p>
     </header>
-    <section class="card">
-      <p class="section-tag">Score</p>
-      <h2>TF-IDF cosine, then a weighted blend</h2>
-      <p class="formula">blend = <span>{BODY_WEIGHT:.2f}</span> × cosine(TF-IDF resume, job description)<br>
-      + <span>{TITLE_WEIGHT:.2f}</span> × cosine(TF-IDF resume, job title)<br>
-      + <span>{SKILL_WEIGHT:.2f}</span> × skill coverage</p>
-      <p class="caption">Skill coverage = skills on both the resume and the job ÷ skills on the job. Weights are {body_pct}% description, {title_pct}% title, {skill_pct}% skills. Jobs are sorted by this blend only.</p>
-      <div class="kpis">
-        <div class="kpi"><span class="value">{top1}%</span><span class="label">Best match</span></div>
-        <div class="kpi"><span class="value">{topk}%</span><span class="label">In the first {top_k}</span></div>
-        <div class="kpi"><span class="value">{mrr:.3f}</span><span class="label">MRR</span></div>
-        <div class="kpi"><span class="value ink">{medium.resumes}</span><span class="label">Resumes</span></div>
-        <div class="kpi"><span class="value ink">{medium.jobs}</span><span class="label">Jobs</span></div>
-      </div>
-      <p class="caption">Broader IT sample: {medium.resumes} resumes × {medium.jobs} jobs, 3 resumes and 5 jobs in each role.</p>
-      {example}
-    </section>
-"""
-
-
-def _showcase_example(stage: StageReport) -> str:
-    target = next((item for item in stage.results if item.top1_correct and item.top_jobs), None)
-    if target is None:
-        target = next((item for item in stage.results if item.top_jobs), None)
-    if target is None:
-        return ""
-    rows = []
-    for index, job in enumerate(target.top_jobs[: stage.top_k], start=1):
-        pill = "same" if job.correct else "different"
-        label = "Same role" if job.correct else "Different role"
-        rows.append(
-            f"<tr><td>{index}</td><td>{escape(job.title)}</td><td>{escape(job.category)}</td>"
-            f'<td class="num">{job.score}</td>'
-            f'<td><span class="pill {pill}">{label}</span></td></tr>'
-        )
-    rank1 = target.top_jobs[0]
-    return f"""
-      <h3>One resume</h3>
-      <p class="lead">Resume {escape(target.resume_id)} · {escape(target.resume_category)}</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th><th>Job title</th><th>IT role</th>
-            <th class="num">Blend</th><th>vs resume</th>
-          </tr>
-        </thead>
-        <tbody>{"".join(rows)}</tbody>
-      </table>
-      {_skill_gap_boxes(rank1.matching_skills, rank1.skill_gaps)}
 """
 
 
@@ -490,54 +412,43 @@ def _progress_bar(percent: int) -> str:
     )
 
 
-def _progress_section() -> str:
-    rows = [
-        ("Automated skill and qualification extraction", 75, "Done", "done",
-         "Occupation terms mined from held-out resumes; matched on both resume and job text."),
-        ("NLP / ML candidate–job matching", 65, "Partial", "partial",
-         "TF-IDF cosine on the description and the title, combined with skill coverage in one weighted blend."),
-        ("Match score and ranking", 95, "Done", "done",
-         "Blend score (80% description, 10% title, 10% skill coverage) with top-1, top-3, and MRR."),
-        ("Skill gap identification", 90, "Done", "done",
-         "Matching skills and missing job skills listed for each ranked pair."),
-        ("Interactive recruiter / job-seeker app", 20, "Started", "later",
-         "Static review report only. Upload-and-rank UI is the main remaining item."),
+def _outcome_rows() -> list[tuple[str, str, str, str]]:
+    return [
+        ("Automated extraction of skills and qualifications", "Completed", "done",
+         "Role-distinctive terms are taken from resumes outside the scored sample and matched on the resume and the job."),
+        ("Candidate–job matching with NLP", "Completed", "done",
+         "Each pair receives one match score from TF-IDF cosine and skill coverage, and a separate semantic score."),
+        ("Match score and ranking", "Completed", "done",
+         "Jobs are ordered by the match score. Best match, top-3, and mean reciprocal rank are reported."),
+        ("Skill-gap identification", "Completed", "done",
+         "Each ranked job lists skills present on the resume and skills required by the job that the resume does not list."),
+        ("Interactive application", "Remaining", "later",
+         "The proposed React/Next.js interface is not part of this review build."),
     ]
+
+
+def _progress_section() -> str:
     body = "\n".join(
         f"<tr><td>{name}</td>"
-        f'<td style="width:28%">{_progress_bar(percent)}</td>'
-        f'<td class="num pct {_accuracy_tone(percent)}">{percent}%</td>'
         f'<td><span class="pill {tone}">{status}</span></td>'
         f"<td>{note}</td></tr>"
-        for name, percent, status, tone, note in rows
+        for name, status, tone, note in _outcome_rows()
     )
-    overall = round(sum(item[1] for item in rows) / len(rows))
-    core = round(sum(item[1] for item in rows[:4]) / 4)
     return f"""
     <section class="card">
-      <p class="section-tag">Second review status</p>
-      <h2>How much of the promised work is done</h2>
-      <div class="kpis">
-        <div class="kpi"><span class="value">{overall}%</span><span class="label">All five outcomes</span></div>
-        <div class="kpi"><span class="value green">{core}%</span><span class="label">Analytical core (first four)</span></div>
-        <div class="kpi"><span class="value ink">4</span><span class="label">Ranking methods compared</span></div>
-        <div class="kpi"><span class="value ink">2</span><span class="label">Evaluation samples</span></div>
-        <div class="kpi"><span class="value ink">1</span><span class="label">Live app still open</span></div>
-      </div>
-      <p class="lead">The analytical pipeline is past the second-review bar. The full product, including a live dashboard, is just under 70% because that interface is only a static report today.</p>
+      <p class="section-tag">1. Progress</p>
+      <h2>Status of the proposed outcomes</h2>
+      <p class="lead">Four of the five proposed outcomes are implemented. The interactive application remains.</p>
       <table>
         <thead>
           <tr>
-            <th>Promised outcome</th>
-            <th>Progress</th>
-            <th class="num">Share</th>
+            <th>Proposed outcome</th>
             <th>Status</th>
-            <th>What exists now</th>
+            <th>In this build</th>
           </tr>
         </thead>
         <tbody>{body}</tbody>
       </table>
-      <p class="caption">Shares are an engineering estimate of implemented scope, not model accuracy. Accuracy numbers are in the results sections below.</p>
     </section>
 """
 
@@ -545,17 +456,17 @@ def _progress_section() -> str:
 def _proposal_section() -> str:
     rows = [
         ("Research type", "Exploratory + analytical", "Aligned", "done",
-         "Two samples (controlled and broader) plus a four-method comparison."),
+         "Two IT samples, with best match, top-3, and mean reciprocal rank."),
         ("Data source", "Public resume and job-description datasets", "Aligned", "done",
-         "Kaggle resume dataset and human-written job postings."),
+         "Public resume corpus and human-written job postings."),
         ("Data collection", "Dataset load, NLP preprocessing, skill extraction, features", "Aligned", "done",
-         "Cleaning, TF-IDF features, and occupation skill mining with test resumes held out."),
+         "Text cleaning, TF-IDF features, sentence embeddings, and skill terms."),
         ("Sample", "IT / software roles", "Aligned", "done",
-         "Resumes and jobs are IT only, scored as software development, systems administration, or IT support."),
-        ("Tools", "Python, Pandas, NumPy, Scikit-learn, React/Next.js", "Partial", "partial",
-         "Python, Pandas, NumPy, and Scikit-learn are in use. The live React/Next.js app is not."),
-        ("Analysis", "TF-IDF / cosine, method comparison, skill gaps", "Aligned", "done",
-         "TF-IDF cosine, the weighted blend, a four-method comparison, and skill gaps."),
+         "Frontend, backend, UX, and infrastructure engineer."),
+        ("Tools", "Python, Pandas, NumPy, Scikit-learn, NLP/embedding libraries, React/Next.js", "Partial", "partial",
+         "Python, Pandas, NumPy, Scikit-learn, and sentence-transformers. React/Next.js is not built."),
+        ("Analysis", "NLP, TF-IDF/Cosine Similarity, Semantic Matching, ML-based comparison, Skill Gap Analysis", "Aligned", "done",
+         "Each item is defined in the methodology and reported below."),
     ]
     body = "\n".join(
         f"<tr><td>{component}</td><td>{proposed}</td>"
@@ -565,7 +476,7 @@ def _proposal_section() -> str:
     )
     return f"""
     <section class="card">
-      <p class="section-tag">Proposed approach</p>
+      <p class="section-tag">2. Proposed approach</p>
       <h2>Alignment with the proposed approach</h2>
       <table>
         <thead>
@@ -585,8 +496,8 @@ def _proposal_section() -> str:
 def _alignment_section() -> str:
     return f"""
     <section class="card">
-      <p class="section-tag">What this build demonstrates</p>
-      <h2>What is ready to show</h2>
+      <p class="section-tag">3. Implementation</p>
+      <h2>Implementation summary</h2>
       <ul class="clean">
         <li><strong>Skill extraction:</strong> Distinctive occupation terms are mined from resumes that are not in the scored sample, then matched on resume and job text.</li>
         <li><strong>Ranking:</strong> blend = {BODY_WEIGHT:.2f} × cosine(TF-IDF resume, job description) + {TITLE_WEIGHT:.2f} × cosine(TF-IDF resume, job title) + {SKILL_WEIGHT:.2f} × skill coverage.</li>
@@ -600,15 +511,21 @@ def _alignment_section() -> str:
 def _method_section() -> str:
     return f"""
     <section class="card">
-      <p class="section-tag">Method</p>
-      <h2>Method</h2>
-      <ul class="clean">
-        <li>Resumes from <code>snehaanbhawal/resume-dataset</code>, restricted to the information-technology category, then labeled software development, systems administration, or IT support from role phrases in the text.</li>
-        <li>Human-written job postings from <code>avinashmynampati/human-vs-fake-vs-ai-generated-job-descriptions</code>, restricted to IT titles, then labeled with the same three role families.</li>
-        <li><strong>Ranking score:</strong> blend = {BODY_WEIGHT:.2f} × cosine(TF-IDF resume, description) + {TITLE_WEIGHT:.2f} × cosine(TF-IDF resume, title) + {SKILL_WEIGHT:.2f} × (shared skills ÷ skills on the job). Only this blend is shown on each ranked job.</li>
-        <li><strong>Skill terms:</strong> Mined from other resumes in the same occupation (unigrams/bigrams that are distinctive in-category). Resumes in the evaluation sample are held out so skill lists do not leak test text.</li>
-        <li><strong>Evaluation proxy:</strong> A match is correct when the top job is in the same IT role family as the resume. HR, sales, finance, and other non-IT occupations are not in this sample.</li>
-      </ul>
+      <p class="section-tag">3. Methodology</p>
+      <h2>Methodology</h2>
+      <h3>Data and sample</h3>
+      <p>Resumes and human-written job descriptions are taken from public datasets. Records are labeled frontend, backend, UX, or infrastructure engineer from role phrases in the resume or the job title. The controlled sample uses 2 resumes and 2 jobs in each role. The broader sample uses 3 resumes and 5 jobs in each role.</p>
+      <h3>NLP and skill extraction</h3>
+      <p>Text is lower-cased and reduced to word tokens, with English stop words removed. Skill terms are phrases that occur more often inside one IT role than outside it. Resumes that are scored are excluded from this extraction. Skill coverage is the number of skill terms found on both the resume and the job, divided by the number of skill terms on the job.</p>
+      <h3>TF-IDF match score</h3>
+      <p>The match score is TF-IDF cosine on the job description and the job title, combined with skill coverage. Jobs are ranked by this score.</p>
+      <p class="formula">score = <span>{BODY_WEIGHT:.2f}</span> × cosine(TF-IDF resume, job description)<br>
+      + <span>{TITLE_WEIGHT:.2f}</span> × cosine(TF-IDF resume, job title)<br>
+      + <span>{SKILL_WEIGHT:.2f}</span> × skill coverage</p>
+      <h3>Semantic matching</h3>
+      <p>Semantic matching is the cosine similarity between sentence embeddings of the resume and of the job title plus description. The model is all-MiniLM-L6-v2. Long documents are split into sections, embedded, and averaged, so the score is not limited to the opening lines. This score is compared with the match score. It is not added into the formula above.</p>
+      <h3>Evaluation</h3>
+      <p>A job is correct when its IT role equals the resume&rsquo;s IT role. Best match means rank 1 is correct. Top-3 means a correct role appears among the first three. Mean reciprocal rank is 1 divided by the rank of the first correct role, averaged over resumes.</p>
     </section>
 """
 
@@ -617,7 +534,7 @@ def _metrics_section(top_k: int, small: StageReport | None) -> str:
     example = _worked_example_html(small)
     return f"""
     <section class="card">
-      <p class="section-tag">Evaluation metrics</p>
+      <p class="section-tag">5. Evaluation</p>
       <h2>Evaluation metrics</h2>
       <div class="defs">
         <div class="def">
@@ -678,36 +595,32 @@ def _baseline_blend_summary(stages: list[StageReport], top_k: int) -> str:
         if stage.stage not in _EXPERIMENT_TITLES:
             continue
         label = _EXPERIMENT_TITLES[stage.stage]
-        baseline = _comparison_row(stage, "Baseline TF-IDF")
+        semantic = _comparison_row(stage, "Semantic matching")
         blend = _comparison_row(stage, "Blend")
-        if not baseline or not blend:
+        if not semantic or not blend:
             continue
         rows.append(
             f"<tr><td>{escape(label)}</td>"
-            f"<td class=\"num pct {_accuracy_tone(baseline['top1_accuracy'])}\">{baseline['top1_accuracy']}%</td>"
-            f"<td class=\"num pct {_accuracy_tone(blend['top1_accuracy'])}\">{blend['top1_accuracy']}%</td>"
-            f"<td class=\"num pct {_accuracy_tone(baseline['topk_accuracy'])}\">{baseline['topk_accuracy']}%</td>"
-            f"<td class=\"num pct {_accuracy_tone(blend['topk_accuracy'])}\">{blend['topk_accuracy']}%</td>"
-            f"<td class=\"num\">{baseline['mrr']:.3f}</td>"
-            f"<td class=\"num\">{blend['mrr']:.3f}</td></tr>"
+            f"<td class=\"num\">{blend['top1_accuracy']}%</td>"
+            f"<td class=\"num\">{semantic['top1_accuracy']}%</td>"
+            f"<td class=\"num\">{blend['mrr']:.3f}</td>"
+            f"<td class=\"num\">{semantic['mrr']:.3f}</td></tr>"
         )
     if not rows:
         return ""
     return f"""
     <section class="card">
-      <p class="section-tag">Results at a glance</p>
-      <h2>Baseline TF-IDF vs blend (reported rank)</h2>
-      <p class="lead">Same samples as Experiments 1 and 2. Blend = {int(BODY_WEIGHT * 100)}% description + {int(TITLE_WEIGHT * 100)}% title + {int(SKILL_WEIGHT * 100)}% skill coverage.</p>
+      <p class="section-tag">4. Results</p>
+      <h2>Comparison of the match score and semantic matching</h2>
+      <p class="lead">The match score is the ranking score defined above. Semantic matching is the embedding cosine on the same pairs.</p>
       <table>
         <thead>
           <tr>
             <th>Sample</th>
-            <th class="num">Baseline best match</th>
-            <th class="num">Blend best match</th>
-            <th class="num">Baseline top-{top_k}</th>
-            <th class="num">Blend top-{top_k}</th>
-            <th class="num">Baseline MRR</th>
-            <th class="num">Blend MRR</th>
+            <th class="num">Match score, best match</th>
+            <th class="num">Semantic, best match</th>
+            <th class="num">Match score, MRR</th>
+            <th class="num">Semantic, MRR</th>
           </tr>
         </thead>
         <tbody>{"".join(rows)}</tbody>
@@ -718,55 +631,24 @@ def _baseline_blend_summary(stages: list[StageReport], top_k: int) -> str:
 
 def _experiment_section(stage: StageReport) -> str:
     title = _EXPERIMENT_TITLES.get(stage.stage, stage.stage.title())
-    topk_tone = _accuracy_tone(stage.topk_accuracy)
-    interpretation = _experiment_interpretation(stage)
     category_rows = "\n".join(
         f"<tr><td>{escape(row['category'])}</td><td class=\"num\">{row['resumes']}</td>"
         f"<td class=\"num pct {_accuracy_tone(row['top1_accuracy'])}\">{row['top1_accuracy']}%</td>"
         f"<td class=\"num pct {_accuracy_tone(row['topk_accuracy'])}\">{row['topk_accuracy']}%</td></tr>"
         for row in stage.by_category
     )
-    comparison_rows = "\n".join(
-        f"<tr{' class=\"highlight\"' if row['method'] == 'Blend' else ''}>"
-        f"<td>{escape(row['method'])}</td>"
-        f"<td class=\"num pct {_accuracy_tone(row['top1_accuracy'])}\">{row['top1_accuracy']}%</td>"
-        f"<td class=\"num pct {_accuracy_tone(row['topk_accuracy'])}\">{row['topk_accuracy']}%</td>"
-        f"<td class=\"num\">{row.get('mrr', 0):.3f}</td></tr>"
-        for row in stage.comparisons
-    )
     return f"""
     <section class="card">
-      <p class="section-tag">Results</p>
+      <p class="section-tag">5. Results by role</p>
       <h2>{escape(title)}</h2>
-      <p class="lead">{escape(_experiment_lead(stage))}</p>
-      <div class="kpis">
-        <div class="kpi"><span class="value">{stage.top1_accuracy}%</span><span class="label">Best match (blend)</span></div>
-        <div class="kpi"><span class="value {'green' if topk_tone == 'good' else ''}">{stage.topk_accuracy}%</span><span class="label">Found in the first {stage.top_k}</span></div>
-        <div class="kpi"><span class="value">{stage.mrr:.3f}</span><span class="label">MRR (blend)</span></div>
-        <div class="kpi"><span class="value ink">{stage.resumes}</span><span class="label">Resumes</span></div>
-        <div class="kpi"><span class="value ink">{stage.jobs}</span><span class="label">Jobs</span></div>
-      </div>
+      <p class="lead">{escape(_experiment_lead(stage))} Figures use the match score.</p>
       <table>
         <thead>
           <tr>
-            <th>Ranking method</th>
-            <th class="num">Best match</th>
-            <th class="num">Found in the first {stage.top_k}</th>
-            <th class="num">MRR</th>
-          </tr>
-        </thead>
-        <tbody>{comparison_rows}</tbody>
-      </table>
-      <p class="caption">Highlighted row is the reported blend rank used for occupation tables and ranked evidence.</p>
-      <p class="interpret">{interpretation}</p>
-      <h3>By occupation</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Occupation</th>
+            <th>IT role</th>
             <th class="num">Resumes</th>
             <th class="num">Best match</th>
-            <th class="num">Found in the first {stage.top_k}</th>
+            <th class="num">In the first {stage.top_k}</th>
           </tr>
         </thead>
         <tbody>{category_rows}</tbody>
@@ -775,39 +657,70 @@ def _experiment_section(stage: StageReport) -> str:
 """
 
 
-def _skill_gap_examples_section(small: StageReport | None) -> str:
-    if not small:
-        return ""
-    picked: list[ResumeResult] = []
-    correct = next((item for item in small.results if item.top1_correct and item.top_jobs), None)
-    missed = next((item for item in small.results if not item.top1_correct and item.top_jobs), None)
-    picked.extend(item for item in (correct, missed) if item is not None)
-    if not picked:
-        picked = [item for item in small.results if item.top_jobs][:1]
+def _shown_skills(skills: list[str]) -> list[str]:
+    noise = {
+        "successful", "focus", "focused", "skilled", "organization",
+        "install", "installing", "installed", "installation",
+        "developer", "developers", "methodologies", "methodology",
+        "maintenance", "maintaining", "administration", "updates",
+        "interactive", "systems administrator", "system administrator",
+    }
+    return [skill for skill in skills if skill not in noise]
+
+
+def _skill_gap_examples_section(stages: list[StageReport]) -> str:
+    role_terms = {
+        "html", "css", "javascript", "react", "angular", "vue",
+        "java", "python", "node.js", "sql", "figma", "wireframes",
+        "ux design", "ui design", "user experience", "docker",
+        "kubernetes", "aws", "linux", "terraform", "cisco",
+    }
+
+    def richness(matching: list[str], gaps: list[str]) -> int:
+        terms = matching + gaps
+        return sum(3 if term in role_terms else 1 for term in terms)
+
+    correct = None
+    missed = None
+    for stage in stages:
+        for result in stage.results:
+            if not result.top_jobs:
+                continue
+            job = result.top_jobs[0]
+            matching = _shown_skills(job.matching_skills)
+            gaps = _shown_skills(job.skill_gaps)
+            score = richness(matching, gaps)
+            if score == 0:
+                continue
+            chosen = (score, result, job, matching, gaps)
+            if job.correct and (correct is None or score > correct[0]):
+                correct = chosen
+            if not job.correct and (missed is None or score > missed[0]):
+                missed = chosen
+    picked = [item[1:] for item in (correct, missed) if item is not None]
     if not picked:
         return ""
     blocks = []
-    for result in picked:
-        job = result.top_jobs[0]
+    for result, job, matching, gaps in picked:
         note = (
-            "Correct IT role at rank 1 — listed skills overlap the job."
+            "The first-ranked job is the same IT role as the resume."
             if job.correct
-            else "Different IT role at rank 1 — skill gaps show terms the job asks for that this resume does not list."
+            else "The first-ranked job is a different IT role. The gap list shows job skills absent from the resume."
         )
         blocks.append(
             f"""
       <div class="skill-example">
         <h4>Resume {escape(result.resume_id)} ({escape(result.resume_category)}) → rank-1: {escape(job.title)}</h4>
         <p class="caption">{escape(note)}</p>
-        <p class="parts">Blend score {job.score}.</p>
-        {_skill_gap_boxes(job.matching_skills, job.skill_gaps)}
+        <p class="parts">Match score {job.score}.</p>
+        {_skill_gap_boxes(matching, gaps)}
       </div>"""
         )
     return f"""
     <section class="card">
-      <p class="section-tag">Explainability</p>
-      <h2>Skill gap examples</h2>
-      <p class="lead">Concrete Has/Lacking lists for rank-1 job pairs—supports the Review&nbsp;1 explainability objective.</p>
+      <p class="section-tag">6. Skill-gap analysis</p>
+      <h2>Skill-gap analysis</h2>
+      <p class="lead">For the job ranked first by the match score, skills found on both texts are listed beside skills required by the job and absent from the resume. Pairs with no skill terms are omitted.</p>
       {"".join(blocks)}
     </section>
 """
@@ -857,6 +770,28 @@ def _ranked_evidence_section(small: StageReport) -> str:
 """
 
 
+def _semantic_comparison_note(small: StageReport | None, medium: StageReport | None) -> str:
+    notes = []
+    for label, stage in (("controlled", small), ("broader", medium)):
+        if stage is None:
+            continue
+        match = _comparison_row(stage, "Blend")
+        semantic = _comparison_row(stage, "Semantic matching")
+        if not match or not semantic:
+            continue
+        if semantic["top1_accuracy"] == match["top1_accuracy"]:
+            relation = "matched"
+        elif semantic["top1_accuracy"] < match["top1_accuracy"]:
+            relation = "was lower than"
+        else:
+            relation = "was higher than"
+        notes.append(
+            f"On the {label} sample, semantic best match {relation} the match score "
+            f"({semantic['top1_accuracy']}% versus {match['top1_accuracy']}%)."
+        )
+    return " ".join(notes)
+
+
 def _limitations_next_steps(stages: list[StageReport]) -> str:
     small = _stage_by_name(stages, "small")
     medium = _stage_by_name(stages, "medium")
@@ -865,30 +800,30 @@ def _limitations_next_steps(stages: list[StageReport]) -> str:
         blend = _comparison_row(small, "Blend")
         if blend:
             summary_parts.append(
-                f"Controlled sample: blend {blend['top1_accuracy']}% Best Match, MRR {blend['mrr']:.3f}."
+                f"On the controlled sample the match score reached {blend['top1_accuracy']}% best match (MRR {blend['mrr']:.3f})."
             )
     if medium:
         blend = _comparison_row(medium, "Blend")
         if blend:
             summary_parts.append(
-                f"Broader sample: blend {blend['top1_accuracy']}% Best Match, MRR {blend['mrr']:.3f}."
+                f"On the broader sample it reached {blend['top1_accuracy']}% best match (MRR {blend['mrr']:.3f})."
             )
     summary = " ".join(summary_parts)
+    semantic_note = _semantic_comparison_note(small, medium)
     return f"""
     <section class="card bottom">
-      <p class="section-tag" style="color:#93c5fd">Closing</p>
-      <h2>Limitations &amp; next steps</h2>
-      <p><strong>Limitations</strong></p>
+      <p class="section-tag" style="color:#93c5fd">7. Conclusion</p>
+      <h2>Conclusion</h2>
+      <p>{summary} Jobs were ranked by the match score. {semantic_note}</p>
+      <p style="margin-top:16px"><strong>Limitations</strong></p>
       <ul class="clean">
-        <li>Small sample size (2–3 resumes per occupation)—metrics are illustrative, not statistically robust.</li>
-        <li>IT role labels come from phrases in the resume and the job title, so some errors are label noise.</li>
+        <li>Each role contributes only 2 or 3 resumes, so the percentages illustrate the method rather than estimate a population rate.</li>
+        <li>Role labels are assigned from phrases in the resume and the job title.</li>
       </ul>
-      <p style="margin-top:16px"><strong>Next steps</strong></p>
+      <p style="margin-top:16px"><strong>Remaining proposed work</strong></p>
       <ul class="clean">
-        <li>Improve skill extraction and occupation lexicons.</li>
-        <li>Build a simple interactive dashboard for upload-and-rank demos.</li>
+        <li>The interactive application for recruiters and job seekers is not built.</li>
       </ul>
-      <p style="margin-top:18px"><strong>Bottom line:</strong> {summary} The analytical core (extraction, ranking, scores, and skill gaps) is about 81% complete. Across all five promised outcomes, including a live app, the estimate is 69%. The blend ({int(BODY_WEIGHT * 100)}% description, {int(TITLE_WEIGHT * 100)}% title, {int(SKILL_WEIGHT * 100)}% skill coverage) is the reported ranker.</p>
     </section>
 """
 

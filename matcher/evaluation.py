@@ -161,9 +161,8 @@ def evaluate_stage(
     job_categories = job_sample["category"].astype(str).tolist()
     comparisons = []
     for method, matrix in (
-        ("Baseline TF-IDF", parts.baseline),
-        ("Text only", parts.text_only),
-        ("Skill coverage only", parts.skill),
+        ("TF-IDF cosine", parts.baseline),
+        ("Semantic matching", parts.semantic),
         ("Blend", parts.blend),
     ):
         top1, topk = _rank_accuracy(matrix, resume_categories, job_categories, top_k)

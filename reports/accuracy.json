@@ -2,31 +2,38 @@
   "stages": [
     {
       "stage": "small",
-      "resumes": 6,
-      "jobs": 6,
+      "resumes": 8,
+      "jobs": 8,
       "categories": [
-        "Software development",
-        "Systems administration",
-        "IT support"
+        "Frontend",
+        "Backend",
+        "UX",
+        "Infrastructure engineer"
       ],
-      "top1_accuracy": 66.7,
-      "topk_accuracy": 100.0,
+      "top1_accuracy": 50.0,
+      "topk_accuracy": 87.5,
       "top_k": 3,
       "by_category": [
         {
-          "category": "Software development",
+          "category": "Frontend",
           "resumes": 2,
           "top1_accuracy": 100.0,
           "topk_accuracy": 100.0
         },
         {
-          "category": "Systems administration",
+          "category": "Backend",
+          "resumes": 2,
+          "top1_accuracy": 0.0,
+          "topk_accuracy": 50.0
+        },
+        {
+          "category": "UX",
           "resumes": 2,
           "top1_accuracy": 0.0,
           "topk_accuracy": 100.0
         },
         {
-          "category": "IT support",
+          "category": "Infrastructure engineer",
           "resumes": 2,
           "top1_accuracy": 100.0,
           "topk_accuracy": 100.0
@@ -34,807 +41,399 @@
       ],
       "results": [
         {
-          "resume_id": "12763627",
-          "resume_category": "Software development",
+          "resume_id": "21283733",
+          "resume_category": "Frontend",
           "top1_correct": true,
           "topk_correct": true,
           "top_jobs": [
             {
-              "title": "Software Engineer - Flex",
-              "category": "Software development",
-              "score": 7.82,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 9.18,
-              "title_score": 4.81,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Web Developer",
-              "category": "Software development",
-              "score": 5.0,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 4.87,
-              "title_score": 11.06,
-              "skill_score": 0.0
-            },
-            {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 4.39,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [
-                "backups",
-                "install",
-                "troubleshoot"
-              ],
-              "body_score": 5.49,
-              "title_score": 0.0,
-              "skill_score": 0.0
-            }
-          ]
-        },
-        {
-          "resume_id": "18752129",
-          "resume_category": "Software development",
-          "top1_correct": true,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "Software Engineer - Flex",
-              "category": "Software development",
-              "score": 4.65,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 5.55,
-              "title_score": 2.08,
-              "skill_score": 0.0
-            },
-            {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 3.37,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [
-                "backups",
-                "install",
-                "troubleshoot"
-              ],
-              "body_score": 4.12,
-              "title_score": 0.76,
-              "skill_score": 0.0
-            },
-            {
-              "title": "System Administrator",
-              "category": "Systems administration",
-              "score": 3.12,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 3.9,
-              "title_score": 0.0,
-              "skill_score": 0.0
-            }
-          ]
-        },
-        {
-          "resume_id": "19201175",
-          "resume_category": "Systems administration",
-          "top1_correct": false,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 21.83,
-              "correct": false,
-              "matching_skills": [
-                "install"
-              ],
-              "skill_gaps": [
-                "backups",
-                "troubleshoot"
-              ],
-              "body_score": 21.38,
-              "title_score": 13.88,
-              "skill_score": 33.33
-            },
-            {
-              "title": "Senior Systems Administrator - Linux",
-              "category": "Systems administration",
-              "score": 8.71,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [
-                "systems administrator",
-                "unix"
-              ],
-              "body_score": 9.93,
-              "title_score": 7.66,
-              "skill_score": 0.0
-            },
-            {
-              "title": "System Administrator",
-              "category": "Systems administration",
-              "score": 8.51,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 10.42,
-              "title_score": 1.79,
-              "skill_score": 0.0
-            }
-          ]
-        },
-        {
-          "resume_id": "40018190",
-          "resume_category": "Systems administration",
-          "top1_correct": false,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 16.33,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [
-                "backups",
-                "install",
-                "troubleshoot"
-              ],
-              "body_score": 18.79,
-              "title_score": 12.99,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Senior Systems Administrator - Linux",
-              "category": "Systems administration",
-              "score": 8.0,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [
-                "systems administrator",
-                "unix"
-              ],
-              "body_score": 9.12,
-              "title_score": 6.97,
-              "skill_score": 0.0
-            },
-            {
-              "title": "System Administrator",
-              "category": "Systems administration",
-              "score": 6.49,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 7.71,
-              "title_score": 3.25,
-              "skill_score": 0.0
-            }
-          ]
-        },
-        {
-          "resume_id": "46260230",
-          "resume_category": "IT support",
-          "top1_correct": true,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 30.3,
-              "correct": true,
-              "matching_skills": [
-                "backups",
-                "troubleshoot"
-              ],
-              "skill_gaps": [
-                "install"
-              ],
-              "body_score": 28.89,
-              "title_score": 5.24,
-              "skill_score": 66.67
-            },
-            {
-              "title": "Senior Systems Administrator - Linux",
-              "category": "Systems administration",
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
               "score": 9.97,
-              "correct": false,
+              "correct": true,
               "matching_skills": [],
               "skill_gaps": [
-                "systems administrator",
-                "unix"
+                "user experience"
               ],
-              "body_score": 11.53,
-              "title_score": 7.42,
+              "body_score": 11.96,
+              "title_score": 4.01,
               "skill_score": 0.0
             },
             {
-              "title": "System Administrator",
-              "category": "Systems administration",
-              "score": 8.3,
+              "title": "UI Designer ",
+              "category": "UX",
+              "score": 6.97,
               "correct": false,
               "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 10.37,
-              "title_score": 0.0,
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 8.3,
+              "title_score": 3.36,
+              "skill_score": 0.0
+            },
+            {
+              "title": "UX Designer",
+              "category": "UX",
+              "score": 4.5,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "usability"
+              ],
+              "body_score": 5.27,
+              "title_score": 2.8,
               "skill_score": 0.0
             }
           ]
         },
         {
-          "resume_id": "27485716",
-          "resume_category": "IT support",
+          "resume_id": "51018476",
+          "resume_category": "Frontend",
           "top1_correct": true,
           "topk_correct": true,
           "top_jobs": [
             {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 11.23,
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 4.13,
               "correct": true,
               "matching_skills": [],
               "skill_gaps": [
-                "backups",
-                "install",
-                "troubleshoot"
+                "user experience"
               ],
-              "body_score": 13.55,
-              "title_score": 3.87,
+              "body_score": 4.11,
+              "title_score": 8.36,
               "skill_score": 0.0
             },
             {
-              "title": "Senior Systems Administrator - Linux",
-              "category": "Systems administration",
+              "title": "UI Designer ",
+              "category": "UX",
+              "score": 2.46,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 2.6,
+              "title_score": 3.81,
+              "skill_score": 0.0
+            },
+            {
+              "title": "UX Designer",
+              "category": "UX",
+              "score": 1.93,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "usability"
+              ],
+              "body_score": 2.02,
+              "title_score": 3.17,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "11981094",
+          "resume_category": "Backend",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
               "score": 7.74,
               "correct": false,
               "matching_skills": [],
               "skill_gaps": [
-                "systems administrator",
-                "unix"
+                "user experience"
               ],
-              "body_score": 8.56,
-              "title_score": 8.87,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Software Engineer - Flex",
-              "category": "Software development",
-              "score": 5.21,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 6.44,
-              "title_score": 0.59,
-              "skill_score": 0.0
-            }
-          ]
-        }
-      ],
-      "comparisons": [
-        {
-          "method": "Baseline TF-IDF",
-          "top1_accuracy": 66.7,
-          "topk_accuracy": 100.0,
-          "mrr": 0.833
-        },
-        {
-          "method": "Text only",
-          "top1_accuracy": 66.7,
-          "topk_accuracy": 100.0,
-          "mrr": 0.833
-        },
-        {
-          "method": "Skill coverage only",
-          "top1_accuracy": 33.3,
-          "topk_accuracy": 66.7,
-          "mrr": 0.511
-        },
-        {
-          "method": "Blend",
-          "top1_accuracy": 66.7,
-          "topk_accuracy": 100.0,
-          "mrr": 0.833
-        }
-      ],
-      "mrr": 0.833
-    },
-    {
-      "stage": "medium",
-      "resumes": 9,
-      "jobs": 15,
-      "categories": [
-        "Software development",
-        "Systems administration",
-        "IT support"
-      ],
-      "top1_accuracy": 55.6,
-      "topk_accuracy": 88.9,
-      "top_k": 3,
-      "by_category": [
-        {
-          "category": "Software development",
-          "resumes": 3,
-          "top1_accuracy": 66.7,
-          "topk_accuracy": 100.0
-        },
-        {
-          "category": "Systems administration",
-          "resumes": 3,
-          "top1_accuracy": 66.7,
-          "topk_accuracy": 100.0
-        },
-        {
-          "category": "IT support",
-          "resumes": 3,
-          "top1_accuracy": 33.3,
-          "topk_accuracy": 66.7
-        }
-      ],
-      "results": [
-        {
-          "resume_id": "12763627",
-          "resume_category": "Software development",
-          "top1_correct": true,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "Web Developer",
-              "category": "Software development",
-              "score": 11.82,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [
-                "focus",
-                "successful"
-              ],
-              "body_score": 13.53,
-              "title_score": 9.96,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Software Engineer - Flex",
-              "category": "Software development",
-              "score": 7.55,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 8.9,
-              "title_score": 4.26,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 6.53,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [
-                "install",
-                "organization",
-                "successful",
-                "systems administrator"
-              ],
-              "body_score": 8.17,
-              "title_score": 0.0,
-              "skill_score": 0.0
-            }
-          ]
-        },
-        {
-          "resume_id": "18752129",
-          "resume_category": "Software development",
-          "top1_correct": false,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 4.79,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [
-                "install",
-                "organization",
-                "successful",
-                "systems administrator"
-              ],
-              "body_score": 5.99,
+              "body_score": 9.67,
               "title_score": 0.0,
               "skill_score": 0.0
             },
             {
-              "title": "IT Support Analyst",
-              "category": "IT support",
-              "score": 4.6,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 5.18,
-              "title_score": 4.58,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Software Engineer - Flex",
-              "category": "Software development",
-              "score": 4.48,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 5.4,
-              "title_score": 1.67,
-              "skill_score": 0.0
-            }
-          ]
-        },
-        {
-          "resume_id": "26746496",
-          "resume_category": "Software development",
-          "top1_correct": true,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "Web Developer",
-              "category": "Software development",
-              "score": 13.15,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [
-                "focus",
-                "successful"
-              ],
-              "body_score": 15.07,
-              "title_score": 10.98,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Software Engineer - Flex",
-              "category": "Software development",
-              "score": 9.37,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [],
-              "body_score": 11.5,
-              "title_score": 1.69,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 8.74,
+              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
+              "category": "Infrastructure engineer",
+              "score": 5.96,
               "correct": false,
               "matching_skills": [
-                "organization"
+                "updates"
               ],
               "skill_gaps": [
-                "install",
-                "successful",
-                "systems administrator"
+                "administration"
               ],
-              "body_score": 7.71,
-              "title_score": 0.69,
-              "skill_score": 25.0
-            }
-          ]
-        },
-        {
-          "resume_id": "19201175",
-          "resume_category": "Systems administration",
-          "top1_correct": false,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 20.49,
-              "correct": false,
-              "matching_skills": [
-                "install"
-              ],
-              "skill_gaps": [
-                "backups",
-                "troubleshoot"
-              ],
-              "body_score": 19.88,
-              "title_score": 12.49,
-              "skill_score": 33.33
-            },
-            {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 17.26,
-              "correct": true,
-              "matching_skills": [
-                "install"
-              ],
-              "skill_gaps": [
-                "organization",
-                "successful",
-                "systems administrator"
-              ],
-              "body_score": 16.9,
-              "title_score": 12.41,
-              "skill_score": 25.0
-            },
-            {
-              "title": "IT Support Specialist & Build Engineer",
-              "category": "IT support",
-              "score": 16.99,
-              "correct": false,
-              "matching_skills": [
-                "patches"
-              ],
-              "skill_gaps": [],
-              "body_score": 7.45,
-              "title_score": 10.29,
-              "skill_score": 100.0
-            }
-          ]
-        },
-        {
-          "resume_id": "40018190",
-          "resume_category": "Systems administration",
-          "top1_correct": true,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 16.59,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [
-                "install",
-                "organization",
-                "successful",
-                "systems administrator"
-              ],
-              "body_score": 19.33,
-              "title_score": 11.21,
-              "skill_score": 0.0
-            },
-            {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 15.32,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [
-                "backups",
-                "install",
-                "troubleshoot"
-              ],
-              "body_score": 17.68,
-              "title_score": 11.77,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Linux System Administrator",
-              "category": "Systems administration",
-              "score": 8.73,
-              "correct": true,
-              "matching_skills": [
-                "network administrator"
-              ],
-              "skill_gaps": [
-                "unix"
-              ],
-              "body_score": 4.46,
-              "title_score": 1.7,
-              "skill_score": 50.0
-            }
-          ]
-        },
-        {
-          "resume_id": "11580408",
-          "resume_category": "Systems administration",
-          "top1_correct": true,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 13.55,
-              "correct": true,
-              "matching_skills": [],
-              "skill_gaps": [
-                "install",
-                "organization",
-                "successful",
-                "systems administrator"
-              ],
-              "body_score": 15.45,
-              "title_score": 11.88,
-              "skill_score": 0.0
-            },
-            {
-              "title": "Senior Systems Administrator - Linux",
-              "category": "Systems administration",
-              "score": 12.59,
-              "correct": true,
-              "matching_skills": [
-                "unix"
-              ],
-              "skill_gaps": [
-                "systems administrator"
-              ],
-              "body_score": 8.58,
-              "title_score": 7.21,
+              "body_score": 1.2,
+              "title_score": 0.0,
               "skill_score": 50.0
             },
             {
-              "title": "System Administrator for Linux and Windows",
-              "category": "Systems administration",
-              "score": 12.2,
+              "title": "Software Engineer (Backend/Infrastructure)",
+              "category": "Backend",
+              "score": 5.95,
               "correct": true,
               "matching_skills": [],
               "skill_gaps": [
-                "systems administrator"
+                "java"
               ],
-              "body_score": 13.48,
-              "title_score": 14.18,
+              "body_score": 6.34,
+              "title_score": 8.81,
               "skill_score": 0.0
             }
           ]
         },
         {
-          "resume_id": "46260230",
-          "resume_category": "IT support",
-          "top1_correct": true,
-          "topk_correct": true,
-          "top_jobs": [
-            {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 29.66,
-              "correct": true,
-              "matching_skills": [
-                "backups",
-                "troubleshoot"
-              ],
-              "skill_gaps": [
-                "install"
-              ],
-              "body_score": 28.13,
-              "title_score": 4.84,
-              "skill_score": 66.67
-            },
-            {
-              "title": "IT Support Specialist & Build Engineer",
-              "category": "IT support",
-              "score": 25.55,
-              "correct": true,
-              "matching_skills": [
-                "patches"
-              ],
-              "skill_gaps": [],
-              "body_score": 18.64,
-              "title_score": 6.41,
-              "skill_score": 100.0
-            },
-            {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 21.99,
-              "correct": false,
-              "matching_skills": [],
-              "skill_gaps": [
-                "install",
-                "organization",
-                "successful",
-                "systems administrator"
-              ],
-              "body_score": 26.36,
-              "title_score": 9.03,
-              "skill_score": 0.0
-            }
-          ]
-        },
-        {
-          "resume_id": "27485716",
-          "resume_category": "IT support",
+          "resume_id": "14743911",
+          "resume_category": "Backend",
           "top1_correct": false,
           "topk_correct": false,
           "top_jobs": [
             {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 22.38,
-              "correct": false,
-              "matching_skills": [
-                "organization"
-              ],
-              "skill_gaps": [
-                "install",
-                "successful",
-                "systems administrator"
-              ],
-              "body_score": 23.24,
-              "title_score": 12.92,
-              "skill_score": 25.0
-            },
-            {
-              "title": "Software Engineer - Strong in JavaScript",
-              "category": "Software development",
-              "score": 17.12,
-              "correct": false,
-              "matching_skills": [
-                "skilled"
-              ],
-              "skill_gaps": [],
-              "body_score": 8.58,
-              "title_score": 2.55,
-              "skill_score": 100.0
-            },
-            {
-              "title": "System Administrator for Linux and Windows",
-              "category": "Systems administration",
-              "score": 11.59,
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 6.91,
               "correct": false,
               "matching_skills": [],
               "skill_gaps": [
-                "systems administrator"
+                "user experience"
               ],
-              "body_score": 14.22,
-              "title_score": 2.12,
+              "body_score": 8.16,
+              "title_score": 3.77,
+              "skill_score": 0.0
+            },
+            {
+              "title": "UX Designer",
+              "category": "UX",
+              "score": 2.8,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "usability"
+              ],
+              "body_score": 3.37,
+              "title_score": 1.1,
+              "skill_score": 0.0
+            },
+            {
+              "title": "UI Designer ",
+              "category": "UX",
+              "score": 2.19,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 2.57,
+              "title_score": 1.32,
               "skill_score": 0.0
             }
           ]
         },
         {
-          "resume_id": "81761658",
-          "resume_category": "IT support",
+          "resume_id": "35990852",
+          "resume_category": "UX",
           "top1_correct": false,
           "topk_correct": true,
           "top_jobs": [
             {
-              "title": "Systems Administrator",
-              "category": "Systems administration",
-              "score": 28.46,
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 24.73,
               "correct": false,
               "matching_skills": [
-                "organization"
+                "user experience"
               ],
-              "skill_gaps": [
-                "install",
-                "successful",
-                "systems administrator"
-              ],
-              "body_score": 31.39,
-              "title_score": 8.48,
-              "skill_score": 25.0
+              "skill_gaps": [],
+              "body_score": 17.37,
+              "title_score": 8.35,
+              "skill_score": 100.0
             },
             {
-              "title": "IT Support Administrator",
-              "category": "IT support",
-              "score": 17.19,
-              "correct": true,
+              "title": "Java Developer ",
+              "category": "Backend",
+              "score": 9.01,
+              "correct": false,
               "matching_skills": [],
               "skill_gaps": [
-                "backups",
-                "install",
-                "troubleshoot"
+                "java"
               ],
-              "body_score": 21.08,
-              "title_score": 3.34,
+              "body_score": 10.44,
+              "title_score": 6.65,
               "skill_score": 0.0
             },
             {
-              "title": "IT Support Analyst",
-              "category": "IT support",
-              "score": 13.18,
+              "title": "UI Designer ",
+              "category": "UX",
+              "score": 7.16,
               "correct": true,
               "matching_skills": [],
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 8.53,
+              "title_score": 3.38,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "25990239",
+          "resume_category": "UX",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 17.64,
+              "correct": false,
+              "matching_skills": [
+                "user experience"
+              ],
               "skill_gaps": [],
-              "body_score": 15.92,
-              "title_score": 4.42,
+              "body_score": 9.47,
+              "title_score": 0.68,
+              "skill_score": 100.0
+            },
+            {
+              "title": "UI Designer ",
+              "category": "UX",
+              "score": 4.62,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 5.67,
+              "title_score": 0.79,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 4.4,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "administration",
+                "cisco",
+                "docker",
+                "linux",
+                "python",
+                "systems administrator"
+              ],
+              "body_score": 5.39,
+              "title_score": 0.89,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "13836471",
+          "resume_category": "Infrastructure engineer",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
+              "category": "Infrastructure engineer",
+              "score": 24.7,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "updates"
+              ],
+              "skill_gaps": [],
+              "body_score": 18.31,
+              "title_score": 0.52,
+              "skill_score": 100.0
+            },
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 17.47,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "systems administrator"
+              ],
+              "skill_gaps": [
+                "cisco",
+                "docker",
+                "linux",
+                "python"
+              ],
+              "body_score": 17.33,
+              "title_score": 2.7,
+              "skill_score": 33.33
+            },
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 3.09,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "user experience"
+              ],
+              "body_score": 3.87,
+              "title_score": 0.0,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "24913648",
+          "resume_category": "Infrastructure engineer",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 22.82,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "systems administrator"
+              ],
+              "skill_gaps": [
+                "cisco",
+                "docker",
+                "linux",
+                "python"
+              ],
+              "body_score": 22.53,
+              "title_score": 14.65,
+              "skill_score": 33.33
+            },
+            {
+              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
+              "category": "Infrastructure engineer",
+              "score": 10.47,
+              "correct": true,
+              "matching_skills": [
+                "administration"
+              ],
+              "skill_gaps": [
+                "updates"
+              ],
+              "body_score": 6.58,
+              "title_score": 2.03,
+              "skill_score": 50.0
+            },
+            {
+              "title": "Java Developer ",
+              "category": "Backend",
+              "score": 5.76,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "java"
+              ],
+              "body_score": 7.2,
+              "title_score": 0.0,
               "skill_score": 0.0
             }
           ]
@@ -842,31 +441,723 @@
       ],
       "comparisons": [
         {
-          "method": "Baseline TF-IDF",
-          "top1_accuracy": 55.6,
-          "topk_accuracy": 100.0,
-          "mrr": 0.741
+          "method": "TF-IDF cosine",
+          "top1_accuracy": 50.0,
+          "topk_accuracy": 87.5,
+          "mrr": 0.692
         },
         {
-          "method": "Text only",
-          "top1_accuracy": 55.6,
-          "topk_accuracy": 100.0,
-          "mrr": 0.741
-        },
-        {
-          "method": "Skill coverage only",
-          "top1_accuracy": 33.3,
-          "topk_accuracy": 55.6,
-          "mrr": 0.484
+          "method": "Semantic matching",
+          "top1_accuracy": 37.5,
+          "topk_accuracy": 75.0,
+          "mrr": 0.556
         },
         {
           "method": "Blend",
-          "top1_accuracy": 55.6,
-          "topk_accuracy": 88.9,
-          "mrr": 0.731
+          "top1_accuracy": 50.0,
+          "topk_accuracy": 87.5,
+          "mrr": 0.671
         }
       ],
-      "mrr": 0.731
+      "mrr": 0.671
+    },
+    {
+      "stage": "medium",
+      "resumes": 12,
+      "jobs": 20,
+      "categories": [
+        "Frontend",
+        "Backend",
+        "UX",
+        "Infrastructure engineer"
+      ],
+      "top1_accuracy": 25.0,
+      "topk_accuracy": 75.0,
+      "top_k": 3,
+      "by_category": [
+        {
+          "category": "Frontend",
+          "resumes": 3,
+          "top1_accuracy": 0.0,
+          "topk_accuracy": 66.7
+        },
+        {
+          "category": "Backend",
+          "resumes": 3,
+          "top1_accuracy": 0.0,
+          "topk_accuracy": 33.3
+        },
+        {
+          "category": "UX",
+          "resumes": 3,
+          "top1_accuracy": 0.0,
+          "topk_accuracy": 100.0
+        },
+        {
+          "category": "Infrastructure engineer",
+          "resumes": 3,
+          "top1_accuracy": 100.0,
+          "topk_accuracy": 100.0
+        }
+      ],
+      "results": [
+        {
+          "resume_id": "21283733",
+          "resume_category": "Frontend",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "UI/UX Designer",
+              "category": "UX",
+              "score": 13.7,
+              "correct": false,
+              "matching_skills": [
+                "html",
+                "resources",
+                "variety"
+              ],
+              "skill_gaps": [
+                "vision",
+                "wireframes"
+              ],
+              "body_score": 9.27,
+              "title_score": 2.88,
+              "skill_score": 60.0
+            },
+            {
+              "title": "Lead UX Designer",
+              "category": "UX",
+              "score": 11.57,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "interactive",
+                "wireframes"
+              ],
+              "body_score": 13.95,
+              "title_score": 4.12,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 8.78,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "user experience"
+              ],
+              "body_score": 10.45,
+              "title_score": 4.22,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "51018476",
+          "resume_category": "Frontend",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Lead UX Designer",
+              "category": "UX",
+              "score": 4.42,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "interactive",
+                "wireframes"
+              ],
+              "body_score": 5.11,
+              "title_score": 3.32,
+              "skill_score": 0.0
+            },
+            {
+              "title": "UI/UX Designer",
+              "category": "UX",
+              "score": 3.97,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "html",
+                "resources",
+                "variety",
+                "vision",
+                "wireframes"
+              ],
+              "body_score": 4.56,
+              "title_score": 3.25,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 3.56,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "user experience"
+              ],
+              "body_score": 3.45,
+              "title_score": 8.07,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "16186411",
+          "resume_category": "Frontend",
+          "top1_correct": false,
+          "topk_correct": false,
+          "top_jobs": [
+            {
+              "title": "Java Developer ",
+              "category": "Backend",
+              "score": 16.27,
+              "correct": false,
+              "matching_skills": [
+                "java"
+              ],
+              "skill_gaps": [],
+              "body_score": 7.21,
+              "title_score": 5.06,
+              "skill_score": 100.0
+            },
+            {
+              "title": "Software Engineer (Backend/Infrastructure)",
+              "category": "Backend",
+              "score": 14.08,
+              "correct": false,
+              "matching_skills": [
+                "java"
+              ],
+              "skill_gaps": [],
+              "body_score": 4.81,
+              "title_score": 2.38,
+              "skill_score": 100.0
+            },
+            {
+              "title": "DevOps Engineer",
+              "category": "Infrastructure engineer",
+              "score": 13.61,
+              "correct": false,
+              "matching_skills": [
+                "java"
+              ],
+              "skill_gaps": [
+                "devops"
+              ],
+              "body_score": 10.69,
+              "title_score": 0.55,
+              "skill_score": 50.0
+            }
+          ]
+        },
+        {
+          "resume_id": "11981094",
+          "resume_category": "Backend",
+          "top1_correct": false,
+          "topk_correct": false,
+          "top_jobs": [
+            {
+              "title": "Lead UX Designer",
+              "category": "UX",
+              "score": 12.37,
+              "correct": false,
+              "matching_skills": [
+                "interactive"
+              ],
+              "skill_gaps": [
+                "wireframes"
+              ],
+              "body_score": 9.21,
+              "title_score": 0.0,
+              "skill_score": 50.0
+            },
+            {
+              "title": "DevOps Engineer",
+              "category": "Infrastructure engineer",
+              "score": 9.38,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "devops",
+                "java"
+              ],
+              "body_score": 11.41,
+              "title_score": 2.51,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Senior DevOps Engineer ",
+              "category": "Infrastructure engineer",
+              "score": 9.16,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "administration",
+                "devops",
+                "java",
+                "linux",
+                "networks",
+                "thinking"
+              ],
+              "body_score": 11.2,
+              "title_score": 1.98,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "14743911",
+          "resume_category": "Backend",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 6.28,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "user experience"
+              ],
+              "body_score": 7.4,
+              "title_score": 3.65,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Python Developer",
+              "category": "Backend",
+              "score": 4.57,
+              "correct": true,
+              "matching_skills": [],
+              "skill_gaps": [
+                "python"
+              ],
+              "body_score": 5.71,
+              "title_score": 0.0,
+              "skill_score": 0.0
+            },
+            {
+              "title": "Lead UX Designer",
+              "category": "UX",
+              "score": 4.49,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "interactive",
+                "wireframes"
+              ],
+              "body_score": 5.35,
+              "title_score": 2.13,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "15297298",
+          "resume_category": "Backend",
+          "top1_correct": false,
+          "topk_correct": false,
+          "top_jobs": [
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 10.89,
+              "correct": false,
+              "matching_skills": [
+                "administration",
+                "cisco"
+              ],
+              "skill_gaps": [
+                "docker",
+                "linux",
+                "python",
+                "systems administrator"
+              ],
+              "body_score": 8.69,
+              "title_score": 6.05,
+              "skill_score": 33.33
+            },
+            {
+              "title": "DevOps Engineer",
+              "category": "Infrastructure engineer",
+              "score": 10.62,
+              "correct": false,
+              "matching_skills": [
+                "policies"
+              ],
+              "skill_gaps": [
+                "devops"
+              ],
+              "body_score": 7.02,
+              "title_score": 0.0,
+              "skill_score": 50.0
+            },
+            {
+              "title": "DevOps Engineer",
+              "category": "Infrastructure engineer",
+              "score": 10.06,
+              "correct": false,
+              "matching_skills": [],
+              "skill_gaps": [
+                "devops",
+                "java"
+              ],
+              "body_score": 12.57,
+              "title_score": 0.0,
+              "skill_score": 0.0
+            }
+          ]
+        },
+        {
+          "resume_id": "35990852",
+          "resume_category": "UX",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 24.22,
+              "correct": false,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 16.7,
+              "title_score": 8.68,
+              "skill_score": 100.0
+            },
+            {
+              "title": "UX/UI Designer",
+              "category": "UX",
+              "score": 14.8,
+              "correct": true,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 5.67,
+              "title_score": 2.61,
+              "skill_score": 100.0
+            },
+            {
+              "title": "Front-End Engineer",
+              "category": "Frontend",
+              "score": 13.61,
+              "correct": false,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 4.43,
+              "title_score": 0.69,
+              "skill_score": 100.0
+            }
+          ]
+        },
+        {
+          "resume_id": "25990239",
+          "resume_category": "UX",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 17.0,
+              "correct": false,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 8.65,
+              "title_score": 0.8,
+              "skill_score": 100.0
+            },
+            {
+              "title": "UX/UI Designer",
+              "category": "UX",
+              "score": 13.97,
+              "correct": true,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 4.87,
+              "title_score": 0.7,
+              "skill_score": 100.0
+            },
+            {
+              "title": "Front-End Engineer",
+              "category": "Frontend",
+              "score": 12.59,
+              "correct": false,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 3.24,
+              "title_score": 0.0,
+              "skill_score": 100.0
+            }
+          ]
+        },
+        {
+          "resume_id": "20490741",
+          "resume_category": "UX",
+          "top1_correct": false,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Designer / Front-end Developer",
+              "category": "Frontend",
+              "score": 16.48,
+              "correct": false,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 8.09,
+              "title_score": 0.0,
+              "skill_score": 100.0
+            },
+            {
+              "title": "Front-End Engineer",
+              "category": "Frontend",
+              "score": 15.99,
+              "correct": false,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 7.49,
+              "title_score": 0.0,
+              "skill_score": 100.0
+            },
+            {
+              "title": "UX/UI Designer",
+              "category": "UX",
+              "score": 12.86,
+              "correct": true,
+              "matching_skills": [
+                "user experience"
+              ],
+              "skill_gaps": [],
+              "body_score": 3.57,
+              "title_score": 0.0,
+              "skill_score": 100.0
+            }
+          ]
+        },
+        {
+          "resume_id": "13836471",
+          "resume_category": "Infrastructure engineer",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
+              "category": "Infrastructure engineer",
+              "score": 23.39,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "updates"
+              ],
+              "skill_gaps": [],
+              "body_score": 16.68,
+              "title_score": 0.48,
+              "skill_score": 100.0
+            },
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 16.61,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "systems administrator"
+              ],
+              "skill_gaps": [
+                "cisco",
+                "docker",
+                "linux",
+                "python"
+              ],
+              "body_score": 16.27,
+              "title_score": 2.67,
+              "skill_score": 33.33
+            },
+            {
+              "title": "Senior DevOps Engineer ",
+              "category": "Infrastructure engineer",
+              "score": 8.19,
+              "correct": true,
+              "matching_skills": [
+                "administration"
+              ],
+              "skill_gaps": [
+                "devops",
+                "java",
+                "linux",
+                "networks",
+                "thinking"
+              ],
+              "body_score": 8.0,
+              "title_score": 1.27,
+              "skill_score": 16.67
+            }
+          ]
+        },
+        {
+          "resume_id": "24913648",
+          "resume_category": "Infrastructure engineer",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 21.34,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "systems administrator"
+              ],
+              "skill_gaps": [
+                "cisco",
+                "docker",
+                "linux",
+                "python"
+              ],
+              "body_score": 20.65,
+              "title_score": 14.79,
+              "skill_score": 33.33
+            },
+            {
+              "title": "Senior DevOps Engineer ",
+              "category": "Infrastructure engineer",
+              "score": 13.73,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "networks"
+              ],
+              "skill_gaps": [
+                "devops",
+                "java",
+                "linux",
+                "thinking"
+              ],
+              "body_score": 13.0,
+              "title_score": 0.0,
+              "skill_score": 33.33
+            },
+            {
+              "title": "DevOps Engineer",
+              "category": "Infrastructure engineer",
+              "score": 13.31,
+              "correct": true,
+              "matching_skills": [
+                "policies"
+              ],
+              "skill_gaps": [
+                "devops"
+              ],
+              "body_score": 10.39,
+              "title_score": 0.0,
+              "skill_score": 50.0
+            }
+          ]
+        },
+        {
+          "resume_id": "90867631",
+          "resume_category": "Infrastructure engineer",
+          "top1_correct": true,
+          "topk_correct": true,
+          "top_jobs": [
+            {
+              "title": "Junior Systems Administrator",
+              "category": "Infrastructure engineer",
+              "score": 16.86,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "systems administrator"
+              ],
+              "skill_gaps": [
+                "cisco",
+                "docker",
+                "linux",
+                "python"
+              ],
+              "body_score": 14.43,
+              "title_score": 19.77,
+              "skill_score": 33.33
+            },
+            {
+              "title": "Senior DevOps Engineer ",
+              "category": "Infrastructure engineer",
+              "score": 14.23,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "networks"
+              ],
+              "skill_gaps": [
+                "devops",
+                "java",
+                "linux",
+                "thinking"
+              ],
+              "body_score": 13.43,
+              "title_score": 1.52,
+              "skill_score": 33.33
+            },
+            {
+              "title": "Sr. Lawson System Administrator (Hospital near the Dallas Area)",
+              "category": "Infrastructure engineer",
+              "score": 13.58,
+              "correct": true,
+              "matching_skills": [
+                "administration",
+                "updates"
+              ],
+              "skill_gaps": [],
+              "body_score": 3.67,
+              "title_score": 6.42,
+              "skill_score": 100.0
+            }
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "method": "TF-IDF cosine",
+          "top1_accuracy": 33.3,
+          "topk_accuracy": 66.7,
+          "mrr": 0.552
+        },
+        {
+          "method": "Semantic matching",
+          "top1_accuracy": 33.3,
+          "topk_accuracy": 66.7,
+          "mrr": 0.51
+        },
+        {
+          "method": "Blend",
+          "top1_accuracy": 25.0,
+          "topk_accuracy": 75.0,
+          "mrr": 0.508
+        }
+      ],
+      "mrr": 0.508
     }
   ]
 }

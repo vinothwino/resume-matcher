@@ -13,6 +13,7 @@ from matcher.config import (
     JOB_FILE,
     RESUME_DATASET,
     RESUME_FILE,
+    TECH_RESUME_CATEGORIES,
 )
 
 
@@ -60,15 +61,15 @@ def it_role(text: str) -> str | None:
 def restrict_to_it_roles(
     resumes: pd.DataFrame, jobs: pd.DataFrame
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Keep IT resumes and IT jobs, labeled as software, systems, or IT support."""
-    it_resumes = resumes[resumes["Category"] == "INFORMATION-TECHNOLOGY"].copy()
-    it_resumes["Category"] = it_resumes["Resume_str"].map(it_role)
-    it_resumes = it_resumes[it_resumes["Category"].notna()].reset_index(drop=True)
+    """Keep frontend, backend, UX, and infrastructure-engineer resumes and jobs."""
+    chosen = resumes[resumes["Category"].isin(TECH_RESUME_CATEGORIES)].copy()
+    chosen["Category"] = chosen["Resume_str"].map(it_role)
+    chosen = chosen[chosen["Category"].notna()].reset_index(drop=True)
 
-    it_jobs = jobs[jobs["category"] == "INFORMATION-TECHNOLOGY"].copy()
+    it_jobs = jobs.copy()
     it_jobs["category"] = it_jobs["Job Title"].map(it_role)
     it_jobs = it_jobs[it_jobs["category"].notna()].reset_index(drop=True)
-    return it_resumes, it_jobs
+    return chosen, it_jobs
 
 
 def load_resumes() -> pd.DataFrame:

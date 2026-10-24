@@ -279,89 +279,35 @@
   <div class="page">
     
     <header class="hero">
-      <p class="section-tag">MCA Second Review · 2 minutes</p>
-      <h1>An IT resume is ranked against IT jobs by one blend score</h1>
-      <p class="subtitle">Software development, systems administration, and IT support. A rank is correct when the top job is the same role as the resume.</p>
+      <p class="section-tag">MCA Second Review</p>
+      <h1>Resume–job matching for IT and software roles</h1>
+      <p class="subtitle">Second review of the proposed study: frontend, backend, UX, and infrastructure-engineer resumes and jobs, ranked by a TF-IDF match score, compared with semantic matching, and explained with skill gaps.</p>
     </header>
+
+    
     <section class="card">
-      <p class="section-tag">Score</p>
-      <h2>TF-IDF cosine, then a weighted blend</h2>
-      <p class="formula">blend = <span>0.80</span> × cosine(TF-IDF resume, job description)<br>
-      + <span>0.10</span> × cosine(TF-IDF resume, job title)<br>
-      + <span>0.10</span> × skill coverage</p>
-      <p class="caption">Skill coverage = skills on both the resume and the job ÷ skills on the job. Weights are 80% description, 10% title, 10% skills. Jobs are sorted by this blend only.</p>
-      <div class="kpis">
-        <div class="kpi"><span class="value">55.6%</span><span class="label">Best match</span></div>
-        <div class="kpi"><span class="value">88.9%</span><span class="label">In the first 3</span></div>
-        <div class="kpi"><span class="value">0.731</span><span class="label">MRR</span></div>
-        <div class="kpi"><span class="value ink">9</span><span class="label">Resumes</span></div>
-        <div class="kpi"><span class="value ink">15</span><span class="label">Jobs</span></div>
-      </div>
-      <p class="caption">Broader IT sample: 9 resumes × 15 jobs, 3 resumes and 5 jobs in each role.</p>
-      
-      <h3>One resume</h3>
-      <p class="lead">Resume 12763627 · Software development</p>
+      <p class="section-tag">1. Progress</p>
+      <h2>Status of the proposed outcomes</h2>
+      <p class="lead">Four of the five proposed outcomes are implemented. The interactive application remains.</p>
       <table>
         <thead>
           <tr>
-            <th>Rank</th><th>Job title</th><th>IT role</th>
-            <th class="num">Blend</th><th>vs resume</th>
-          </tr>
-        </thead>
-        <tbody><tr><td>1</td><td>Web Developer</td><td>Software development</td><td class="num">11.82</td><td><span class="pill same">Same role</span></td></tr><tr><td>2</td><td>Software Engineer - Flex</td><td>Software development</td><td class="num">7.55</td><td><span class="pill same">Same role</span></td></tr><tr><td>3</td><td>Systems Administrator</td><td>Systems administration</td><td class="num">6.53</td><td><span class="pill different">Different role</span></td></tr></tbody>
-      </table>
-      
-      <div class="skill-gap-grid">
-        <div class="skill-box match">
-          <strong>Matching skills</strong>
-          —
-        </div>
-        <div class="skill-box gap">
-          <strong>Skill gaps</strong>
-          focus, successful
-        </div>
-      </div>
-
-
-    </section>
-
-    <details class="backup">
-      <summary>Supporting detail, if asked</summary>
-      <div class="backup-body">
-        
-    <section class="card">
-      <p class="section-tag">Second review status</p>
-      <h2>How much of the promised work is done</h2>
-      <div class="kpis">
-        <div class="kpi"><span class="value">69%</span><span class="label">All five outcomes</span></div>
-        <div class="kpi"><span class="value green">81%</span><span class="label">Analytical core (first four)</span></div>
-        <div class="kpi"><span class="value ink">4</span><span class="label">Ranking methods compared</span></div>
-        <div class="kpi"><span class="value ink">2</span><span class="label">Evaluation samples</span></div>
-        <div class="kpi"><span class="value ink">1</span><span class="label">Live app still open</span></div>
-      </div>
-      <p class="lead">The analytical pipeline is past the second-review bar. The full product, including a live dashboard, is just under 70% because that interface is only a static report today.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Promised outcome</th>
-            <th>Progress</th>
-            <th class="num">Share</th>
+            <th>Proposed outcome</th>
             <th>Status</th>
-            <th>What exists now</th>
+            <th>In this build</th>
           </tr>
         </thead>
-        <tbody><tr><td>Automated skill and qualification extraction</td><td style="width:28%"><div class="progress good"><span style="width:75%"></span></div></td><td class="num pct good">75%</td><td><span class="pill done">Done</span></td><td>Occupation terms mined from held-out resumes; matched on both resume and job text.</td></tr>
-<tr><td>NLP / ML candidate–job matching</td><td style="width:28%"><div class="progress mid"><span style="width:65%"></span></div></td><td class="num pct mid">65%</td><td><span class="pill partial">Partial</span></td><td>TF-IDF cosine on the description and the title, combined with skill coverage in one weighted blend.</td></tr>
-<tr><td>Match score and ranking</td><td style="width:28%"><div class="progress good"><span style="width:95%"></span></div></td><td class="num pct good">95%</td><td><span class="pill done">Done</span></td><td>Blend score (80% description, 10% title, 10% skill coverage) with top-1, top-3, and MRR.</td></tr>
-<tr><td>Skill gap identification</td><td style="width:28%"><div class="progress good"><span style="width:90%"></span></div></td><td class="num pct good">90%</td><td><span class="pill done">Done</span></td><td>Matching skills and missing job skills listed for each ranked pair.</td></tr>
-<tr><td>Interactive recruiter / job-seeker app</td><td style="width:28%"><div class="progress "><span style="width:20%"></span></div></td><td class="num pct low">20%</td><td><span class="pill later">Started</span></td><td>Static review report only. Upload-and-rank UI is the main remaining item.</td></tr></tbody>
+        <tbody><tr><td>Automated extraction of skills and qualifications</td><td><span class="pill done">Completed</span></td><td>Role-distinctive terms are taken from resumes outside the scored sample and matched on the resume and the job.</td></tr>
+<tr><td>Candidate–job matching with NLP</td><td><span class="pill done">Completed</span></td><td>Each pair receives one match score from TF-IDF cosine and skill coverage, and a separate semantic score.</td></tr>
+<tr><td>Match score and ranking</td><td><span class="pill done">Completed</span></td><td>Jobs are ordered by the match score. Best match, top-3, and mean reciprocal rank are reported.</td></tr>
+<tr><td>Skill-gap identification</td><td><span class="pill done">Completed</span></td><td>Each ranked job lists skills present on the resume and skills required by the job that the resume does not list.</td></tr>
+<tr><td>Interactive application</td><td><span class="pill later">Remaining</span></td><td>The proposed React/Next.js interface is not part of this review build.</td></tr></tbody>
       </table>
-      <p class="caption">Shares are an engineering estimate of implemented scope, not model accuracy. Accuracy numbers are in the results sections below.</p>
     </section>
 
-        
+    
     <section class="card">
-      <p class="section-tag">Proposed approach</p>
+      <p class="section-tag">2. Proposed approach</p>
       <h2>Alignment with the proposed approach</h2>
       <table>
         <thead>
@@ -372,400 +318,152 @@
             <th>This build</th>
           </tr>
         </thead>
-        <tbody><tr><td>Research type</td><td>Exploratory + analytical</td><td><span class="pill done">Aligned</span></td><td>Two samples (controlled and broader) plus a four-method comparison.</td></tr>
-<tr><td>Data source</td><td>Public resume and job-description datasets</td><td><span class="pill done">Aligned</span></td><td>Kaggle resume dataset and human-written job postings.</td></tr>
-<tr><td>Data collection</td><td>Dataset load, NLP preprocessing, skill extraction, features</td><td><span class="pill done">Aligned</span></td><td>Cleaning, TF-IDF features, and occupation skill mining with test resumes held out.</td></tr>
-<tr><td>Sample</td><td>IT / software roles</td><td><span class="pill done">Aligned</span></td><td>Resumes and jobs are IT only, scored as software development, systems administration, or IT support.</td></tr>
-<tr><td>Tools</td><td>Python, Pandas, NumPy, Scikit-learn, React/Next.js</td><td><span class="pill partial">Partial</span></td><td>Python, Pandas, NumPy, and Scikit-learn are in use. The live React/Next.js app is not.</td></tr>
-<tr><td>Analysis</td><td>TF-IDF / cosine, method comparison, skill gaps</td><td><span class="pill done">Aligned</span></td><td>TF-IDF cosine, the weighted blend, a four-method comparison, and skill gaps.</td></tr></tbody>
+        <tbody><tr><td>Research type</td><td>Exploratory + analytical</td><td><span class="pill done">Aligned</span></td><td>Two IT samples, with best match, top-3, and mean reciprocal rank.</td></tr>
+<tr><td>Data source</td><td>Public resume and job-description datasets</td><td><span class="pill done">Aligned</span></td><td>Public resume corpus and human-written job postings.</td></tr>
+<tr><td>Data collection</td><td>Dataset load, NLP preprocessing, skill extraction, features</td><td><span class="pill done">Aligned</span></td><td>Text cleaning, TF-IDF features, sentence embeddings, and skill terms.</td></tr>
+<tr><td>Sample</td><td>IT / software roles</td><td><span class="pill done">Aligned</span></td><td>Frontend, backend, UX, and infrastructure engineer.</td></tr>
+<tr><td>Tools</td><td>Python, Pandas, NumPy, Scikit-learn, NLP/embedding libraries, React/Next.js</td><td><span class="pill partial">Partial</span></td><td>Python, Pandas, NumPy, Scikit-learn, and sentence-transformers. React/Next.js is not built.</td></tr>
+<tr><td>Analysis</td><td>NLP, TF-IDF/Cosine Similarity, Semantic Matching, ML-based comparison, Skill Gap Analysis</td><td><span class="pill done">Aligned</span></td><td>Each item is defined in the methodology and reported below.</td></tr></tbody>
       </table>
     </section>
 
-        
+    
     <section class="card">
-      <p class="section-tag">What this build demonstrates</p>
-      <h2>What is ready to show</h2>
-      <ul class="clean">
-        <li><strong>Skill extraction:</strong> Distinctive occupation terms are mined from resumes that are not in the scored sample, then matched on resume and job text.</li>
-        <li><strong>Ranking:</strong> blend = 0.80 × cosine(TF-IDF resume, job description) + 0.10 × cosine(TF-IDF resume, job title) + 0.10 × skill coverage.</li>
-        <li><strong>Skill gaps:</strong> Each ranked job lists skills the resume already has and skills the job asks for that the resume lacks.</li>
-        <li><strong>Left for the final review:</strong> An interactive page where a recruiter or candidate can paste a resume and a job.</li>
-      </ul>
+      <p class="section-tag">3. Methodology</p>
+      <h2>Methodology</h2>
+      <h3>Data and sample</h3>
+      <p>Resumes and human-written job descriptions are taken from public datasets. Records are labeled frontend, backend, UX, or infrastructure engineer from role phrases in the resume or the job title. The controlled sample uses 2 resumes and 2 jobs in each role. The broader sample uses 3 resumes and 5 jobs in each role.</p>
+      <h3>NLP and skill extraction</h3>
+      <p>Text is lower-cased and reduced to word tokens, with English stop words removed. Skill terms are phrases that occur more often inside one IT role than outside it. Resumes that are scored are excluded from this extraction. Skill coverage is the number of skill terms found on both the resume and the job, divided by the number of skill terms on the job.</p>
+      <h3>TF-IDF match score</h3>
+      <p>The match score is TF-IDF cosine on the job description and the job title, combined with skill coverage. Jobs are ranked by this score.</p>
+      <p class="formula">score = <span>0.80</span> × cosine(TF-IDF resume, job description)<br>
+      + <span>0.10</span> × cosine(TF-IDF resume, job title)<br>
+      + <span>0.10</span> × skill coverage</p>
+      <h3>Semantic matching</h3>
+      <p>Semantic matching is the cosine similarity between sentence embeddings of the resume and of the job title plus description. The model is all-MiniLM-L6-v2. Long documents are split into sections, embedded, and averaged, so the score is not limited to the opening lines. This score is compared with the match score. It is not added into the formula above.</p>
+      <h3>Evaluation</h3>
+      <p>A job is correct when its IT role equals the resume&rsquo;s IT role. Best match means rank 1 is correct. Top-3 means a correct role appears among the first three. Mean reciprocal rank is 1 divided by the rank of the first correct role, averaged over resumes.</p>
     </section>
 
-        
+    
     <section class="card">
-      <p class="section-tag">Method</p>
-      <h2>Method</h2>
-      <ul class="clean">
-        <li>Resumes from <code>snehaanbhawal/resume-dataset</code>, restricted to the information-technology category, then labeled software development, systems administration, or IT support from role phrases in the text.</li>
-        <li>Human-written job postings from <code>avinashmynampati/human-vs-fake-vs-ai-generated-job-descriptions</code>, restricted to IT titles, then labeled with the same three role families.</li>
-        <li><strong>Ranking score:</strong> blend = 0.80 × cosine(TF-IDF resume, description) + 0.10 × cosine(TF-IDF resume, title) + 0.10 × (shared skills ÷ skills on the job). Only this blend is shown on each ranked job.</li>
-        <li><strong>Skill terms:</strong> Mined from other resumes in the same occupation (unigrams/bigrams that are distinctive in-category). Resumes in the evaluation sample are held out so skill lists do not leak test text.</li>
-        <li><strong>Evaluation proxy:</strong> A match is correct when the top job is in the same IT role family as the resume. HR, sales, finance, and other non-IT occupations are not in this sample.</li>
-      </ul>
-    </section>
-
-        
-    <section class="card">
-      <p class="section-tag">Evaluation metrics</p>
-      <h2>Evaluation metrics</h2>
-      <div class="defs">
-        <div class="def">
-          <strong>Best match</strong>
-          <span>The rank-1 job&rsquo;s occupation equals the resume&rsquo;s occupation.</span>
-        </div>
-        <div class="def">
-          <strong>Found in the first 3</strong>
-          <span>At least one of ranks 1 through 3 has the same occupation as the resume.</span>
-        </div>
-        <div class="def">
-          <strong>Mean reciprocal rank (MRR)</strong>
-          <span>One divided by the rank of the first correct occupation, averaged over resumes.</span>
-        </div>
-      </div>
-      
-    </section>
-
-        
-    <section class="card">
-      <p class="section-tag">Results at a glance</p>
-      <h2>Baseline TF-IDF vs blend (reported rank)</h2>
-      <p class="lead">Same samples as Experiments 1 and 2. Blend = 80% description + 10% title + 10% skill coverage.</p>
+      <p class="section-tag">4. Results</p>
+      <h2>Comparison of the match score and semantic matching</h2>
+      <p class="lead">The match score is the ranking score defined above. Semantic matching is the embedding cosine on the same pairs.</p>
       <table>
         <thead>
           <tr>
             <th>Sample</th>
-            <th class="num">Baseline best match</th>
-            <th class="num">Blend best match</th>
-            <th class="num">Baseline top-3</th>
-            <th class="num">Blend top-3</th>
-            <th class="num">Baseline MRR</th>
-            <th class="num">Blend MRR</th>
+            <th class="num">Match score, best match</th>
+            <th class="num">Semantic, best match</th>
+            <th class="num">Match score, MRR</th>
+            <th class="num">Semantic, MRR</th>
           </tr>
         </thead>
-        <tbody><tr><td>Experiment 1 — Controlled sample</td><td class="num pct mid">66.7%</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td><td class="num">0.833</td><td class="num">0.833</td></tr><tr><td>Experiment 2 — Broader sample</td><td class="num pct mid">55.6%</td><td class="num pct mid">55.6%</td><td class="num pct good">100.0%</td><td class="num pct good">88.9%</td><td class="num">0.741</td><td class="num">0.731</td></tr></tbody>
+        <tbody><tr><td>Controlled sample</td><td class="num">50.0%</td><td class="num">37.5%</td><td class="num">0.671</td><td class="num">0.556</td></tr><tr><td>Broader sample</td><td class="num">25.0%</td><td class="num">33.3%</td><td class="num">0.508</td><td class="num">0.510</td></tr></tbody>
       </table>
     </section>
 
-        
+    
     <section class="card">
-      <p class="section-tag">Results</p>
-      <h2>Experiment 1 — Controlled sample</h2>
-      <p class="lead">IT / software sample only — Software development, Systems administration, IT support. 2 resumes and 2 jobs in each IT role. 6 resumes × 6 jobs.</p>
-      <div class="kpis">
-        <div class="kpi"><span class="value">66.7%</span><span class="label">Best match (blend)</span></div>
-        <div class="kpi"><span class="value green">100.0%</span><span class="label">Found in the first 3</span></div>
-        <div class="kpi"><span class="value">0.833</span><span class="label">MRR (blend)</span></div>
-        <div class="kpi"><span class="value ink">6</span><span class="label">Resumes</span></div>
-        <div class="kpi"><span class="value ink">6</span><span class="label">Jobs</span></div>
-      </div>
+      <p class="section-tag">5. Results by role</p>
+      <h2>Controlled sample</h2>
+      <p class="lead">IT / software sample only — Frontend, Backend, UX, Infrastructure engineer. 2 resumes and 2 jobs in each IT role. 8 resumes × 8 jobs. Figures use the match score.</p>
       <table>
         <thead>
           <tr>
-            <th>Ranking method</th>
-            <th class="num">Best match</th>
-            <th class="num">Found in the first 3</th>
-            <th class="num">MRR</th>
-          </tr>
-        </thead>
-        <tbody><tr><td>Baseline TF-IDF</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td><td class="num">0.833</td></tr>
-<tr><td>Text only</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td><td class="num">0.833</td></tr>
-<tr><td>Skill coverage only</td><td class="num pct low">33.3%</td><td class="num pct mid">66.7%</td><td class="num">0.511</td></tr>
-<tr class="highlight"><td>Blend</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td><td class="num">0.833</td></tr></tbody>
-      </table>
-      <p class="caption">Highlighted row is the reported blend rank used for occupation tables and ranked evidence.</p>
-      <p class="interpret"><strong>Interpretation:</strong> The blend improves Best Match (66.7% vs 66.7% for baseline TF-IDF) and MRR (0.833 vs 0.833) on the controlled sample. Skill coverage alone matches baseline on Best Match (33.3%) but adds signal when combined at 10% weight.</p>
-      <h3>By occupation</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Occupation</th>
+            <th>IT role</th>
             <th class="num">Resumes</th>
             <th class="num">Best match</th>
-            <th class="num">Found in the first 3</th>
+            <th class="num">In the first 3</th>
           </tr>
         </thead>
-        <tbody><tr><td>Software development</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>Systems administration</td><td class="num">2</td><td class="num pct low">0.0%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>IT support</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr></tbody>
+        <tbody><tr><td>Frontend</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr>
+<tr><td>Backend</td><td class="num">2</td><td class="num pct low">0.0%</td><td class="num pct mid">50.0%</td></tr>
+<tr><td>UX</td><td class="num">2</td><td class="num pct low">0.0%</td><td class="num pct good">100.0%</td></tr>
+<tr><td>Infrastructure engineer</td><td class="num">2</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr></tbody>
       </table>
     </section>
 
     <section class="card">
-      <p class="section-tag">Results</p>
-      <h2>Experiment 2 — Broader sample</h2>
-      <p class="lead">IT / software sample only — Software development, Systems administration, IT support. 3 resumes and 5 jobs in each IT role. 9 resumes × 15 jobs.</p>
-      <div class="kpis">
-        <div class="kpi"><span class="value">55.6%</span><span class="label">Best match (blend)</span></div>
-        <div class="kpi"><span class="value green">88.9%</span><span class="label">Found in the first 3</span></div>
-        <div class="kpi"><span class="value">0.731</span><span class="label">MRR (blend)</span></div>
-        <div class="kpi"><span class="value ink">9</span><span class="label">Resumes</span></div>
-        <div class="kpi"><span class="value ink">15</span><span class="label">Jobs</span></div>
-      </div>
+      <p class="section-tag">5. Results by role</p>
+      <h2>Broader sample</h2>
+      <p class="lead">IT / software sample only — Frontend, Backend, UX, Infrastructure engineer. 3 resumes and 5 jobs in each IT role. 12 resumes × 20 jobs. Figures use the match score.</p>
       <table>
         <thead>
           <tr>
-            <th>Ranking method</th>
-            <th class="num">Best match</th>
-            <th class="num">Found in the first 3</th>
-            <th class="num">MRR</th>
-          </tr>
-        </thead>
-        <tbody><tr><td>Baseline TF-IDF</td><td class="num pct mid">55.6%</td><td class="num pct good">100.0%</td><td class="num">0.741</td></tr>
-<tr><td>Text only</td><td class="num pct mid">55.6%</td><td class="num pct good">100.0%</td><td class="num">0.741</td></tr>
-<tr><td>Skill coverage only</td><td class="num pct low">33.3%</td><td class="num pct mid">55.6%</td><td class="num">0.484</td></tr>
-<tr class="highlight"><td>Blend</td><td class="num pct mid">55.6%</td><td class="num pct good">88.9%</td><td class="num">0.731</td></tr></tbody>
-      </table>
-      <p class="caption">Highlighted row is the reported blend rank used for occupation tables and ranked evidence.</p>
-      <p class="interpret"><strong>Interpretation:</strong> On the broader pool, the blend reaches 55.6% Best Match (baseline TF-IDF 55.6%). Skill coverage alone is weak (33.3% Best Match) but still helps the combined ranker versus text-only ablations in some cases.</p>
-      <h3>By occupation</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Occupation</th>
+            <th>IT role</th>
             <th class="num">Resumes</th>
             <th class="num">Best match</th>
-            <th class="num">Found in the first 3</th>
+            <th class="num">In the first 3</th>
           </tr>
         </thead>
-        <tbody><tr><td>Software development</td><td class="num">3</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>Systems administration</td><td class="num">3</td><td class="num pct mid">66.7%</td><td class="num pct good">100.0%</td></tr>
-<tr><td>IT support</td><td class="num">3</td><td class="num pct low">33.3%</td><td class="num pct mid">66.7%</td></tr></tbody>
+        <tbody><tr><td>Frontend</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct mid">66.7%</td></tr>
+<tr><td>Backend</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct low">33.3%</td></tr>
+<tr><td>UX</td><td class="num">3</td><td class="num pct low">0.0%</td><td class="num pct good">100.0%</td></tr>
+<tr><td>Infrastructure engineer</td><td class="num">3</td><td class="num pct good">100.0%</td><td class="num pct good">100.0%</td></tr></tbody>
       </table>
     </section>
 
-        
+    
     <section class="card">
-      <p class="section-tag">Explainability</p>
-      <h2>Skill gap examples</h2>
-      <p class="lead">Concrete Has/Lacking lists for rank-1 job pairs—supports the Review&nbsp;1 explainability objective.</p>
+      <p class="section-tag">6. Skill-gap analysis</p>
+      <h2>Skill-gap analysis</h2>
+      <p class="lead">For the job ranked first by the match score, skills found on both texts are listed beside skills required by the job and absent from the resume. Pairs with no skill terms are omitted.</p>
       
       <div class="skill-example">
-        <h4>Resume 12763627 (Software development) → rank-1: Software Engineer - Flex</h4>
-        <p class="caption">Correct IT role at rank 1 — listed skills overlap the job.</p>
-        <p class="parts">Blend score 7.82.</p>
+        <h4>Resume 24913648 (Infrastructure engineer) → rank-1: Junior Systems Administrator</h4>
+        <p class="caption">The first-ranked job is the same IT role as the resume.</p>
+        <p class="parts">Match score 22.82.</p>
         
       <div class="skill-gap-grid">
         <div class="skill-box match">
           <strong>Matching skills</strong>
-          —
+          None
         </div>
         <div class="skill-box gap">
           <strong>Skill gaps</strong>
-          —
+          cisco, docker, linux, python
         </div>
       </div>
 
       </div>
       <div class="skill-example">
-        <h4>Resume 19201175 (Systems administration) → rank-1: IT Support Administrator</h4>
-        <p class="caption">Different IT role at rank 1 — skill gaps show terms the job asks for that this resume does not list.</p>
-        <p class="parts">Blend score 21.83.</p>
+        <h4>Resume 15297298 (Backend) → rank-1: Junior Systems Administrator</h4>
+        <p class="caption">The first-ranked job is a different IT role. The gap list shows job skills absent from the resume.</p>
+        <p class="parts">Match score 10.89.</p>
         
       <div class="skill-gap-grid">
         <div class="skill-box match">
           <strong>Matching skills</strong>
-          install
+          cisco
         </div>
         <div class="skill-box gap">
           <strong>Skill gaps</strong>
-          backups, troubleshoot
+          docker, linux, python
         </div>
       </div>
 
       </div>
     </section>
 
-        
-    <section class="card">
-      <p class="section-tag">Appendix</p>
-      <h2>Ranked evidence (controlled sample)</h2>
-      <p class="lead">Full top-3 lists for all 6 resumes (blend rank).</p>
-      
-      <article class="evidence">
-        <div class="evidence-head">
-          <span class="badge">Resume 12763627</span>
-          <span>Profile: Software development</span>
-          <span>Best match: <span class="yes">Yes</span></span>
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-          </thead>
-          <tbody><tr><td>1</td><td>Software Engineer - Flex</td><td>Software development</td><td class="num">7.82</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Web Developer</td><td>Software development</td><td class="num">5.0</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>IT Support Administrator</td><td>IT support</td><td class="num">4.39</td><td><span class="pill different">Different</span></td></tr></tbody>
-        </table>
-        <p class="parts">Rank 1 blend: 7.82.</p>
-        
-      <div class="skill-gap-grid">
-        <div class="skill-box match">
-          <strong>Matching skills</strong>
-          —
-        </div>
-        <div class="skill-box gap">
-          <strong>Skill gaps</strong>
-          —
-        </div>
-      </div>
-
-      </article>
-      <article class="evidence">
-        <div class="evidence-head">
-          <span class="badge">Resume 18752129</span>
-          <span>Profile: Software development</span>
-          <span>Best match: <span class="yes">Yes</span></span>
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-          </thead>
-          <tbody><tr><td>1</td><td>Software Engineer - Flex</td><td>Software development</td><td class="num">4.65</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>IT Support Administrator</td><td>IT support</td><td class="num">3.37</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>System Administrator</td><td>Systems administration</td><td class="num">3.12</td><td><span class="pill different">Different</span></td></tr></tbody>
-        </table>
-        <p class="parts">Rank 1 blend: 4.65.</p>
-        
-      <div class="skill-gap-grid">
-        <div class="skill-box match">
-          <strong>Matching skills</strong>
-          —
-        </div>
-        <div class="skill-box gap">
-          <strong>Skill gaps</strong>
-          —
-        </div>
-      </div>
-
-      </article>
-      <article class="evidence">
-        <div class="evidence-head">
-          <span class="badge">Resume 19201175</span>
-          <span>Profile: Systems administration</span>
-          <span>Best match: <span class="no">No</span></span>
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-          </thead>
-          <tbody><tr><td>1</td><td>IT Support Administrator</td><td>IT support</td><td class="num">21.83</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>Senior Systems Administrator - Linux</td><td>Systems administration</td><td class="num">8.71</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>System Administrator</td><td>Systems administration</td><td class="num">8.51</td><td><span class="pill same">Same</span></td></tr></tbody>
-        </table>
-        <p class="parts">Rank 1 blend: 21.83.</p>
-        
-      <div class="skill-gap-grid">
-        <div class="skill-box match">
-          <strong>Matching skills</strong>
-          install
-        </div>
-        <div class="skill-box gap">
-          <strong>Skill gaps</strong>
-          backups, troubleshoot
-        </div>
-      </div>
-
-      </article>
-      <article class="evidence">
-        <div class="evidence-head">
-          <span class="badge">Resume 40018190</span>
-          <span>Profile: Systems administration</span>
-          <span>Best match: <span class="no">No</span></span>
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-          </thead>
-          <tbody><tr><td>1</td><td>IT Support Administrator</td><td>IT support</td><td class="num">16.33</td><td><span class="pill different">Different</span></td></tr><tr><td>2</td><td>Senior Systems Administrator - Linux</td><td>Systems administration</td><td class="num">8.0</td><td><span class="pill same">Same</span></td></tr><tr><td>3</td><td>System Administrator</td><td>Systems administration</td><td class="num">6.49</td><td><span class="pill same">Same</span></td></tr></tbody>
-        </table>
-        <p class="parts">Rank 1 blend: 16.33.</p>
-        
-      <div class="skill-gap-grid">
-        <div class="skill-box match">
-          <strong>Matching skills</strong>
-          —
-        </div>
-        <div class="skill-box gap">
-          <strong>Skill gaps</strong>
-          backups, install, troubleshoot
-        </div>
-      </div>
-
-      </article>
-      <article class="evidence">
-        <div class="evidence-head">
-          <span class="badge">Resume 46260230</span>
-          <span>Profile: IT support</span>
-          <span>Best match: <span class="yes">Yes</span></span>
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-          </thead>
-          <tbody><tr><td>1</td><td>IT Support Administrator</td><td>IT support</td><td class="num">30.3</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Senior Systems Administrator - Linux</td><td>Systems administration</td><td class="num">9.97</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>System Administrator</td><td>Systems administration</td><td class="num">8.3</td><td><span class="pill different">Different</span></td></tr></tbody>
-        </table>
-        <p class="parts">Rank 1 blend: 30.3.</p>
-        
-      <div class="skill-gap-grid">
-        <div class="skill-box match">
-          <strong>Matching skills</strong>
-          backups, troubleshoot
-        </div>
-        <div class="skill-box gap">
-          <strong>Skill gaps</strong>
-          install
-        </div>
-      </div>
-
-      </article>
-      <article class="evidence">
-        <div class="evidence-head">
-          <span class="badge">Resume 27485716</span>
-          <span>Profile: IT support</span>
-          <span>Best match: <span class="yes">Yes</span></span>
-          <span>Found in first 3: <span class="yes">Yes</span></span>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Rank</th><th>Job title</th><th>Job occupation</th><th class="num">Score</th><th>vs profile</th></tr>
-          </thead>
-          <tbody><tr><td>1</td><td>IT Support Administrator</td><td>IT support</td><td class="num">11.23</td><td><span class="pill same">Same</span></td></tr><tr><td>2</td><td>Senior Systems Administrator - Linux</td><td>Systems administration</td><td class="num">7.74</td><td><span class="pill different">Different</span></td></tr><tr><td>3</td><td>Software Engineer - Flex</td><td>Software development</td><td class="num">5.21</td><td><span class="pill different">Different</span></td></tr></tbody>
-        </table>
-        <p class="parts">Rank 1 blend: 11.23.</p>
-        
-      <div class="skill-gap-grid">
-        <div class="skill-box match">
-          <strong>Matching skills</strong>
-          —
-        </div>
-        <div class="skill-box gap">
-          <strong>Skill gaps</strong>
-          backups, install, troubleshoot
-        </div>
-      </div>
-
-      </article>
-    </section>
-
-        
+    
     <section class="card bottom">
-      <p class="section-tag" style="color:#93c5fd">Closing</p>
-      <h2>Limitations &amp; next steps</h2>
-      <p><strong>Limitations</strong></p>
+      <p class="section-tag" style="color:#93c5fd">7. Conclusion</p>
+      <h2>Conclusion</h2>
+      <p>On the controlled sample the match score reached 50.0% best match (MRR 0.671). On the broader sample it reached 25.0% best match (MRR 0.508). Jobs were ranked by the match score. On the controlled sample, semantic best match was lower than the match score (37.5% versus 50.0%). On the broader sample, semantic best match was higher than the match score (33.3% versus 25.0%).</p>
+      <p style="margin-top:16px"><strong>Limitations</strong></p>
       <ul class="clean">
-        <li>Small sample size (2–3 resumes per occupation)—metrics are illustrative, not statistically robust.</li>
-        <li>IT role labels come from phrases in the resume and the job title, so some errors are label noise.</li>
+        <li>Each role contributes only 2 or 3 resumes, so the percentages illustrate the method rather than estimate a population rate.</li>
+        <li>Role labels are assigned from phrases in the resume and the job title.</li>
       </ul>
-      <p style="margin-top:16px"><strong>Next steps</strong></p>
+      <p style="margin-top:16px"><strong>Remaining proposed work</strong></p>
       <ul class="clean">
-        <li>Improve skill extraction and occupation lexicons.</li>
-        <li>Build a simple interactive dashboard for upload-and-rank demos.</li>
+        <li>The interactive application for recruiters and job seekers is not built.</li>
       </ul>
-      <p style="margin-top:18px"><strong>Bottom line:</strong> Controlled sample: blend 66.7% Best Match, MRR 0.833. Broader sample: blend 55.6% Best Match, MRR 0.731. The analytical core (extraction, ranking, scores, and skill gaps) is about 81% complete. Across all five promised outcomes, including a live app, the estimate is 69%. The blend (80% description, 10% title, 10% skill coverage) is the reported ranker.</p>
     </section>
 
-      </div>
-    </details>
   </div>
 </body>
 </html>

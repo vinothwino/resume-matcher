@@ -46,6 +46,7 @@ class PairScores:
     title: np.ndarray
     skill: np.ndarray
     text_only: np.ndarray
+    semantic: np.ndarray
     blend: np.ndarray
 
 
@@ -53,6 +54,7 @@ class ResumeJobMatcher:
     def __init__(self, skills: list[str], max_features: int = 8000):
         self.skills = SkillIndex(skills)
         self.max_features = max_features
+        self._semantic_model = None
 
     def _cosine(self, left: list[str], right: list[str]) -> np.ndarray:
         if not left or not right:
@@ -67,6 +69,39 @@ class ResumeJobMatcher:
     def similarity(self, resumes: list[str], jobs: list[str]) -> np.ndarray:
         """Baseline: TF-IDF cosine of each resume against title and description concatenated."""
         return self._cosine(resumes, jobs)
+
+    def _sentence_model(self):
+        if self._semantic_model is None:
+            from sentence_transformers import SentenceTransformer
+
+            self._semantic_model = SentenceTransformer("all-MiniLM-L6-v2")
+        return self._semantic_model
+
+    def _embed_documents(self, texts: list[str]) -> np.ndarray:
+        """Mean of chunk embeddings so a long resume is not cut off after the opening."""
+        model = self._sentence_model()
+        vectors = []
+        for text in texts:
+            words = str(text).split()
+            parts = [" ".join(words[start : start + 180]) for start in range(0, max(len(words), 1), 180)]
+            if not parts:
+                parts = [""]
+            encoded = np.asarray(
+                model.encode(parts, normalize_embeddings=True, show_progress_bar=False)
+            )
+            mean = encoded.mean(axis=0)
+            norm = np.linalg.norm(mean)
+            vectors.append(mean / norm if norm else mean)
+        return np.vstack(vectors)
+
+    def semantic_similarity(self, resumes: list[str], jobs: list[str]) -> np.ndarray:
+        """Cosine of sentence embeddings. This is the semantic match, separate from TF-IDF."""
+        if not resumes or not jobs:
+            return np.zeros((len(resumes), len(jobs)))
+        left = self._embed_documents(resumes)
+        right = self._embed_documents(jobs)
+        scores = np.matmul(left, right.T)
+        return np.clip(scores, 0.0, 1.0)
 
     def skill_coverage(self, resumes: list[str], jobs: list[str]) -> np.ndarray:
         """Share of each job's lexicon skills that also appear on the resume."""
@@ -92,6 +127,7 @@ class ResumeJobMatcher:
         body = self._cosine(resumes, descriptions)
         title = self._cosine(resumes, titles)
         skill = self.skill_coverage(resumes, combined)
+        semantic = self.semantic_similarity(resumes, combined)
         text_weight = BODY_WEIGHT + TITLE_WEIGHT
         text_only = (BODY_WEIGHT * body + TITLE_WEIGHT * title) / text_weight
         blend = BODY_WEIGHT * body + TITLE_WEIGHT * title + SKILL_WEIGHT * skill
@@ -101,6 +137,7 @@ class ResumeJobMatcher:
             title=title,
             skill=skill,
             text_only=text_only,
+            semantic=semantic,
             blend=blend,
         )
 

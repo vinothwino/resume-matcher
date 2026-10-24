@@ -27,9 +27,18 @@ SKILL_WEIGHT = 0.10
 # IT / software sample only. Families stay separate so a correct match
 # means the right software role, not "any IT resume vs any IT job".
 IT_ROLE_FAMILIES = (
-    "Software development",
-    "Systems administration",
-    "IT support",
+    "Frontend",
+    "Backend",
+    "UX",
+    "Infrastructure engineer",
+)
+
+# Resume categories that can contain these software roles.
+TECH_RESUME_CATEGORIES = (
+    "INFORMATION-TECHNOLOGY",
+    "DESIGNER",
+    "ENGINEERING",
+    "DIGITAL-MEDIA",
 )
 
 SMALL_EVAL = {
@@ -49,34 +58,40 @@ MEDIUM_EVAL = {
 # Phrases that place an IT resume or IT job title into one role family.
 # Longest match wins.
 IT_ROLE_KEYWORDS: dict[str, tuple[str, ...]] = {
-    "Software development": (
-        "software engineer",
-        "software developer",
-        "web developer",
-        "full stack",
-        "frontend developer",
+    "Frontend": (
         "front end developer",
+        "frontend developer",
         "front-end developer",
-        "backend developer",
+        "react developer",
+        "ui developer",
+        "front end",
+        "frontend",
+    ),
+    "Backend": (
         "back end developer",
+        "backend developer",
+        "back-end developer",
         "java developer",
         "python developer",
-        "devops",
-        "programmer",
+        "back end",
+        "backend",
     ),
-    "Systems administration": (
+    "UX": (
+        "user experience designer",
+        "ux designer",
+        "ui designer",
+        "user experience",
+        "ux/ui",
+    ),
+    "Infrastructure engineer": (
+        "infrastructure engineer",
+        "site reliability",
+        "cloud engineer",
+        "platform engineer",
         "systems administrator",
         "system administrator",
-        "network administrator",
-        "linux administrator",
-        "database administrator",
-    ),
-    "IT support": (
-        "technical support",
-        "desktop support",
-        "service desk",
-        "help desk",
-        "it support",
+        "kubernetes",
+        "devops",
     ),
 }
 

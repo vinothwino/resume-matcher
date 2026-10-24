@@ -57,7 +57,19 @@ SKILL_NOISE = {
     "marketing", "financial", "process", "requirements", "technical",
     "information", "systems", "support", "planning", "implementation",
     "integration", "standards", "testing", "monitor", "document", "functions",
+    "install", "installing", "installed", "installation",
+    "successful", "focus", "focused", "skilled", "organization",
+    "developer", "developers", "methodologies", "methodology",
+    "maintenance", "maintaining",
 }
+
+# Skills for the four evaluated software roles. Mined terms are added to this list.
+ROLE_SKILLS = [
+    "html", "css", "javascript", "react", "angular", "vue", "responsive design",
+    "java", "python", "node.js", "sql", "rest apis", "spring boot",
+    "figma", "wireframes", "ux design", "ui design", "user experience", "prototyping",
+    "docker", "kubernetes", "aws", "devops", "linux", "terraform",
+]
 
 
 def ensure_skills_file(cache_path: Path = SKILLS_CACHE) -> Path:
@@ -201,7 +213,7 @@ def extract_occupation_skills(
             if " " not in term and any(term in phrase.split() for phrase in phrases):
                 continue
             chosen.append(term)
-    return sorted(set(chosen), key=len, reverse=True)
+    return sorted(set(chosen) | set(ROLE_SKILLS), key=len, reverse=True)
 
 
 def np_mask(labels: list[str], category: str):
